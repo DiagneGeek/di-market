@@ -1,0 +1,103 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+
+/* Theme variables (used instead of a nonstandard @theme at-rule) */
+@theme {
+  --color-primary: oklch(87.9% 0.169 91.605);
+  --color-primary-hover: oklch(82.8% 0.189 84.429);
+  --color-secondary: oklch(84.1% 0.238 128.85);
+  --color-secondary-hover: oklch(84.1% 0.238 128.85);
+  --color-t-main: rgb(30 30 30);
+  --color-gray: rgb(50, 60, 55);
+  --color-heading: oklch(14.1% 0.005 285.823);
+  --color-back-main: oklch(98.6% 0.031 120.757);
+  --color-card: oklch(92% 0.03 85.277 / 0.5);
+  --transition: 160ms cubic-bezier(.2,.8,.2,1);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --font-heading: Inter, var(--font-sans);
+}
+
+/* Base / reset + sensible defaults */
+
+  body {
+     margin: 0;
+     min-height: 100svh;
+     font-family: var(--font-sans);
+     font-size: 16px;
+     line-height: 1.45;
+     color: var(--color-t-main);
+     background-color: var(--color-back-main);
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Headings: responsive, compact, distinct heading color */
+  h1, h2, h3, h4 {
+     font-family: var(--font-heading);
+     color: var(--color-heading);
+     margin: 0 0 0.5rem 0;
+     line-height: 1.2;
+     letter-spacing: 0.015em;
+     max-width: 780px;
+  }
+
+  h1 {
+     font-weight: 700;
+     font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  }
+
+  h2 {
+     font-weight: 500;
+  }
+
+  h3 {
+     font-weight: 500;
+     font-size: clamp(1.125rem, 2.4vw, 1.5rem);
+  }
+
+  h4 {
+     font-weight: 600;
+     font-size: clamp(1rem, 1.8vw, 1.125rem);
+  }
+
+  p {
+     max-width: 72ch;
+  }
+
+  /* Inputs & textareas: clean, accessible focus states */
+  input,
+  textarea {
+     appearance: none;
+     font-family: inherit;
+     font-size: 14px;
+     line-height: 1.4;
+     color: var(--color-t-main);
+     transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+     box-sizing: border-box;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+     color: oklch(55% 0.01 120.757);
+     opacity: 0.8;
+  }
+
+  input:focus,
+  textarea:focus {
+     outline: none;
+     border-color: var(--color-primary);
+     /* subtle focus ring using color-mix where available */
+     box-shadow: 0 0 0 6px color-mix(in oklch, var(--color-primary) 12%, transparent);
+  }
+
+  input[disabled],
+  textarea[disabled] {
+     opacity: 0.6;
+     cursor: not-allowed;
+  }
+
+  .highlight {
+    @apply underline decoration-secondary
+  }
