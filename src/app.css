@@ -9,7 +9,8 @@
   --color-secondary: oklch(84.1% 0.238 128.85);
   --color-secondary-hover: oklch(84.1% 0.238 128.85);
   --color-t-main: rgb(30 30 30);
-  --color-gray: rgb(50, 60, 55);
+  --color-gray: rgb(60, 65, 65);
+  --color-t-white: rgb(230, 338, 230);
   --color-heading: oklch(14.1% 0.005 285.823);
   --color-back-main: oklch(98.6% 0.031 120.757);
   --color-card: oklch(92% 0.03 85.277 / 0.5);

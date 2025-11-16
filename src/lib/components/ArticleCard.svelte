@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { trimText } from "$lib/composables/trim";
+	import { trimText } from "../composables/trim";
 	import Button from "./Button.svelte";
 
     const {title, seller, price, slug, img: imgSrc} = $props()

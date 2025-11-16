@@ -1,6 +1,6 @@
 
 import { insertIn, removeRow, selectTable, updateRow } from "./supabase";
-import type { Article } from "../../types";
+import type { Article } from "../types";
 
 export const getArticles = async () => {
   const {data: articles, error: gettingError} = await selectTable("Products")

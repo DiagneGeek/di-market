@@ -1,7 +1,7 @@
 import { getUser } from "$lib/server/getUser";
 import { insertIn, selectTable } from "$lib/server/supabase";
 import { error, fail, redirect, type Actions } from "@sveltejs/kit";
-import type { User } from "../../../types"
+import type { User } from "$lib/types"
 
 
 const throwError = error

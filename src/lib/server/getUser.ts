@@ -1,6 +1,6 @@
 import type { Cookies } from "@sveltejs/kit"
 import { selectTable } from "./supabase"
-import type { User } from "../../types"
+import type { User } from "../types"
 
 export const getUser = async (cookies: Cookies) => {
   const sessionToken = cookies.get("session_id")

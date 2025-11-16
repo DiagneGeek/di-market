@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Button from "../../../components/Button.svelte";
-	import Input from "../../../components/Input.svelte";
-	import Section from "../../../components/Section.svelte";
+	import Button from "$lib/components/Button.svelte";
+	import Input from "$lib/components/Input.svelte";
+	import Section from "$lib/components/Section.svelte";
 
    const {data} = $props()
 </script>

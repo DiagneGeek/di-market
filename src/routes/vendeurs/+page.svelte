@@ -1,7 +1,8 @@
 <script lang="ts">
-	import Button from "../../components/Button.svelte";
-	import Hero from "../../components/Hero.svelte";
-	import Section from "../../components/Section.svelte";
+	import Button from "$lib/components/Button.svelte";
+	import Hero from "$lib/components/Hero.svelte";
+	import Section from "$lib/components/Section.svelte";
+	import Steps from "$lib/components/Steps.svelte";
 
 </script>
 
@@ -22,7 +23,7 @@
         d'avoir une boutique en ligne et de profiter de notre influence pour gagner de nouveaux clients
     </p>
     <a href="/vendeurs/inscription">
-    <Button _class="my-4">Je veux avoir ma boutique en ligne</Button>
+    <Button class="my-4">Je veux avoir ma boutique en ligne</Button>
     </a>
 </Hero>
 </div>
@@ -68,21 +69,40 @@
 </div>
 </Section>
 
-{#snippet step(index: number, step: {name: string, description: string})}
-    <div class="flex flex-col items-center gap-2">
-        <p class="w-3 h-3 rounded-full bg-slate-50">{index + 1}</p>
-    </div>
-{/snippet}
-
 <Section isForLanding={true}>
-  <div class="w-full flex flex-col items-center bg-slate-900 p-6">
-    <h2>
-        <span class="text-slate-50 text-3xl">
+    <h2 class="highlight">
         Comment je commence ?
-        </span>
     </h2>
 
+    <Steps 
+      steps={
+        [
+          {
+            name: "Creer votre compte",
+            description: "Inscrivez vous avants que 30 autres personnes le fasses avant vous et vous profiterez de plusieurs avantages"
+          },
+          {
+            name: "Ajoutez les produits",
+            description: "Une fois que DiMarket soit dispoible pour vos futurs clients, ajouter vos produits qui seront placer dans les premières places"
+          },
+          {
+            name: "Gagner des clients et de l'argent",
+            description: "Gagner des clients qui viennent de partout et gagner de l'argent"
+          }
+        ]
+      }
+    />
+</Section>
 
-    <Button>Je commence !</Button>
-  </div>
+
+<Section isForLanding={true} class="">
+    <div class="flex flex-col gap-2 items-center border-4 border-card px-4 py-8 rounded-2xl">
+    <h2 class="text-3xl">Ne rattez pas cette occasion</h2>
+    <p>
+        Crée ta boutique en ligne et reçoit des avantages par rapport aux autres qui ne feront pas partis des 30 premiers
+    </p>
+    <a href="/vendeurs/inscription">
+    <Button class="mt-2">Je veux saisir l'occasion</Button>
+    </a>
+    </div>
 </Section>

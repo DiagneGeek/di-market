@@ -1,7 +1,7 @@
 import { getUser } from "$lib/server/getUser"
 import { selectTable } from "$lib/server/supabase"
 import { error, redirect } from "@sveltejs/kit"
-import type { Article } from "../../../types/index.js"
+import type { Article } from "$lib/types/index.js"
 import type { PostgrestError } from "@supabase/supabase-js"
 
 const throwError = error

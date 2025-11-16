@@ -1,7 +1,7 @@
 <script lang="ts">
-	import ArticleCard from "../components/ArticleCard.svelte";
-	import Button from "../components/Button.svelte";
-	import Hero from "../components/Hero.svelte";
+	import ArticleCard from "../lib/components/ArticleCard.svelte";
+	import Button from "../lib/components/Button.svelte";
+	import Hero from "../lib/components/Hero.svelte";
 </script>
 
 <svelte:head>

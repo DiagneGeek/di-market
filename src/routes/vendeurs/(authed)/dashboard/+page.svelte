@@ -1,11 +1,11 @@
 <script lang="ts">
-	import ArticleCard from '../../../components/ArticleCard.svelte';
-	import Button from '../../../components/Button.svelte';
-	import Input from '../../../components/Input.svelte';
-	import Modal from '../../../components/Modal.svelte';
-	import Section from '../../../components/Section.svelte';
+	import ArticleCard from '$lib/components/ArticleCard.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import Input from '$lib/components/Input.svelte';
+	import Modal from '$lib/components/Modal.svelte';
+	import Section from '$lib/components/Section.svelte';
     import {productCatagories} from "./categories"
-	import type { Article } from '../../../types';
+	import type { Article } from '$lib/types';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();

@@ -1,5 +1,6 @@
 import { getUser } from "$lib/server/getUser";
 import { insertIn, selectTable } from "$lib/server/supabase";
+import type { User } from "$lib/types/index.js";
 import { error, fail, redirect, type Actions } from "@sveltejs/kit";
 
 
@@ -47,21 +48,30 @@ export const actions = {
       const phone = data.get("phone") as string
       const password = data.get("password") as string
 
-      const can_add = 0
-      const plan = null
+      const credits = 15000
+      const plan = "premium"
 
-      const exists = await checkIfExists(phone as string)
-      if (exists) {
-        const error : {error: string} = {error: "Ce numero de telephone existe deja !"}
-        redirect(301, "/vendeurs/inscription/?error=Ce Mot De Passe Exist Deja")
-      }
-      const {data: user, error} = await insertIn('Sellers', [{
-        name,
+      const row: User = {
+         name,
         phone,
         password,
         plan,
-        can_add
-      }]).select()
+        credits
+      }
+      if (name.trim().length  < 3) {
+        redirect(301, "/vendeurs/inscription/?error=Le nom de votre boutiques doit contenir au moins 3 lettres")
+      }
+      if (password.trim().length  < 6) {
+        redirect(301, "/vendeurs/inscription/?error=Le mot de passe doit contenir au moins 6 charactères")
+      }
+      if (phone.trim().length  !== 9) {
+        redirect(301, "/vendeurs/inscription/?error=Ce numero n'est pas valide")
+      }
+      const exists = await checkIfExists(phone as string)
+      if (exists) {
+        redirect(301, "/vendeurs/inscription/?error=Ce numero Existe Deja")
+      }
+      const {data: user, error} = await insertIn('Sellers', [row]).select()
       if (!user) {
         const error : {error: string} = {error: "user not found"}
         return fail(400, error)
