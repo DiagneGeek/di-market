@@ -13,7 +13,7 @@
   <Hero>
 	<h1 class="italic">La place qui reunis tous les articles que vous cherchez !</h1>
 	<p>decouvrer un large gamme de produits senagalais qui vont vous ravirent</p>
-	<Button variant="primary" _class="mt-4">Decouvrir nos produits</Button>
+	<Button variant="primary" class="mt-4">Decouvrir nos produits</Button>
   </Hero>
   <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
  
