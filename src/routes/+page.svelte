@@ -26,7 +26,7 @@
          category={product.category}
          seller={product.seller_id}
          description={product.description}
-         image={product.image}
+         img={product.image}
         />
     {/each}
   </section>
