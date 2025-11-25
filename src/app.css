@@ -32,6 +32,7 @@
      background-color: var(--color-back-main);
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;
+    padding: 0 20px;
   }
 
   /* Headings: responsive, compact, distinct heading color */
