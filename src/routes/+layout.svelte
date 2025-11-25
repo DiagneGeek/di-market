@@ -7,7 +7,6 @@
 <div class="app">
 	<NavBar>
       <a href="/vendeurs">Pour les vendeurs</a>
-	  <a href="/boutiques">Boutiques</a>
 	</NavBar>
 
 	<main class="mb-6 mt-24 *:text-center">
