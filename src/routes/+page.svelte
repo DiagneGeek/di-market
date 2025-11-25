@@ -2,6 +2,8 @@
 	import ArticleCard from "../lib/components/ArticleCard.svelte";
 	import Button from "../lib/components/Button.svelte";
 	import Hero from "../lib/components/Hero.svelte";
+
+    const {data} = $props()
 </script>
 
 <svelte:head>
@@ -16,6 +18,16 @@
 	<Button variant="primary" class="mt-4">Decouvrir nos produits</Button>
   </Hero>
   <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
- 
+    {#each data as product}
+       <ArticleCard
+         title={product.title}
+         price={product.price}
+         slug={product.slug}
+         category={product.category}
+         seller={product.seller_id}
+         description={product.description}
+         image={product.image}
+        />
+    {/each}
   </section>
 </section>
