@@ -18,7 +18,7 @@
 	<Button variant="primary" class="mt-4">Decouvrir nos produits</Button>
   </Hero>
   <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
-    {#each data as product}
+    {#each data.articles as product}
        <ArticleCard
          title={product.title}
          price={product.price}
