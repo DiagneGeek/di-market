@@ -9,7 +9,7 @@
       <a href="/vendeurs">Pour les vendeurs</a>
 	</NavBar>
 
-	<main class="mb-6 mt-24 *:text-center">
+	<main class="mb-6 mt-24 px-[20px] *:text-center">
 		{@render children()}
 	</main>
 
