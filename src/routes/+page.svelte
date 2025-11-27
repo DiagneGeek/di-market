@@ -2,6 +2,7 @@
 	import ArticleCard from "../lib/components/ArticleCard.svelte";
 	import Button from "../lib/components/Button.svelte";
 	import Hero from "../lib/components/Hero.svelte";
+  import Input from "$lib/components/Input.svelte"
 
     const {data} = $props()
 </script>
@@ -11,12 +12,17 @@
 	<meta name="description" content="DiMarket est un marketplace Senegalais qui regroupes divers produits de qualites qui vont vous ravir !" />
 </svelte:head>
 
-<section>
+<div>
   <Hero>
 	<h1 class="italic">La place qui reunis tous les articles que vous cherchez !</h1>
 	<p>decouvrer un large gamme de produits senagalais qui vont vous ravirent</p>
-	<Button variant="primary" class="mt-4">Decouvrir nos produits</Button>
   </Hero>
+
+  <div class="w-full rounded-xl bg-card flex justify-center gap-2">
+    <Input placeholder="Rechercher un produit" />
+    <Button>Rechercher</Button>
+  </div>
+
   <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
     {#each data.articles as product}
        <ArticleCard
@@ -30,4 +36,4 @@
         />
     {/each}
   </section>
-</section>
+</div>
