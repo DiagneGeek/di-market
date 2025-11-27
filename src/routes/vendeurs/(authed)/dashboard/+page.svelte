@@ -3,7 +3,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/Input.svelte';
 	import Modal from '$lib/components/Modal.svelte';
-	import Section from '$lib/components/Section.svelte';
+	import Textarea from '$lib/components/Textarea.svelte';
     import {productCatagories} from "./categories"
 	import type { Article } from '$lib/types';
 	import type { PageProps } from './$types';
@@ -51,7 +51,7 @@
        
     </div>
 </div>
-<Modal open={modalIsOpen} onConfirm={addProduct} close={() => modalIsOpen = false}>
+<Modal action="?/addProduct" open={modalIsOpen} onConfirm={addProduct} close={() => modalIsOpen = false}>
   <div class="flex flex-col items-center gap-4">
     <Input 
      label="Nom du produit" 
@@ -86,5 +86,11 @@
             {/each}
         </datalist>
     </div>
+
+    <Textarea 
+      placeholder="Decrivez votre produit"
+      name="description"
+      class="w-full"
+    />
  </div>
 </Modal>
