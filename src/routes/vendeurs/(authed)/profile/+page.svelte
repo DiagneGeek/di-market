@@ -8,17 +8,10 @@
 
 <Section class="border-2 border-card py-12">
   <div class="flex justify-around w-full items-center">
-    <div class="bg-secondary/25 p-4 text-2xl shadow rounded-full font-bold mb-8">
+    <div class="bg-secondary/25 p-4 text-2xl shadow rounded-full font-bold">
       {data.user.name.slice(0, 2).toUpperCase()}
     </div>
     <Button variant="danger">Se deconnecter</Button>
-  </div>
-  <br>
-  <h2 class="text-2xl">Credits</h2>
-  <div class="flex w-full max-w-xl justify-between flex-wrap items-center p-2 px-4 rounded-3xl bg-card my-4">
-    <p>Credits restant</p>
-    <p>{data.user.credits}</p>
-    <Button variant="secondary">Ajouter</Button>
   </div>
   <br>
   <h2 class="text-2xl mt-4">Informations</h2>
@@ -26,11 +19,9 @@
   <div class="flex w-full max-w-xl justify-between flex-wrap items-center p-2 px-4 rounded-3xl bg-card my-4">
     <p>nom de la boutique:</p>
     <p>{data.user.name}</p>
-    <Button variant="secondary">Modifer</Button>
   </div>
   <div class="flex w-full max-w-xl justify-between flex-wrap items-center p-2 px-4 rounded-3xl bg-card my-4">
     <p>Numero de telehone:</p>
     <p>{data.user.phone}</p>
-    <Button variant="secondary">Modifer</Button>
   </div>
 </Section>
