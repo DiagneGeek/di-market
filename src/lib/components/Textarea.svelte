@@ -1,5 +1,7 @@
 <script lang="ts">
-    const props = $props()
+    const {
+      ...props
+    } = $props()
 </script>
 
 <textarea 

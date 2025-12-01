@@ -8,24 +8,58 @@
 	import type { Article } from '$lib/types';
 	import type { PageProps } from './$types';
 
-	let { data, form }: PageProps = $props();
-    const products: Article[] | any = data.products 
+	let { data }: PageProps = $props();
+  const products: Article[] | any = data.products 
     
+  let modalIsOpen = $state(false)
 
-    let modalIsOpen = $state(false)
+  function fileToBase64(file: any) {
+     return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+             reader.onerror = () => reject("Error reading file");
+             reader.readAsDataURL(file);
+          });
+  }
 
-    $effect(() => {
-      if (form?.success) modalIsOpen = false
-    })
+  const addProduct = async (e: Event) => {
+    e.preventDefault()
+    const form = e.target as HTMLFormElement
+    const formData = new FormData(form)
+    const imgInput = form.querySelector("#image-input") as HTMLInputElement
+    const file = imgInput?.files?.[0];
+      if (!file) return alert("Veuillez selectionner une image");
+
+     const base64 = await fileToBase64(file);
+
+    const credentials = {
+      ...Object.fromEntries(formData),
+      image: base64,
+      seller_id: data.user.id
+    }
+    
+    try {
+      const res = await fetch("/vendeurs/dashboard/api/add", {
+         method: "POST",
+         body: JSON.stringify(credentials),
+         headers: {
+          "Content-Type": "application/json"
+         }
+      })
+      if (!res.ok) {
+        throw new Error("Quelsue chose a mal tourné")
+      }
+      
+    } catch (error) {
+      alert(`Erreur lors de l'ajout du produit: ${error}`)
+    } finally {
+      modalIsOpen = false
+      window.location.reload()
+    }
+  }
 </script>
 
 <h1>Bienvenue <span class="text-3xl italic text-secondary">{data.user.name}</span></h1>
-
-{#if form?.success}
-  <div class="bg-card m-2 p-2 rounded">
-    <p>Produit Ajouter !</p>
-  </div>
-{/if}
 
 {#snippet insight(heading: string, subheadng: string)}
     <div class="flex flex-col gap-1 w-[100px]">
@@ -57,12 +91,8 @@
        
     </div>
 </div>
-<Modal action="/vendeurs/dashboard?/addproduct" open={modalIsOpen} onConfirm={addProduct} close={() => modalIsOpen = false}>
+<Modal onSubmit={addProduct} open={modalIsOpen} close={() => modalIsOpen = false}>
   <div class="flex flex-col items-center gap-4">
-    <input 
-      type="hidden" 
-      value={data.user.id} 
-      name="seller" />
     <Input 
      label="Nom du produit" 
      name="title"
@@ -78,15 +108,17 @@
      required 
     />
     
-    <label class="flex gap-2 items-center">
-        image <Button type="button" size="sm">Importer l'image</Button>
+    <label class="max-w-full flex gap-2 items-center" for="image-input">
+       <Button type="button" size="sm">Ajouter un image</Button>
+    </label>
      <input 
       name="image"
       type="file"
+      id="image-input"
+      accept="image/*"
       class="hidden"
       required 
      />
-    </label>
 
     <div>
         <Input 

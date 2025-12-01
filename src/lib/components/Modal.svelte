@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from "./Button.svelte";
 
-  const {children, open, close, onConfirm, action} = $props()
+  const {children, open, close, onSubmit} = $props()
 
   const close2 = (e: Event) => {
     if (e.currentTarget === e.target) {
@@ -17,7 +17,7 @@
      class="fixed w-full h-screen inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
      onclick={close2}
      >
-       <form method="POST" {action} class="w-[300px] bg-card rounded-3xl shadow p-4 flex flex-col items-center gap-8">
+       <form onsubmit={onSubmit} class="w-[300px] bg-card rounded-3xl shadow p-4 flex flex-col items-center gap-8">
         <div>
          {@render children()}
         </div>
@@ -26,7 +26,7 @@
               onclick={close} 
               variant="neutral" 
               type="button">Cancel</Button>
-            <Button onclick={onConfirm} variant="secondary" type="submit">Continuer</Button>
+            <Button variant="secondary" type="submit">Continuer</Button>
         </div>
        </form>
     </div>

@@ -7,8 +7,8 @@
          label,
          ...rest
     } : {
-        type?: any,
-        _class?: any,
+        type?: string,
+        _class?: string,
         label?: string,
         [key: string]: any
     } = $props()

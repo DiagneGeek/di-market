@@ -6,8 +6,8 @@ export interface Article {
   price: string,
   slug?: string,
   category: string,
-  image: string
-  seller_id?: number
+  image: string,
+  seller_id?: number | string
 }
 
 export interface User {
