@@ -12,7 +12,7 @@
    <img 
      src={imgSrc} 
      alt={title} 
-     class="w-full h-[180px] rounded-2xl"
+     class="w-full h-[180px] rounded-2xl object-cover"
     />
     <h2 class="text-2xl font-bold text-red-400">{trimText(title, 35)}</h2>
 </div>
