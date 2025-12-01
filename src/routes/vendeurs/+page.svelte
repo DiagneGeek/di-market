@@ -16,14 +16,14 @@
 <Hero>
     <h1>
        Vendez  <span class="text-secondary italic">Vos produits</span> sur internet,<br>
-        Meme en dormant
+        Sans devoir payed une fortune
     </h1>
     <p>
         DiMarket est un marketplace qui permet aux vendeurs senegalais comme vous 
-        d'avoir une boutique en ligne et de profiter de notre influence pour gagner de nouveaux clients
+        d'avoir une boutique en ligne et de profiter de notre influence pour gagner des clients
     </p>
     <a href="/vendeurs/inscription">
-    <Button class="my-4">Je veux avoir ma boutique en ligne</Button>
+    <Button class="my-4">Je veux avoir ma boutique en ligne (gratuitement)</Button>
     </a>
 </Hero>
 </div>
@@ -32,7 +32,7 @@
     <h2>Ajouter juste vos produits; Et Nous faisons le reste !</h2>
     <p>
         DiMarket ne vous donne pas seulement la possibilte d'avoir une boutique en ligne, 
-        mais vous aide aussi pour trouver des clients via notre optimization pour google et notre presence en ligne
+        mais vous aide aussi pour trouver des clients via notre optimization pour google et les multiples opportunitiés qu'il crée (ex: publicité Facebook, Instagram, partenariat...)
     </p>
 </Section>
 
@@ -48,20 +48,16 @@
   <div class="flex gap-4 flex-wrap justify-center mt-4">
   {#each [
     {
-        title: "Ayez votre propre boutiques en ligne",
-        text: "DiMarket vous permet de creer votre propre boutique e-commerce en creant juste un compte, ajouter modifier et supprimer VOS produits comme vous le voulez"
+        title: "Créez votre propre boutiques en ligne",
+        text: "DiMarket vous permet de creer votre propre boutique e-commerce en creant juste un compte, ajouter VOS produits comme vous le voulez et vendez à qui veut"
     },
     {
         title: "Gagner des clients via Google",
         text: "Notre site est optimiser pour Google, vous prmettant de gagner des clients meme en dormant"
     },
     {
-        title: "Des clients qui viennent de nos reseaux",
-        text: "Profiter de notre influence sur les reseaux pour figurer dans nos posts et story pour gagner des dizaines de clients en un jours"
-    },
-    {
         title: "Transformer les visiteurs en acheteur",
-        text: "Nous permettons a vos futurs clients de vous contacter via whatsapp et de discuter de votre produit"
+        text: "Nous permettons a vos futurs clients de vous contacter via whatsapp et de discuter de votre produit en cliquant juste sur un bouton reduisant ainsi la friction"
     }
   ] as feature}
     {@render featureCard(feature.title, feature.text)}
@@ -79,15 +75,15 @@
         [
           {
             name: "Creer votre compte",
-            description: "Inscrivez vous avants que 30 autres personnes le fasses avant vous et vous profiterez de plusieurs avantages"
+            description: "Inscrivez vous en tant que vendeur gratuitement en quelques secondes"
           },
           {
-            name: "Ajoutez les produits",
-            description: "Une fois que DiMarket soit dispoible pour vos futurs clients, ajouter vos produits qui seront placer dans les premières places"
+            name: "Ajoutez vos produits",
+            description: "Une fois connecté à DiMarket, ajouter vos produits pour qu'ils soit visible dans notre page d'accueuil"
           },
           {
             name: "Gagner des clients et de l'argent",
-            description: "Gagner des clients qui viennent de partout et gagner de l'argent"
+            description: "Faites voir au monde ce que vous vendez, et on s'occupe du reste pour que l'argent tombe dans vos poches"
           }
         ]
       }
@@ -97,12 +93,12 @@
 
 <Section isForLanding={true} class="">
     <div class="flex flex-col gap-2 items-center border-4 border-card px-4 py-8 rounded-2xl">
-    <h2 class="text-3xl">Ne rattez pas cette occasion</h2>
+    <h2 class="text-3xl">Ne rattez pas cette occasion !</h2>
     <p>
-        Crée ta boutique en ligne et reçoit des avantages par rapport aux autres qui ne feront pas partis des 30 premiers
+        Crée ta boutique en ligne et demarque toi par rapport aux autres
     </p>
     <a href="/vendeurs/inscription">
-    <Button class="mt-2">Je veux saisir l'occasion</Button>
+    <Button class="mt-2">M'inscrire</Button>
     </a>
     </div>
 </Section>
