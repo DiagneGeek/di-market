@@ -116,7 +116,6 @@
       type="file"
       id="image-input"
       accept="image/*"
-      class="hidden"
       required 
      />
 
