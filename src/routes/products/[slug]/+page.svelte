@@ -5,6 +5,11 @@
   const {product} = data
 </script>
 
+<svelte:head>
+  <title>DiMarket - {product?.title || "Produit"}</title>
+  <meta name="description" content={product?.description || ""} />
+</svelte:head>
+
 {#if product.error}
   <h1>{product.status}</h1>
   <p>{product.error}</p>
