@@ -7,7 +7,7 @@ export const POST: RequestHandler = async ({request}) => {
         const data = await request.json() 
 
         const slug = data.title?.toLowerCase()
-                .replace(/\s*/g, "-") + Date.now()
+                .replace(/\s+/g, "-") + Date.now()
 
         const newArticle = {
             ...data,
