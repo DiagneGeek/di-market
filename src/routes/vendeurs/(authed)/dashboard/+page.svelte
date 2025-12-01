@@ -8,18 +8,24 @@
 	import type { Article } from '$lib/types';
 	import type { PageProps } from './$types';
 
-	let { data }: PageProps = $props();
+	let { data, form }: PageProps = $props();
     const products: Article[] | any = data.products 
     
 
     let modalIsOpen = $state(false)
 
-    const addProduct = () => {
-
-    }
+    $effect(() => {
+      if (form?.success) modalIsOpen = false
+    })
 </script>
 
-<h1>Bienvenue, <span class="text-3xl italic text-secondary">{data.user.name}</span></h1>
+<h1>Bienvenue <span class="text-3xl italic text-secondary">{data.user.name}</span></h1>
+
+{#if form?.success}
+  <div class="bg-card m-2 p-2 rounded">
+    <p>Produit Ajouter !</p>
+  </div>
+{/if}
 
 {#snippet insight(heading: string, subheadng: string)}
     <div class="flex flex-col gap-1 w-[100px]">
@@ -51,11 +57,15 @@
        
     </div>
 </div>
-<Modal action="?/addProduct" open={modalIsOpen} onConfirm={addProduct} close={() => modalIsOpen = false}>
+<Modal action="/vendeurs/dashboard?/addproduct" open={modalIsOpen} onConfirm={addProduct} close={() => modalIsOpen = false}>
   <div class="flex flex-col items-center gap-4">
+    <input 
+      type="hidden" 
+      value={data.user.id} 
+      name="seller" />
     <Input 
      label="Nom du produit" 
-     name="name"
+     name="title"
      minlength="5"
      placeholder="Nom de votre produits"
      required 
@@ -69,7 +79,7 @@
     />
     
     <label class="flex gap-2 items-center">
-        image <Button size="sm">Importer l'image</Button>
+        image <Button type="button" size="sm">Importer l'image</Button>
      <input 
       name="image"
       type="file"
@@ -79,7 +89,10 @@
     </label>
 
     <div>
-        <Input list="categories" placeholder="Rechercher une categorie"></Input>
+        <Input 
+         list="categories" required
+         name="category"
+         placeholder="Choisir une categorie"></Input>
         <datalist id="categories">
             {#each productCatagories as category}
                 <option value={category}></option>

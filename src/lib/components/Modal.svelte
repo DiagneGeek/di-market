@@ -17,7 +17,7 @@
      class="fixed w-full h-screen inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
      onclick={close2}
      >
-       <form {action} class="w-[300px] bg-card rounded-3xl shadow p-4 flex flex-col items-center gap-8">
+       <form method="POST" {action} class="w-[300px] bg-card rounded-3xl shadow p-4 flex flex-col items-center gap-8">
         <div>
          {@render children()}
         </div>
