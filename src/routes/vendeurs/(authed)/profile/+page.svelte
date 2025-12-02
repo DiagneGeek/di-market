@@ -12,7 +12,7 @@
       {data.user.name.slice(0, 2).toUpperCase()}
     </div>
     <form action="?/disconnect">
-    <Button variant="danger">Se deconnecter</Button>
+    <Button type="submit" variant="danger">Se deconnecter</Button>
     </form>
   </div>
   <br>
