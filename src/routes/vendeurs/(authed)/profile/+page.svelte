@@ -11,7 +11,10 @@
     <div class="bg-secondary/25 p-4 text-2xl shadow rounded-full font-bold">
       {data.user.name.slice(0, 2).toUpperCase()}
     </div>
-    <form action="?/disconnect">
+    <form 
+      method="POST"
+      action="?/disconnect"
+>
     <Button type="submit" variant="danger">Se deconnecter</Button>
     </form>
   </div>
