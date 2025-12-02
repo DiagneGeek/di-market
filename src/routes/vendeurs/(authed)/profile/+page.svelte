@@ -11,7 +11,9 @@
     <div class="bg-secondary/25 p-4 text-2xl shadow rounded-full font-bold">
       {data.user.name.slice(0, 2).toUpperCase()}
     </div>
+    <form action="?/disconnect">
     <Button variant="danger">Se deconnecter</Button>
+    </form>
   </div>
   <br>
   <h2 class="text-2xl mt-4">Informations</h2>
