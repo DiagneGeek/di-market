@@ -1,11 +1,17 @@
 <script lang="ts">
   import Hero from "$lib/components/Hero.svelte";
-  const sellers = []
+  const {data} = $props()
+  const sellers = data.sellers || []
 </script>
 
 <Hero>
 <h1>Decouvrez Nos Illustres Vendeurs</h1>
 </Hero>
+
+{#if error}
+  <h3>Une erreur c'est produite</h3>
+   <p>{JSON.stringify(error)}</p>
+{/if}
 
 <section class="flex justify-center gap-4 flex-wrap">
   {#each sellers as seller}
