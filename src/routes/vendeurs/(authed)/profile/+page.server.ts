@@ -3,7 +3,9 @@ import type { Actions } from './$types';
 
 export const actions = {
   disconnect: async ({cookies}) => {
-    cookies.remove("session_id")
+    cookies.delete("session_id", {
+      path: "/"
+    })
     redirect(303, "/")
   }
 } satisfies Actions 
