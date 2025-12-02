@@ -8,7 +8,7 @@
 
 <svelte:head>
     <title>Creez votre boutiques en ligne et gagner des clients a travers internet</title>
-    <meta name="description" content="DiMarket est un arketplace senegalais qui vous permet de creer votre propre boutiques en ligne et profiter d'internet et de google pour gagner jusqu'a 3x plus de clients">
+    <meta name="description" content="DiMarket est un marketplace senegalais qui vous permet de creer votre propre boutiques en ligne et profiter d'internet et de google pour gagner jusqu'a 3x plus de clients">
 </svelte:head>
 
 
