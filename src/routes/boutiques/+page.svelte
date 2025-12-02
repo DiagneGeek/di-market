@@ -18,7 +18,7 @@
 
      <a 
        class="highlight"
-         href="/boutiques/{seller.name}?id={seller.id}"
+         href="/boutiques/{seller.id}"
     >
        Decouvrir sa boutique
       </a>
