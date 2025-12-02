@@ -1,6 +1,6 @@
 <script lang="ts">
   import Hero from "$lib/components/Hero.svelte"
-  import ArticleCard from "$lib/components/ArticleCard.svelte
+  import ArticleCard from "$lib/components/ArticleCard.svelte"
 
   const {data} = $props()
 </script>
