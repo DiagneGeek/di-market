@@ -6,6 +6,6 @@ export const actions = {
     cookies.delete("session_id", {
       path: "/"
     })
-    redirect(303, "/")
+    redirect(307, "/")
   }
 } satisfies Actions 
