@@ -4,6 +4,9 @@
 </script>
 
 <h1>{page.status}: {page.error?.message}</h1>
-<a href="/vendeurs/dashboard">
+<a href="#" class={page.status === 404 ? "hidden" : "my-4"}>
     <Button>Recharger la page</Button>
+</a>
+<a href="/">
+    <Button>Aller à l'accueil</Button>
 </a>
