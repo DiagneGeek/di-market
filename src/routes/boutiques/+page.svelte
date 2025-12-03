@@ -8,9 +8,9 @@
 <h1>Decouvrez Nos Illustres Vendeurs</h1>
 </Hero>
 
-{#if error}
+{#if data.error}
   <h3>Une erreur c'est produite</h3>
-   <p>{JSON.stringify(error)}</p>
+   <p>{JSON.stringify(data.error)}</p>
 {/if}
 
 <section class="flex justify-center gap-4 flex-wrap">
