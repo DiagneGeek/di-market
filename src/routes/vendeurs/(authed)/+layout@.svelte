@@ -5,6 +5,7 @@
     const {children, data} = $props()
 </script>
 
+<div>
 <NavBar>
   <a href="/vendeurs/profile">
     <Button variant="neutral">
@@ -19,3 +20,4 @@
 <main>
 {@render children()}
 </main>
+</div>
