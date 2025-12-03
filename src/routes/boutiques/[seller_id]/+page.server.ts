@@ -3,7 +3,7 @@ import {selectTable} from "$lib/server/supabase"
 
 export const load: PageLoad = async ({ params }) => {
 	const {seller_id} = params
-	const {data: seller, error} = await selectTable("Sellers")
+	const {data: seller, error: errorWhenGettingSeller} = await selectTable("Sellers")
          .eq("id", seller_id)
         .single()
 	if (!seller) {
