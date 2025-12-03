@@ -7,8 +7,8 @@
 
 <Hero>
 <h1>
-  Bienvenue dans la boutique de 
-  <span class="highlight">
+  Bienvenue dans la boutique de<br>
+  <span class="highlight italic">
    {data?.seller?.name}
   </span>
 </h1>
