@@ -15,5 +15,17 @@
 </Hero>
 
 <h2 class="mb-4">Mes produits</h2>
-
+<section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
+    {#each data.products as product}
+       <ArticleCard
+         title={product.title}
+         price={product.price}
+         slug={product.slug}
+         category={product.category}
+         seller={product.seller_id}
+         description={product.description}
+         img={product.image}
+        />
+    {/each}
+  </section>
 
