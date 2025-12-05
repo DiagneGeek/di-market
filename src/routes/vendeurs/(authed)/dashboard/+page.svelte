@@ -30,11 +30,10 @@
     const file = imgInput?.files?.[0];
       if (!file) return alert("Veuillez selectionner une image");
 
-     const base64 = await fileToBase64(file);
 
     const credentials = {
       ...Object.fromEntries(formData),
-      image: base64,
+      image: file,
       seller_id: data.user.id
     }
     
