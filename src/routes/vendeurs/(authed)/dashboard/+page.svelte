@@ -46,7 +46,8 @@
          }
       })
       if (!res.ok) {
-        throw new Error("Quelsue chose a mal tourné")
+         const errorData = await res.json().catch(() => null)
+        throw new Error(errorData)
       }
       
     } catch (error) {
