@@ -15,7 +15,8 @@
         secondary: "bg-secondary text-light hover:bg-secondary-hover text-light",
         neutral: "bg-gray-200 hover:bg-gray-300",
         outline: "bg-transparent hover:bg-gray-200",
-        danger: "bg-red-100 border border-red-500 text-red-400 hover:bg-red-200"
+        danger: "bg-red-100 border border-red-500 text-red-400 hover:bg-red-200",
+        dangerOutline: "border border-red-50 text-red-400 hover:bg-red-100"
     }[variant]
 
     const padding = size == "md" ? "py-4 px-6" : "py-2 px-4"

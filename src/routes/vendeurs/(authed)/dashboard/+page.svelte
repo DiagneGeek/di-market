@@ -68,6 +68,7 @@
               slug={product.slug}
               price={product.price}
               img={product.image}
+              id={product.id}
             ></ArticleCard>
 
         {:else}

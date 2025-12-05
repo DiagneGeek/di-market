@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({request}) => {
           error(400, "image innexistant")
         }
 
-        const data: Article = Object.fromEntries(form)
+        const data: Article | any = Object.fromEntries(form)
 
         const slug = data.title?.toLowerCase()
                 .replace(/\s+/g, "-") + Date.now()

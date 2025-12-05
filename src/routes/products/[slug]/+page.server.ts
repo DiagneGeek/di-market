@@ -2,8 +2,11 @@ import {selectTable } from "$lib/server/supabase"
 import type { PageLoad } from './$types'
 
 
-export const load: PageLoad = async ({params}) => {
+export const load: PageLoad = async ({params, url}) => {
     const {slug} = params
+    const queries = url.searchParams
+
+    console.log(queries)
 
     const {data, error} = await selectTable("Products", "*, Sellers (name, phone)")
          .eq("slug", slug)
