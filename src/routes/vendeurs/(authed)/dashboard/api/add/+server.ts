@@ -12,7 +12,10 @@ export const POST: RequestHandler = async ({request}) => {
 
         const imageName = `${data.seller_id}-${slug}-${file.name}`
 
-        const {data: imageUploadData, error} = await uploadImage("product-images", imageName, data.image)
+        const {data: imageUploadData, error: errWhenUpload} = await uploadImage("product-images", imageName, data.image)
+        if (errwhenUpload) {
+          throw new Error("Nous n'avons pas pu ajouter votre image")
+        }
         const {data: {publicUrl}} = getPublicUrl("product-images", imageName)
 
         const newArticle = {
