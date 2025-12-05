@@ -31,15 +31,14 @@ export const removeRow = (table: string, id: number) => {
   .eq('id', id)
 }
 
-export const uploadImage(path, file) {
+export const uploadImage(bucket: string, path: string, file: any) {
   return client.storage.
-       from('bucket_name')
+       from(bucket)
       .upload(path, file)
 }
 
 
-export const getImageUrl = (bucket: string, filepath) => {
-    const { data } = supabase.storage.from('bucket').getPublicUrl('filePath.jpg')
-    return data 
+export const getImageUrl = (bucket: string, filepath: string) => {
+    return client.storage.from(bucket).getPublicUrl(filePath)
 }
 
