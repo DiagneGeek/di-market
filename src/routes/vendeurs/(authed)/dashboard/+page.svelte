@@ -13,14 +13,7 @@
     
   let modalIsOpen = $state(false)
 
-  function fileToBase64(file: any) {
-     return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-             reader.onerror = () => reject("Error reading file");
-             reader.readAsDataURL(file);
-          });
-  }
+  
 
   const addProduct = async (e: Event) => {
     e.preventDefault()
@@ -47,7 +40,7 @@
       })
       if (!res.ok) {
          const errorData = await res.json().catch(() => null)
-        throw new Error(errorData)
+        throw new Error(JSON.stringify(errorData))
       }
       
     } catch (error) {
