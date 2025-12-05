@@ -2,11 +2,17 @@
 	import Button from "./Button.svelte";
 
   const {children, open, close, onSubmit} = $props()
+  let btnText = $state("Continuer")
 
   const close2 = (e: Event) => {
     if (e.currentTarget === e.target) {
         close()
     }
+  }
+
+  const handleSubmit = (...rest: any) => {
+    btnText = "En cours..."
+    onSubmit(...rest)
   }
 </script>
 
@@ -26,7 +32,11 @@
               onclick={close} 
               variant="neutral" 
               type="button">Cancel</Button>
-            <Button variant="secondary" type="submit">Continuer</Button>
+            <Button 
+              variant="secondary" 
+              type="submit"
+              label={btnText}
+            />
         </div>
        </form>
     </div>

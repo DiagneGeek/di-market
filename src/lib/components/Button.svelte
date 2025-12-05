@@ -1,6 +1,7 @@
 <script lang="ts">
-    let {children, variant = "primary", size = "md", "class": _class, ...props} : {
-        children: any,
+    let {children, label, variant = "primary", size = "md", "class": _class, ...props} : {
+        children?: any,
+        label?:any,
         variant?: string,
         class?: string,
         size?: "md" | "sm",
@@ -20,9 +21,18 @@
     const padding = size == "md" ? "py-4 px-6" : "py-2 px-4"
 </script>
 
+{#if children}
 <button
   class="text-[14px] {padding} rounded-3xl font-semibold {type} {_class}"
   {...props}
 >
     {@render children()}
 </button>
+{:else}
+<button
+  class="text-[14px] {padding} rounded-3xl font-semibold {type} {_class}"
+  {...props}
+ >
+        {label}
+ </button>
+{/if}

@@ -22,21 +22,13 @@
     const imgInput = form.querySelector("#image-input") as HTMLInputElement
     const file = imgInput?.files?.[0];
       if (!file) return alert("Veuillez selectionner une image");
-
-
-    const credentials = {
-      ...Object.fromEntries(formData),
-      image: file,
-      seller_id: data.user.id
-    }
+     formData.append("image", file)
+     formData.append("seller_id", data?.user?.id?.toString() as string)
     
     try {
       const res = await fetch("/vendeurs/dashboard/api/add", {
          method: "POST",
-         body: JSON.stringify(credentials),
-         headers: {
-          "Content-Type": "application/json"
-         }
+         body: formData
       })
       if (!res.ok) {
          const errorData = await res.json().catch(() => null)
@@ -105,7 +97,6 @@
        <Button type="button" size="sm">Ajouter un image</Button>
     </label>
      <input 
-      name="image"
       type="file"
       id="image-input"
       accept="image/*"

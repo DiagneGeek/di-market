@@ -34,11 +34,13 @@ export const removeRow = (table: string, id: number) => {
 export const uploadImage = (bucket: string, path: string, file: any) => {
   return client.storage.
        from(bucket)
-      .upload(path, file)
+      .upload(path, file, {
+        contentType: file.type
+      })
 }
 
 
-export const getPublicUrl = (bucket: string, filepath: string) => {
+export const getPublicUrl = (bucket: string, filePath: string) => {
     return client.storage.from(bucket).getPublicUrl(filePath)
 }
 
