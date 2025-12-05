@@ -29,7 +29,7 @@ export const POST: RequestHandler = async ({request}) => {
         const adding = await addArticle(newArticle)
 
         if(!adding.success) {
-           error(400, "Erreur lors de l'ajout d'un produit !")
+           error(400, adding.error)
         }
         return json({success: true})
 }
