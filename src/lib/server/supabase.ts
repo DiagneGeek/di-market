@@ -31,7 +31,7 @@ export const removeRow = (table: string, id: number) => {
   .eq('id', id)
 }
 
-export const uploadImage(bucket: string, path: string, file: any) {
+export const uploadImage = (bucket: string, path: string, file: any) => {
   return client.storage.
        from(bucket)
       .upload(path, file)
