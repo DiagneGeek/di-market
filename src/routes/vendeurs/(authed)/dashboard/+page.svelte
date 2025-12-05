@@ -13,7 +13,30 @@
     
   let modalIsOpen = $state(false)
 
-  
+  async function resizeImage(file, maxWidth, maxHeight) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+      let { width, height } = img;
+      
+      // Calculate new dimensions
+      const ratio = Math.min(maxWidth / width, maxHeight / height);
+      width = width * ratio;
+      height = height * ratio;
+
+      // Draw to canvas
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Convert canvas back to blob
+      canvas.toBlob((blob) => resolve(blob), file.type, 0.8);
+    };
+  });
+}
 
   const addProduct = async (e: Event) => {
     e.preventDefault()
@@ -22,7 +45,8 @@
     const imgInput = form.querySelector("#image-input") as HTMLInputElement
     const file = imgInput?.files?.[0];
       if (!file) return alert("Veuillez selectionner une image");
-     formData.append("image", file)
+     const resized = await resizeImage(file)
+     formData.append("image", resized)
      formData.append("seller_id", data?.user?.id?.toString() as string)
     
     try {
