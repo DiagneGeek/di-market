@@ -1,7 +1,7 @@
 
 import {addArticle} from "$lib/server/articles"
 import {uploadImage, getPublicUrl} from "$lib/server/supabase"
-import { json } from "@sveltejs/kit"
+import { error, json } from "@sveltejs/kit"
 import type { RequestHandler } from './$types'
 
 export const POST: RequestHandler = async ({request}) => {
@@ -13,8 +13,8 @@ export const POST: RequestHandler = async ({request}) => {
         const imageName = `${data.seller_id}-${slug}-${file.name}`
 
         const {data: imageUploadData, error: errWhenUpload} = await uploadImage("product-images", imageName, data.image)
-        if (errwhenUpload) {
-          throw new Error("Nous n'avons pas pu ajouter votre image")
+        if (errWhenUpload) {
+          error(400, "Nous n'avons pas pu ajouter votre image")
         }
         const {data: {publicUrl}} = getPublicUrl("product-images", imageName)
 
@@ -29,7 +29,7 @@ export const POST: RequestHandler = async ({request}) => {
         const adding = await addArticle(newArticle)
 
         if(!adding.success) {
-           throw new Error("Erreur lors de l'ajout d'un produit !")
+           error(400, "Erreur lors de l'ajout d'un produit !")
         }
         return json({success: true})
 }
