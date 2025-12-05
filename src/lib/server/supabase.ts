@@ -38,7 +38,7 @@ export const uploadImage = (bucket: string, path: string, file: any) => {
 }
 
 
-export const getImageUrl = (bucket: string, filepath: string) => {
+export const getPublicUrl = (bucket: string, filepath: string) => {
     return client.storage.from(bucket).getPublicUrl(filePath)
 }
 
