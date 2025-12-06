@@ -2,9 +2,24 @@
 import { insertIn, removeRow, selectTable, updateRow } from "./supabase";
 import type { Article } from "../types";
 
-export const getArticles = async () => {
-  return selectTable("Products", "*")
-}
+export const getArticles = async ({ nameinclude, category, maxprice }) => {
+  let query = supabase.from("Products").select("*");
+
+  if (nameinclude.trim() !== "") {
+    query = query.textSearch("name", nameinclude);
+  }
+
+  if (category.trim() !== "") {
+    query = query.eq("category", category);
+  }
+
+  if (maxprice.trim() !== "") {
+    // up to you how you handle this
+    query = query.lte("price", maxprice);
+  }
+  
+  return query;
+};
 
 export const addArticle = async (article: Article) => {
     const {data, error: insertError} = await insertIn("Products", [article])
