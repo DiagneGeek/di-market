@@ -2,7 +2,8 @@
 	import ArticleCard from "../lib/components/ArticleCard.svelte";
 	import Button from "../lib/components/Button.svelte";
 	import Hero from "../lib/components/Hero.svelte";
-  import Input from "$lib/components/Input.svelte"
+   import Input from "$lib/components/Input.svelte"
+   import { page } from '$app/stores';
 
   const {data} = $props()
   const products = data.data || []
@@ -21,7 +22,7 @@
   </Hero>
 
   <div class="w-full rounded-xl bg-card flex justify-center gap-2">
-    <Input placeholder="Rechercher un produit" />
+    <Input value={$page.url.searchParams.get("nameinclude") || ""} placeholder="Rechercher un produit" />
     <Button>Rechercher</Button>
   </div>
 
