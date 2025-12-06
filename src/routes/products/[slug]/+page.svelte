@@ -16,7 +16,7 @@ const structuredData = {
     },
     "offers": {
       "@type": "Offer",
-      "url": `https://dimarket.biz/${product.slug}`,
+      "url": `https://dimarket.biz/products/${product.slug}`,
       "priceCurrency": "XOF",
       "price": product.price,
       "availability": `https://schema.org/InStock`,
