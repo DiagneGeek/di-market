@@ -13,30 +13,30 @@
     
   let modalIsOpen = $state(false)
 
-  async function resizeImage(file, maxWidth, maxHeight) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.src = URL.createObjectURL(file);
-    img.onload = () => {
-      let { width, height } = img;
-      
-      // Calculate new dimensions
-      const ratio = Math.min(maxWidth / width, maxHeight / height);
-      width = width * ratio;
-      height = height * ratio;
+  async function resizeImage(file, maxWidth = 800, maxHeight = 800) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        let { width, height } = img;
+        const ratio = Math.min(maxWidth / width, maxHeight / height, 1);
+        width *= ratio;
+        height *= ratio;
 
-      // Draw to canvas
-      const canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, width, height);
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
 
-      // Convert canvas back to blob
-      canvas.toBlob((blob) => resolve(blob), file.type, 0.8);
-    };
-  });
-}
+        canvas.toBlob((blob) => {
+          if (blob) resolve(blob);
+          else reject(new Error('Canvas toBlob failed'));
+        }, file.type, 0.8);
+      };
+      img.onerror = reject;
+    });
+  }
 
   const addProduct = async (e: Event) => {
     e.preventDefault()
