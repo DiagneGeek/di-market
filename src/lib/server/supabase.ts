@@ -19,9 +19,7 @@ interface Info {
 }
 
 export const updateRow = (table: string, info: Info) => {
-    const newValue: any = {}
-    newValue[info.where[0]] = info.value
-    return client.from(table).update(newValue).eq(...info.where).select()
+    return client.from(table).update(info.value).eq(...info.where).select()
 }
 
 export const removeRow = (table: string, id: number) => {
@@ -43,4 +41,13 @@ export const uploadImage = (bucket: string, path: string, file: any) => {
 export const getPublicUrl = (bucket: string, filePath: string) => {
     return client.storage.from(bucket).getPublicUrl(filePath)
 }
+
+export const removeFile = (bucket: string, fileName: string) => {
+   return client
+  .storage
+  .from(bucket)
+  .remove([fileName])
+}
+
+
 
