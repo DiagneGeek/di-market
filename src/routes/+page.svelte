@@ -4,6 +4,7 @@
 	import Hero from "../lib/components/Hero.svelte";
    import Input from "$lib/components/Input.svelte"
    import { page } from '$app/stores';
+import { goto } from '$app/navigation';
 
   const {data} = $props()
   const products = data.data || []
@@ -27,7 +28,7 @@
       value={query} 
       oninput={(e) => query = e.target.value}
       placeholder="Rechercher un produit" />
-    <Button>Rechercher</Button>
+    <Button onclick={() => goto(`/?nameinclude=${query}`)}>Rechercher</Button>
   </div>
 
   <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
