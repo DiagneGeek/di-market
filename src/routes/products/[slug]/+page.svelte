@@ -8,6 +8,10 @@
 <svelte:head>
   <title>DiMarket - {product?.title || "Produit"}</title>
   <meta name="description" content={product?.description || ""} />
+  <meta property="og:title" content={`DiMarket - ${product.title}`} />
+  <meta property="og:description" content={product.description} />
+  <meta property="og:image" content={product.image} />
+  <meta property="og:type" content="website" />
 </svelte:head>
 
 {#if product.error}
