@@ -3,7 +3,7 @@ import { insertIn, removeRow, selectTable, updateRow } from "./supabase";
 import type { Article } from "../types";
 
 export const getArticles = async ({ nameinclude, category, maxprice }) => {
-  let query = supabase.from("Products").select("*");
+  let query = selectTable("Products")
 
   if (nameinclude.trim() !== "") {
     query = query.textSearch("name", nameinclude);
