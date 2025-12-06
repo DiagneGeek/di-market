@@ -8,6 +8,7 @@
   const {data} = $props()
   const products = data.data || []
 
+  let query = $state($page.url.searchParams.get("nameinclude") || "")
 </script>
 
 <svelte:head>
@@ -22,7 +23,10 @@
   </Hero>
 
   <div class="w-full rounded-xl bg-card flex justify-center gap-2">
-    <Input value={$page.url.searchParams.get("nameinclude") || ""} placeholder="Rechercher un produit" />
+    <Input 
+      value={query} 
+      oninput={(e) => query = e.target.value}
+      placeholder="Rechercher un produit" />
     <Button>Rechercher</Button>
   </div>
 
