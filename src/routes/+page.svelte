@@ -4,16 +4,17 @@
 	import Hero from "../lib/components/Hero.svelte";
     import Input from "$lib/components/Input.svelte"
     import { page } from '$app/stores';
-    import { invalidateAll, goto } from '$app/navigation';
+    import { goto } from '$app/navigation';
 
   const {data} = $props()
   const products = data.data || []
 
-  let query = $state($page.url.searchParams.get("nameinclude") || "")
+   const go = async () => {
+     await goto(`/?nameinclude=${query}`)
+     location.reload()
+   }
 
-  if (query !== "") {
-    invalidateAll()
-  }
+  let query = $state($page.url.searchParams.get("nameinclude") || "")
 </script>
 
 <svelte:head>
@@ -32,7 +33,7 @@
       value={query} 
       oninput={(e) => query = e.target.value}
       placeholder="Rechercher un produit" />
-    <Button onclick={() => goto(`/?nameinclude=${query}`)}>Rechercher</Button>
+    <Button onclick={go}>Rechercher</Button>
   </div>
 
   <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
