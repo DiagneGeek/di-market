@@ -3,6 +3,21 @@
 
   const {data} = $props()
   const {product} = data
+
+const structuredData = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product.title,
+    "image": product.image,
+    "description": product.description,
+    "offers": {
+      "@type": "Offer",
+      "url": `https://dimarket.biz/${product.slug}`,
+      "priceCurrency": "XOF",
+      "price": product.price,
+      "availability": `https://schema.org/InStock`,
+    },
+  };
 </script>
 
 <svelte:head>
@@ -12,6 +27,10 @@
   <meta property="og:description" content={product.description} />
   <meta property="og:image" content={product.image} />
   <meta property="og:type" content="website" />
+
+<script type="application/ld+json">
+  {JSON.stringify(structuredData)}
+</script>
 </svelte:head>
 
 {#if product.error}
