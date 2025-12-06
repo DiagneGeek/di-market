@@ -9,7 +9,10 @@
   const {data} = $props()
   const products = data.data || []
 
+   let isGoing = $state(false)
+
    const go = async () => {
+     isGoing = true
      await goto(`/?nameinclude=${query}`)
      location.reload()
    }
@@ -33,7 +36,7 @@
       value={query} 
       oninput={(e) => query = e.target.value}
       placeholder="Rechercher un produit" />
-    <Button onclick={go}>Rechercher</Button>
+    <Button onclick={go}>{isGoing ? "En cours..." : "Rechercher"}</Button>
   </div>
 
   <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
@@ -47,7 +50,7 @@
          img={product.image}
         />
     {:else}
-      <p>Aucun produit pour le moment</p>
+      <p>Aucun produit trouvé :(</p>
     {/each}
   </section>
 </div>
