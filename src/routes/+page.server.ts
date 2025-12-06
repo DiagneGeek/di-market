@@ -5,7 +5,11 @@ export const load: PageLoad = async ({url}) => {
 	const {
 		nameinclude="",
 		category="",
-		price=""
+		maxprice=""
 	} = Object.fromEntries(url.searchParams)
-	return await getArticles()
+	return await getArticles({
+		nameinclude,
+		category,
+		maxprice
+	})
 };
