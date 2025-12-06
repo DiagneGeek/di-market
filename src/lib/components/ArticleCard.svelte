@@ -2,12 +2,16 @@
   import { trimText } from "../composables/trim";
   import Button from "./Button.svelte";
   import Modal from "./Modal.svelte"
+  import Input from "./Input.svelte"
+  import Textarea from "./Textarea.svelte"
+	import Error from "../../routes/+error.svelte";
 
   let modalIsOpen = $state(false)
+  let modal2IsOpen = $state(false)
 
-  const {title, seller, price, slug, img: imgSrc, id = null } = $props()
+  const {title, seller, price, slug, img: imgSrc, id = null, description = null} = $props()
 
-  const deleteProduct = async (e) => {
+  const deleteProduct = async (e: Event) => {
      e.preventDefault()
      const form = new FormData()
      form.append("productId", id)
@@ -16,10 +20,30 @@
         method: "DELETE",
         body: form
 	  })
-      if(!res.ok) throw new Error("Probleme lors de la suppression du produit")
      } catch (err) {
        alert(`Erreur: ${err}`)
 	 }
+   modalIsOpen = false
+   window.location.reload()
+  }
+
+  const updateProduct = async (e: Event) => {
+    e.preventDefault()
+
+    const form = new FormData(e.target as HTMLFormElement)
+    form.append("id", id as string)
+
+    try {
+      const res = await fetch("/vendeurs/dashboard/api/update", {
+        method: "PUT",
+        body: form
+      })
+    } catch (err) {
+      alert(`Erreur: ${err}`)
+    }
+
+    modal2IsOpen = false
+    window.location.reload()
   }
 </script>
 
@@ -46,6 +70,7 @@
        <div class="flex justify-between p-2 my-2 items-center">
         <Button 
           class="flex gap-2"
+          onclick={() => modal2IsOpen = true}
           variant="outline">
           <img src="/edit.svg" alt="edit" class="w-4"/>
           Modifier</Button>
@@ -65,3 +90,31 @@
        {/if}
     </div>
 </article>
+
+<Modal onSubmit={updateProduct} open={modal2IsOpen} close={() => modal2IsOpen = false}>
+    <div class="flex flex-col items-center gap-4">
+        <Input 
+          label="Nom du produit" 
+          name="title"
+          minlength="5"
+          placeholder="Nom de votre produits"
+          value={title}
+          required 
+         />
+         <Input 
+          label="Prix" 
+          name="price"
+          type="number"
+          value={price}
+          placeholder="Prix de votre produits"
+          required 
+        />                                                                                                                                                 
+
+        <Textarea 
+           placeholder="Decrivez votre produit"
+           name="description"
+           class="w-full"
+           value={description}
+        />
+      </div>
+</Modal>

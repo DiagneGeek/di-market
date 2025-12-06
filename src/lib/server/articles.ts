@@ -17,7 +17,13 @@ export const addArticle = async (article: Article) => {
     return {success: true}
 }
 
-export const updateArticle = async (newValue: Article) => {
+export const updateArticle = async (newValue: {
+  id: string | number,
+  title: string,
+  description: string,
+  price: string,
+  slug: string
+}) => {
   const id = newValue.id
 
   const {data, error} = await updateRow("Products", {
