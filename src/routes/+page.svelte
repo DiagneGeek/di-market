@@ -2,14 +2,18 @@
 	import ArticleCard from "../lib/components/ArticleCard.svelte";
 	import Button from "../lib/components/Button.svelte";
 	import Hero from "../lib/components/Hero.svelte";
-   import Input from "$lib/components/Input.svelte"
-   import { page } from '$app/stores';
-import { goto } from '$app/navigation';
+    import Input from "$lib/components/Input.svelte"
+    import { page } from '$app/stores';
+    import { invalidateAll } from '$app/navigation';
 
   const {data} = $props()
   const products = data.data || []
 
   let query = $state($page.url.searchParams.get("nameinclude") || "")
+
+  if (query !== "") {
+    invalidateAll()
+  }
 </script>
 
 <svelte:head>
