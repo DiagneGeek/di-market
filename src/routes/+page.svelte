@@ -4,7 +4,7 @@
 	import Hero from "../lib/components/Hero.svelte";
     import Input from "$lib/components/Input.svelte"
     import { page } from '$app/stores';
-    import { invalidateAll } from '$app/navigation';
+    import { invalidateAll, goto } from '$app/navigation';
 
   const {data} = $props()
   const products = data.data || []
