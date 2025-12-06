@@ -9,9 +9,12 @@
 
   const deleteProduct = async (e) => {
      e.preventDefault()
+     const form = new FormData()
+     form.append("productId", id)
      try {
       const res = await fetch("/vendeurs/dashboard/api/delete", {
-        method: "DELETE"
+        method: "DELETE",
+        body: form
 	  })
       if(!res.ok) throw new Error("Probleme lors de la suppression du produit")
      } catch (err) {
