@@ -6,7 +6,7 @@ export const getArticles = async ({ nameinclude, category, maxprice }) => {
   let query = selectTable("Products")
 
   if (nameinclude.trim() !== "") {
-    query = query.textSearch("name", nameinclude);
+    query = query.textSearch("title", nameinclude);
   }
 
   if (category.trim() !== "") {
