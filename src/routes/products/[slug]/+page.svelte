@@ -10,6 +10,10 @@ const structuredData = {
     "name": product.title,
     "image": product.image,
     "description": product.description,
+    "brand": {
+      "@type": "Brand",
+      "name": product.Sellers.name
+    },
     "offers": {
       "@type": "Offer",
       "url": `https://dimarket.biz/${product.slug}`,
@@ -17,6 +21,10 @@ const structuredData = {
       "price": product.price,
       "availability": `https://schema.org/InStock`,
     },
+    "seller": {
+        "@type": "Organization",
+        "name": product.Sellers.name
+      }
   };
 </script>
 
