@@ -9,12 +9,8 @@ export const PUT: RequestHandler = async ({request}) => {
         title: string,
         description: string,
         price: string,
-        slug?: string,
         id: string 
     } | any = Object.fromEntries(form)
-    const slug = data.title?.toLowerCase()
-         .replace(/\s+/g, "-") + Date.now()
-    data.slug = slug
 
     const updating = await updateArticle(data)
 

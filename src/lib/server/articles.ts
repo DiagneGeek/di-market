@@ -22,7 +22,6 @@ export const updateArticle = async (newValue: {
   title: string,
   description: string,
   price: string,
-  slug: string
 }) => {
   const id = newValue.id
 
