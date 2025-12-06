@@ -3,9 +3,7 @@ import { insertIn, removeRow, selectTable, updateRow } from "./supabase";
 import type { Article } from "../types";
 
 export const getArticles = async () => {
-  const {data: articles, error: gettingError} = await selectTable("Products", "*")
-
-	return {error: gettingError, articles};
+  return selectTable("Products", "*")
 }
 
 export const addArticle = async (article: Article) => {

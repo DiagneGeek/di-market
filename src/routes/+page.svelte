@@ -4,7 +4,9 @@
 	import Hero from "../lib/components/Hero.svelte";
   import Input from "$lib/components/Input.svelte"
 
-    const {data} = $props()
+  const {data} = $props()
+  const products = data.data || []
+
 </script>
 
 <svelte:head>
@@ -24,16 +26,17 @@
   </div>
 
   <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
-    {#each data.articles as product}
+    {#each products as product}
        <ArticleCard
          title={product.title}
          price={product.price}
          slug={product.slug}
-         category={product.category}
          seller={product.seller_id}
          description={product.description}
          img={product.image}
         />
+    {:else}
+      <p>Aucun produit pour le moment</p>
     {/each}
   </section>
 </div>
