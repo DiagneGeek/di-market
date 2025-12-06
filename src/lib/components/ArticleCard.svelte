@@ -1,14 +1,22 @@
 <script lang="ts">
-	import { trimText } from "../composables/trim";
-	import Button from "./Button.svelte";
+  import { trimText } from "../composables/trim";
+  import Button from "./Button.svelte";
   import Modal from "./Modal.svelte"
 
   let modalIsOpen = $state(false)
 
   const {title, seller, price, slug, img: imgSrc, id = null } = $props()
 
-  const deleteProduct = async () => {
-     
+  const deleteProduct = async (e) => {
+     e.preventDefault()
+     try {
+      const res = await fetch("/vendeurs/dashboard/api/delete", {
+        method: "DELETE"
+	  })
+      if(!res.ok) throw new Error("Probleme lors de la suppression du produit")
+     } catch (err) {
+       alert(`Erreur: ${err}`)
+	 }
   }
 </script>
 
