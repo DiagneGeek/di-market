@@ -7,8 +7,13 @@
 </script>
 
 <svelte:head>
-    <title>Creez votre boutiques en ligne et gagner des clients a travers internet</title>
+    <title>Créez votre boutiques en ligne et gagner des clients a travers internet</title>
     <meta name="description" content="DiMarket est un marketplace senegalais qui vous permet de creer votre propre boutiques en ligne et profiter d'internet et de google pour gagner jusqu'a 3x plus de clients">
+
+  <meta property="og:title" content={`DiMarket - Créez votre boutiques en ligne gratuitement et facilitez le processus de vente`} />
+  <meta property="og:description" content="DiMarket est un marketplace senegalais qui vous permet de creer votre propre boutiques en ligne et facilitez la manière dont vos potentiels clients achètent" />
+  <meta property="og:image" content="https://dimarket.biz/dimarket-landing.jpg" />
+  <meta property="og:type" content="website" />
 </svelte:head>
 
 
