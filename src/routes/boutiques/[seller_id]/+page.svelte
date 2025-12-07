@@ -30,7 +30,7 @@
    {data?.seller?.name}
   </span>
 </h1>
-<div class="flex justify-center items-center gap-4">
+<div class="flex justify-center items-center gap-4 mt-8">
 <Button
   onclick={share}
  >
