@@ -17,7 +17,7 @@
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  --font-heading: Inter, var(--font-sans);
+  --font-heading: fantasy, var(--font-sans);
 }
 
 /* Base / reset + sensible defaults */
@@ -42,6 +42,7 @@
      line-height: 1.2;
      letter-spacing: 0.015em;
      max-width: 780px;
+     font-style: italic;
   }
 
   h1 {
