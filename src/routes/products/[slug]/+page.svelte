@@ -26,6 +26,25 @@ const structuredData = {
         "name": product.Sellers.name
       }
   };
+
+const share = async (e) => {
+    const {target} = e
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title || document.title,
+          text: product.description || "Achetez maintenant !",
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.log("Error sharing:", err);
+      }
+    } else {
+      // fallback (copy link)
+      navigator.clipboard.writeText(window.location.href);
+      target.innerHTML = "URL copier!"
+    }
+  };
 </script>
 
 <svelte:head>
@@ -52,6 +71,12 @@ const structuredData = {
      class="rounded-2xl border-2 border-card my-4 w-full min-h-[150px]"
   />
   <h1>{product.title}</h1>
+   <Button variant="neutral" size="sm">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-1">
+       <path d="M12 6a2 2 0 1 0-1.994-1.842L5.323 6.5a2 2 0 1 0 0 3l4.683 2.342a2 2 0 1 0 .67-1.342L5.995 8.158a2.03 2.03 0 0 0 0-.316L10.677 5.5c.353.311.816.5 1.323.5Z" />
+      </svg> 
+      Share
+  </Button>
   <div class="px-2 py-4 flex justify-between rounded-2xl border-1 border-card">
     <p class="font-bold italic">{product.price} fcfa</p>
     <p>Categorie: {product.category}</p>
