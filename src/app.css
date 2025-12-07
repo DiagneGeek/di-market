@@ -12,7 +12,7 @@
   --color-gray: rgb(60, 65, 65);
   --color-t-white: rgb(230, 338, 230);
   --color-heading: oklch(14.1% 0.005 285.823);
-  --color-back-main: oklch(98.6% 0.031 120.757);
+  --color-back-main: #fcf9ed;
   --color-card: oklch(92% 0.03 85.277 / 0.5);
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
 
