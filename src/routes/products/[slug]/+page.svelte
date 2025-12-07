@@ -73,7 +73,7 @@ const share = async (e) => {
   <h1>{product.title}</h1>
 
    <div 
-      class="my-2 flex justify-center items-center">
+      class="my-2 flex justify-center items-center gap-4">
    <Button 
       onclick={share}
       class="flex gap-2 justify-center items-center my-2"
