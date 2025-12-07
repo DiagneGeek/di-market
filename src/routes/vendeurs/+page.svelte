@@ -20,7 +20,7 @@
     </h1>
     <p>
         DiMarket est un marketplace qui permet aux vendeurs senegalais comme vous 
-        d'avoir une boutique en ligne et de profiter de notre influence pour gagner des clients
+        d'avoir une boutique en ligne
     </p>
     <a href="/vendeurs/inscription">
     <Button class="my-4">Créer ma boutique (gratuitement)</Button>
