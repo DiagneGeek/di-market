@@ -30,6 +30,7 @@
    {data?.seller?.name}
   </span>
 </h1>
+<div class="flex justify-center items-center gap-4">
 <Button
   onclick={share}
  >
@@ -41,6 +42,7 @@
   >
     Copier le lien
   </Button>
+ </div>
 </Hero>
 
 <h2 class="mb-4">Mes produits</h2>
