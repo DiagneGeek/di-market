@@ -29,11 +29,10 @@ const structuredData = {
 
 const share = async (e) => {
     const {target} = e
-    alert("hey")
     if (navigator.share) {
       try {
         await navigator.share({
-          title: title || document.title,
+          title: product.title || document.title,
           text: product.description || "Achetez maintenant !",
           url: window.location.href,
         });
@@ -74,7 +73,7 @@ const share = async (e) => {
   <h1>{product.title}</h1>
    <Button 
       onclick={share}
-      class="flex gap-2 justify-center items-center"
+      class="flex gap-2 justify-center items-center my-2"
       variant="neutral" 
       size="sm">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
