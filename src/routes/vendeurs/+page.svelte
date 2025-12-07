@@ -23,7 +23,7 @@
         d'avoir une boutique en ligne et de profiter de notre influence pour gagner des clients
     </p>
     <a href="/vendeurs/inscription">
-    <Button class="my-4">Je veux avoir ma boutique en ligne (gratuitement)</Button>
+    <Button class="my-4">Créer ma boutique (gratuitement)</Button>
     </a>
 </Hero>
 </div>
