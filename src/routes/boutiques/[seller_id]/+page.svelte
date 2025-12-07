@@ -1,8 +1,26 @@
 <script lang="ts">
   import Hero from "$lib/components/Hero.svelte"
   import ArticleCard from "$lib/components/ArticleCard.svelte"
+  import Button from "$lib/components/Button.svelte"
 
   const {data} = $props()
+
+   const share = async (e) => {
+    const {target} = e
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Découvrez la boutique de ${data.seller.name} chez DiMarket` || document.title,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.log("Error sharing:", err);
+      }
+    } else {
+      // fallback (copy link)
+      navigator.clipboard.writeText(window.location.href);
+    }
+  };
 </script>
 
 <Hero>
@@ -12,6 +30,17 @@
    {data?.seller?.name}
   </span>
 </h1>
+<Button
+  onclick={share}
+ >
+   Partager sur les reseaux
+ </Button>
+  <Button 
+    variant="neutral"
+    onclick={() => navigator.clipboard.writeText(window.location.href)}
+  >
+    Copier le lien
+  </Button>
 </Hero>
 
 <h2 class="mb-4">Mes produits</h2>
