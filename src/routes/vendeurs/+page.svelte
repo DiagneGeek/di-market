@@ -33,6 +33,15 @@
 </Hero>
 </div>
 
+<div class="flex justify-center items-center mt-4">
+   <video
+      class="w-full max-w-[600px] rounded-2xl border-2 border-card"
+      src="/demo-for-sellers.mp4"
+      poster="/demo-poster.jpg"
+      controls
+    ></video>
+</div>
+
 <Section isForLanding={true}>
     <h2>Ajouter juste vos produits; Et Nous faisons le reste !</h2>
     <p>
