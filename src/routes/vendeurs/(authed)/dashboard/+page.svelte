@@ -82,6 +82,9 @@
   {@render insight(data.products ? data.products.length.toString() : '0', "produits")}
   <Button onclick={() => modalIsOpen = true}>Ajouter un produit</Button>
 </div>
+<a href="/boutiques/{data.user.id}" class="my-4 flex justify-center items-center">
+  <Button variant="neutral">Voir Ma Boutique</Button>
+</a>
 
 <div class="w-full flex justify-center my-8">
     <div class="w-full max-w-[900px] border-card border-2 rounded-3xl flex justify-center gap-4 flex-wrap p-4">

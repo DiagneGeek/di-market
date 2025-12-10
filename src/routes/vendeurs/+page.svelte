@@ -20,8 +20,9 @@
 <div class="h-[70svh]">
 <Hero>
     <h1>
-       Vendez  <span class="text-secondary italic">Vos produits</span><br> sur internet,
-        Sans devoir payer une fortune !
+      <span class="text-secondary italic">Créez</span>
+       votre boutique en ligne<br>
+       <span class="highlight">Gratuitement !</span>
     </h1>
     <p>
         DiMarket est un marketplace qui permet aux vendeurs senegalais comme vous 
