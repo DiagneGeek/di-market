@@ -9,7 +9,8 @@
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
-  const products: Article[] | any = data.products 
+  const products: Article[] | any = data.products
+  let hasFile = $state(false)
     
   let modalIsOpen = $state(false)
 
@@ -123,12 +124,20 @@
     />
     
     <label class="max-w-full flex gap-2 items-center" for="image-input">
-       <Button type="button" size="sm">Ajouter un image</Button>
+       <Button 
+         onclick={() => {
+            const el = document.querySelector("#image-input")
+            if (el) el.click()
+          }}
+         type="button" 
+         size="sm">{hasFile ? "Ajouté 👍" : "Ajouter un image"}</Button>
     </label>
      <input 
       type="file"
       id="image-input"
       accept="image/*"
+      class="hidden"
+      onchange={() => hasFile = true}
       required 
      />
 
