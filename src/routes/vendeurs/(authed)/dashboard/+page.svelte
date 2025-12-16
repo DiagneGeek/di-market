@@ -12,7 +12,7 @@
   const products: Article[] | any = data.products
   let hasFile = $state(false)
 
-  const message = "Si tu veux créer t1 boutique en ligne gratuitement sans commision, clique sur le lien: https://dimarket.biz/vendeurs"
+  const message = "Si tu veux créer ta boutique en ligne gratuitement sans commision, clique sur le lien: https://dimarket.biz/vendeurs"
     
   let modalIsOpen = $state(false)
 
@@ -88,7 +88,7 @@
 <a href="/boutiques/{data.user.id}" class="my-4 flex justify-center items-center">
   <Button variant="neutral">Voir Ma Boutique</Button>
 </a>
-<a target="_blank" href="https://wa.me/text={message}">
+<a target="_blank" href="https://wa.me?text={message}">
 <Button variant="secondary">Montrer DiMarket à un ami(e)</Button>
 </a>
 
