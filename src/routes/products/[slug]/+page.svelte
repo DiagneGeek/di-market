@@ -101,5 +101,5 @@ const share = async (e) => {
   <Button class="my-4">Contacter le vendeur</Button>
 </a>
 
-  <p>Par <span class="font-bold underline">{product.Sellers?.name}</span></p>
+  <p>Par <a href="/boutiques/{product.Sellers?.id}" class="font-bold underline">{product.Sellers?.name}</a></p>
 {/if}
