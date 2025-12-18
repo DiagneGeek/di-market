@@ -23,6 +23,7 @@
 <svelte:head>
 	<title>DiMarket - La plateforme qui reunis vos boutiques preferees</title>
 	<meta name="description" content="DiMarket est un marketplace Senegalais qui regroupes divers produits de qualites qui vont vous ravir !" />
+  <link rel="canonical" href="https://dimarket.biz">
 </svelte:head>
 
 <div>

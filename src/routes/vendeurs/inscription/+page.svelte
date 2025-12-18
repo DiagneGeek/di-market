@@ -6,6 +6,11 @@
    const {data} = $props()
 </script>
 
+<svelte:head>
+  <title>Page d'inscription pour DiMarket</title>
+  <meta name="description" content="Créez votre boutique en ligne en moins d'une minute avec DiMarket" />
+</svelte:head>
+
 <Section>
 <h1 class="text-cente w-full ">Incription</h1>
 

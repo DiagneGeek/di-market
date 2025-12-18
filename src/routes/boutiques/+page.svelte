@@ -4,6 +4,11 @@
   const sellers = data.sellers || []
 </script>
 
+<svelte:head>
+  <title>Decouvrez toutes les boutiques créées avec DiMarket</title>
+  <meta name="description" content="Explorer les boutiques de nos illustres vendeurs" />
+</svelte:head>
+
 <Hero>
 <h1>Decouvrez Nos Illustres Vendeurs</h1>
 </Hero>

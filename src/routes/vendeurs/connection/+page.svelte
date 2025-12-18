@@ -10,6 +10,10 @@
    } = $props()
 </script>
 
+<svelte:head>
+  <title>Connectez vous à DiMarket</title>
+</svelte:head>
+
 <Section>
 <h1 class="text-cente w-full ">Connection</h1>
 

@@ -23,6 +23,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>DiMarket - Bienvenue chez {data.seller.name}</title>
+</svelte:head>
+
 <Hero>
 <h1>
   Bienvenue dans la boutique de<br>
