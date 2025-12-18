@@ -2,7 +2,7 @@
 import { insertIn, removeRow, selectTable, updateRow } from "./supabase";
 import type { Article } from "../types";
 
-export const getArticles = async ({ nameinclude, category, maxprice }) => {
+export const getArticles = async ({ nameinclude = "", category = "", maxprice = "" } = {}) => {
   let query = selectTable("Products")
 
   if (nameinclude.trim() !== "") {
