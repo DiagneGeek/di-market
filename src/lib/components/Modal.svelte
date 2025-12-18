@@ -13,7 +13,10 @@
   const handleSubmit = async (e: Event) => {
     e.preventDefault()
     btnText = "En cours..."
-    await onSubmit(e)
+    const message = await onSubmit(e)
+    if(message === "reject") {
+      btnText = "Continuer"
+    }
   }
 </script>
 
@@ -32,7 +35,7 @@
             <Button 
               onclick={close} 
               variant="neutral" 
-              type="button">Cancel</Button>
+              type="button">Annuler</Button>
             <Button 
               variant="secondary" 
               type="submit"

@@ -11,6 +11,7 @@
 	let { data }: PageProps = $props();
   const products: Article[] | any = data.products
   let hasFile = $state(false)
+  let descriptionLength = $state(0)
 
   const message = "Si tu veux créer ta boutique en ligne gratuitement sans commision, clique sur le lien: https://dimarket.biz/vendeurs"
     
@@ -43,6 +44,7 @@
 
   const addProduct = async (e: Event) => {
     e.preventDefault()
+    if (descriptionLength < 40) return "reject"
     const form = e.target as HTMLFormElement
     const formData = new FormData(form)
     const imgInput = form.querySelector("#image-input") as HTMLInputElement
@@ -159,9 +161,11 @@
     </div>
 
     <Textarea 
-      placeholder="Decrivez votre produit"
+      placeholder="Decrivez votre produit (minimum 40 lettres et symboles)"
       name="description"
       class="w-full"
+      oninput={e => descriptionLength = e.target.value.trim().length}
     />
+    <p class="w-full mt-[-8px] text-right px-4 {descriptionLength < 40 ? "text-red-400" : "text-green-400"}">{descriptionLength} caractère(s)</p>
  </div>
 </Modal>
