@@ -96,7 +96,7 @@
   >
     <h2 class="text-xl font-bold">🔒 Votre vue d’ensemble est bloquée</h2>
     <h2>C'est ici que vous trouviez toutes les informations concernant votre boutique. </h2>
-    <a href="https://wa.me/781878234?text=Bonjour, j'aimerais avoir des information sur l'offre premium de DiMarket">
+    <a href="https://wa.me/781878234?text=Salut, j'aimerais réactiviter les fonctionnalités Premium pour ma boutique">
       <Button label="Recuperer l'accés Premium" />
     </a>
   </div>
