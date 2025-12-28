@@ -9,8 +9,8 @@
   <h1 class="text-3xl font-bold mb-6">Nos suggestions pour améliorer votre boutique</h1>
 
   {#if !data.isPremium}
-  <div class="my-8 flex items-center flex-col gap-4">
-    <h2>Vous avez perdu l'accès aux suggestions</h2>
+  <div class="mt-[140px] flex items-center flex-col gap-4">
+    <h2 class="text-2xl">Vous avez perdu l'accès aux suggestions 😔</h2>
     <p>Vous n'avez plus accès aux Suggestions car vous ne faites plus des utilisateurs Premium</p>
    <a 
      href="https://wa.me/781878234/?text=Salut DiMarket, j'aimerais récupérer les outils proffessionnels que me donne le plan Premium"
