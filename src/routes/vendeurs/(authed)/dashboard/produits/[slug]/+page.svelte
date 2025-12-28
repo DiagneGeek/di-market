@@ -168,7 +168,7 @@
 <h1>{data.product.title}</h1>
 
 
-{#if data.isPremium}
+
  <section class="my-8">
    <h2 class="text-2xl mb-4">Gestion</h2>
     <div class="bg-card w-full rounded-lg p-4 flex gap-4 flex flex-wrap justify-center">
@@ -195,6 +195,8 @@
     </div>
  </section>
 
+
+{#if data.isPremium}
  <h2 class="text-2xl mb-4 my-12">Performances</h2>
   <div class="bg-card p-4 rounded-lg mb-4">
     <label for="period-select">Période</label>
