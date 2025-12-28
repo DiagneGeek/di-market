@@ -157,6 +157,7 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
 
   return {
     suggestions,
-    productSuggestions
+    productSuggestions,
+    isPremium
   };
 };
