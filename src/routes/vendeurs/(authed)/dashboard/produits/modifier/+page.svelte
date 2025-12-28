@@ -7,6 +7,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import { productCatagories } from '../categories';
 	import type { Article } from '$lib/types';
+	import { useToast} from "$lib/composables/useToast"
 
 	let { data } = $props();
 
@@ -36,6 +37,7 @@
 				body: formData
 			});
 			if (response.ok) {
+				useToast().show("Produit modifié avec succès", "success", 5000)
 				// Success, maybe redirect or show message
 				goto(`/products/${product?.slug}?from=/vendeurs/dashboard/produits/${product?.slug}`)
 				//invalidateAll()

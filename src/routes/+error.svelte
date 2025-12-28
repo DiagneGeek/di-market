@@ -10,3 +10,7 @@
 <a href="/">
     <Button>Aller à l'accueil</Button>
 </a>
+
+<a href="/vendeurs/dashboard" class="m-4">
+    <Button>Acceder à mon tableau de bord</Button>
+</a>

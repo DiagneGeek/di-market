@@ -7,12 +7,20 @@
     import {productCatagories} from "./categories"
 	import type { Article } from '$lib/types';
 	import type { PageProps } from './$types';
+    import { page } from "$app/stores"
+	import { invalidateAll } from '$app/navigation';
+  import { useToast } from "$lib/composables/useToast"
 
 	let { data }: PageProps = $props();
   const products: Article[] | any = data.products
   let hasFile = $state(false)
   let descriptionLength = $state(0)
 
+    if ($page.url.searchParams.get("reload")){
+      invalidateAll()
+    }
+
+    const toast = useToast()
   const message = "Si tu veux créer ta boutique en ligne gratuitement sans commision, clique sur le lien: https://dimarket.biz/vendeurs"
     
   let modalIsOpen = $state(false)
@@ -44,7 +52,7 @@
 
   const addProduct = async (e: Event) => {
     e.preventDefault()
-    if (descriptionLength < 40) return "reject"
+    if (descriptionLength < 40) toast.show("Il est conseiller d'avoir des descriptions plus détaillés", "info", 6000)
     const form = e.target as HTMLFormElement
     const formData = new FormData(form)
     const imgInput = form.querySelector("#image-input") as HTMLInputElement
@@ -70,7 +78,8 @@
       alert(`Erreur lors de l'ajout du produit: ${error}`)
     } finally {
       modalIsOpen = false
-      window.location.reload()
+      toast.show("Produit ajouté", "success", 5000)
+      invalidateAll()
     }
   }
 </script>

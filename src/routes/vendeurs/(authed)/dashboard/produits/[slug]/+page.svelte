@@ -1,13 +1,18 @@
 <script lang="ts">
   import ChartCard from "$lib/components/ChartCard.svelte"
   import Button from "$lib/components/Button.svelte"
+  import Modal from "$lib/components/Modal.svelte"
   import { getDates } from "$lib/composables/getDates"
   import type { Event } from "$lib/types"
   import SuggestionCard from "$lib/components/SuggestionCard.svelte"
+	import { goto } from "$app/navigation";
+  import { useToast } from "$lib/composables/useToast"
 
   const { data } = $props()
 
   const periods = getDates()
+  let deleteModalIsOpen = $state(false)
+  const toast = useToast()
 
   const periodDurations = {
     oneDayAgo: 1 * 24 * 60 * 60 * 1000,
@@ -122,24 +127,68 @@
 
     return suggestions
   })
+
+  const deleteProduct = async (e: any) => {
+      e.preventDefault()
+      const form = new FormData()
+       form.append("productId", data?.product?.id)
+      try {
+         const res = await fetch("/vendeurs/dashboard/api/delete", {
+               method: "DELETE",
+               body: form
+       })
+      } catch (err) {
+        toast.show("Erreur lors de la suppression",  "error", 5000)
+      }
+      deleteModalIsOpen = false
+      goto("/vendeurs/dashboard/produits?reload=true")
+      toast.show("Produit Supprimé", "success", 5000)
+   }
+
+   const share = async (e: any) => {
+        const {target} = e
+            if (navigator.share) {
+                try {
+                   await navigator.share({
+                      title: data.product.title || document.title,
+                      text: data.product.description || "Achetez maintenant !",
+                      url: `https://dimarket.biz/products/${data.product.slug}`,
+                  });
+              } catch (err) {
+                  console.log("Error sharing:", err);
+             }
+         } else {
+             // fallback (copy link)
+              navigator.clipboard.writeText(window.location.href);
+              target.innerHTML = "URL copier!"
+          }
+  };
 </script>
 
 <h1>{data.product.title}</h1>
 
 
 {#if data.isPremium}
-
  <section class="my-8">
    <h2 class="text-2xl mb-4">Gestion</h2>
     <div class="bg-card w-full rounded-lg p-4 flex gap-4 flex flex-wrap justify-center">
+
       <a href="/vendeurs/dashboard/produits/modifier?slug={data.product.slug}">
         <Button variant="neutral">Modifier</Button>
       </a>
+
       <a href="/vendeurs/dashboard/produits/reduction/?product_id={data.product.id}">
         <Button>Faire une reduction</Button>
       </a>
-      <Button class="w-full" variant="secondary">Partager</Button>
-      <Button variant="danger">Supprimer</Button>
+
+      <Button 
+        onclick={share}
+        class="w-full"
+        variant="secondary">Partager</Button>
+      <Button
+         onclick={() => deleteModalIsOpen = true}
+         variant="danger">Supprimer</Button>
+
       <a href="/products/{data.product.slug}">
         <Button>Voir le produit</Button>
       </a>
@@ -209,3 +258,10 @@
   </div>
 {/if}
 
+<Modal 
+  open={deleteModalIsOpen} 
+  close={() => deleteModalIsOpen = false}
+  onSubmit={deleteProduct}
+  >
+  <p>Êtes vous sure de vouloir supprimer "<span class="font-bold">{data.product.title}</span>"</p>
+</Modal>

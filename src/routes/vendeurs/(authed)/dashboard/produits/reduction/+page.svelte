@@ -4,6 +4,7 @@
 	import Input from "$lib/components/Input.svelte";
   import { useToast } from "$lib/composables/useToast"
   import { enhance } from '$app/forms';
+  import { goto } from "$app/navigation"
 
   const { data, form } = $props()
   const toast = useToast()
@@ -28,12 +29,6 @@
     }
   })
 
-  $effect(() => {
-    if (form?.success) {
-      toast.show(`Reduction appliqué avec succès`, "success", 3000)
-    }
-  })
-
   const canSubmit = $derived(discount > 0 && expi && !isPast)
 </script>
 
@@ -50,10 +45,20 @@
         <label class="cursor-pointer {type === "fixed_amount" ? "text-secondary" : ""}" for="montant_fixe">Montant fixe</label>
     </div>
 </div>
-{ form?.success }
 <form 
   method="POST"
-  use:enhance
+  use:enhance={() => {
+    return ({result}) => {
+      if (result.type === "failure") {
+      error = "Une erreur est survenue, Veuillez réessayer"
+      toast.show(error, "error", 5000)
+     } else
+      if(result.type === "success") {
+        toast.show("Reduction appliqué avec succès", "success", 5000)
+        goto("/vendeurs/dashboard/produits/"+product.slug)
+      }
+    }
+  }}
   class="flex flex-col items-center gap-4 my-4 bg-card p-4 rounded-lg">
   <div class="flex justify-center items-center gap-4">
     <Input

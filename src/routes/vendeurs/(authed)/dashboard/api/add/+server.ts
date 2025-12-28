@@ -14,11 +14,16 @@ export const POST: RequestHandler = async ({request}) => {
           error(400, "image innexistant")
         }
 
-        const {user, products, ...data} : {
-          user: User,
-          data: Article | null,
-          products: Article[]
+        let {user, products, ...data} : {
+          user: User | string,
+          data: Article,
+          products: Article[] | string
         } = Object.fromEntries(form)
+         user = JSON.parse(user as string)
+         products = JSON.parse(products as string) as Article[]
+        console.log(products)
+
+        if (typeof user === "string" || data === null) error(403, "Erreur interne")
 
         const premium = await isPremium(user)
 
@@ -28,7 +33,7 @@ export const POST: RequestHandler = async ({request}) => {
             error(403, "Limites atteintes pour les vendeurs non premium")
            }
 
-        const slug = data.title?.toLowerCase()
+        const slug = data?.title?.toLowerCase()
                 .replace(/\s+/g, "-") + Date.now()
 
         const imageName = `${data.seller_id}-${slug}-${image.name}`

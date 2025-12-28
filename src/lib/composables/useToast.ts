@@ -1,4 +1,4 @@
-let show = () => null
+let show: any = () => null
 
 export const useToast = () => {
   return {
@@ -6,6 +6,6 @@ export const useToast = () => {
   }
 }
 
-useToast.init = (fn: any) => {
+useToast.init = (fn: (message: string, type?: string, duration?: number) => void) => {
     show = fn
 }

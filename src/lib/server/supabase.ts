@@ -22,11 +22,11 @@ export const updateRow = (table: string, info: Info) => {
     return client.from(table).update(info.value).eq(...info.where).select()
 }
 
-export const removeRow = (table: string, id: number) => {
+export const removeRow = (table: string, eq: [string, any]) => {
     return client
   .from(table)
   .delete()
-  .eq('id', id)
+  .eq(...eq)
 }
 
 export const uploadImage = (bucket: string, path: string, file: any) => {
