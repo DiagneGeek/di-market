@@ -8,6 +8,18 @@
 <div class="p-6">
   <h1 class="text-3xl font-bold mb-6">Nos suggestions pour améliorer votre boutique</h1>
 
+  {#if !isPremium}
+  <div class="my-8 flex items-center flex-col gap-4">
+    <h2>Vous avez perdu l'accès aux suggestions</h2>
+    <p>Vous n'avez plus accès aux Suggestions car vous ne faites plus des utilisateurs Premium</p>
+   <a 
+     href="https://wa.me/781878234/?text=Salut DiMarket, j'aimerais récupérer les outils proffessionnels que me donne le plan Premium"
+   >
+    <Button>Récupérer mon plan Premium</Button>
+   </a>
+</div>
+{:else}
+
   {#if data.suggestions && data.suggestions.length > 0}
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {#each data.suggestions as suggestion}
@@ -54,10 +66,14 @@
     {/each}
   {/if}
 
-  {#if (!data.suggestions || data.suggestions.length === 0) && (!data.productSuggestions || data.productSuggestions.length === 0)}
+
+
+  {#if (isPremium && (!data.suggestions || data.suggestions.length === 0) && (!data.productSuggestions || data.productSuggestions.length === 0))}
     <div class="text-center py-12">
       <h2 class="text-xl font-semibold mb-4">Félicitations !</h2>
       <p class="text-gray-600">Votre boutique est en excellente forme. Continuez comme ça !</p>
     </div>
   {/if}
+
+{/if}
 </div>
