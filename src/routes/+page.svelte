@@ -32,7 +32,7 @@
 	<p>decouvrer un large gamme de produits senagalais qui vont vous ravirent</p>
   </Hero>
 
-  <div class="w-full rounded-xl bg-card flex justify-center gap-2">
+  <div class="w-full rounded-xl flex justify-center gap-2">
     <Input 
       value={query} 
       oninput={(e) => query = e.target.value}

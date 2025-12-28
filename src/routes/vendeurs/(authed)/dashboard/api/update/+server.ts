@@ -9,12 +9,13 @@ export const PUT: RequestHandler = async ({request}) => {
         title: string,
         description: string,
         price: string,
+        category: string,
         id: string 
     } | any = Object.fromEntries(form)
 
     const updating = await updateArticle(data)
 
-    if (!updating.error) {
+    if (updating.error) {
         error(400, "Nous n'avons pas pu modifier le produit !")
     }
 

@@ -1,5 +1,5 @@
 export interface Article {
-  id?: number
+  id?: number | string,
   created_at?: any,
   title: string,
   description: string,
@@ -7,7 +7,12 @@ export interface Article {
   slug?: string,
   category: string,
   image: string,
-  seller_id?: number | string
+  seller_id?: number | string,
+  views: number,
+  wsapp_open: number,
+  discount: number | null,
+  discount_type: string | null,
+  discount_end: any
 }
 
 export interface User {
@@ -17,5 +22,12 @@ export interface User {
   phone: string,
   password?: string,
   plan: string,
-  credits: number
+  trial_ends_at: any
+}
+
+export interface Event {
+  seller_id: number | string
+  type: string,
+  created_at: any,
+  product_id?: number | string
 }

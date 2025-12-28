@@ -3,7 +3,7 @@
 	import Input from "$lib/components/Input.svelte";
 	import Section from "$lib/components/Section.svelte";
 
-   const {data} = $props()
+   const {data, form} = $props()
 </script>
 
 <svelte:head>
@@ -24,6 +24,7 @@
       placeholder="Le nom de votre boutique..."
       name="name"
       label="nom de votre boutique"
+      value={form?.name ?? ""}
       required
       />
      <Input 
@@ -33,6 +34,7 @@
       placeholder="Votre numero de telephone..."
       name="phone"
       label="Numero Whatsapp"
+      value={form?.phone ?? ""}
       required
       />
     <Input 
@@ -41,16 +43,17 @@
       minlength="6"
       maxlength="20"
       name="password"
+      value={form?.password ?? ""}
       label="Mot de passe"
       required/>
-      {#if data.submitError !== "null"}
-        <p class="text-red-400 text-[12px]">{data.submitError}</p>
+       {#if form?.error !== "null"}
+        <p class="text-red-400 text-[12px]">{form?.error}</p>
       {/if}
       <Button class="mt-2">Creer ma boutique</Button>
   </form>
 
   <p class="text-center w-full">
-    deja un compte?
+    deja un compte ?
      <a class="text-secondary highlight italic" href="/vendeurs/connection">Se connecter</a>
   </p>
 </div>

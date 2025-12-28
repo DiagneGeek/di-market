@@ -1,9 +1,11 @@
 <script lang="ts">
-    const {
+    let {
+      value = $bindable(),
       ...props
     } = $props()
 </script>
 
 <textarea 
+  {value}
   {...props}
-  class={`bg-yellow-50 p-3 min-h-[80px] rounded-2xl ${props.class || ""}`}></textarea>
+  class={`bg-input border border-gray-300 p-3 min-h-[80px] rounded-2xl ${props.class || ""}`}></textarea>

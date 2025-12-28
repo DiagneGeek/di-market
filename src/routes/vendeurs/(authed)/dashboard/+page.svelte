@@ -1,171 +1,103 @@
 <script lang="ts">
-	import ArticleCard from '$lib/components/ArticleCard.svelte';
-	import Button from '$lib/components/Button.svelte';
-	import Input from '$lib/components/Input.svelte';
-	import Modal from '$lib/components/Modal.svelte';
-	import Textarea from '$lib/components/Textarea.svelte';
-    import {productCatagories} from "./categories"
-	import type { Article } from '$lib/types';
-	import type { PageProps } from './$types';
+    import Button from "$lib/components/Button.svelte"
+    import ChartCard from "$lib/components/ChartCard.svelte"
+    import TopProductsCard from "$lib/components/TopProductsCard.svelte"
+    import {getDates} from "$lib/composables/getDates"
+	import { useToast } from "$lib/composables/useToast.js";
+    import type { Event, Article } from "$lib/types"
 
-	let { data }: PageProps = $props();
-  const products: Article[] | any = data.products
-  let hasFile = $state(false)
-  let descriptionLength = $state(0)
+    const {data} = $props()
 
-  const message = "Si tu veux créer ta boutique en ligne gratuitement sans commision, clique sur le lien: https://dimarket.biz/vendeurs"
-    
-  let modalIsOpen = $state(false)
+    const periods = getDates()
 
-  async function resizeImage(file: any, maxWidth = 800, maxHeight = 800) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.src = URL.createObjectURL(file);
-      img.onload = () => {
-        let { width, height } = img;
-        const ratio = Math.min(maxWidth / width, maxHeight / height, 1);
-        width *= ratio;
-        height *= ratio;
-
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        const ctx: any = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-
-        canvas.toBlob((blob) => {
-          if (blob) resolve(blob);
-          else reject(new Error('Canvas toBlob failed'));
-        }, file.type, 0.8);
-      };
-      img.onerror = reject;
-    });
-  }
-
-  const addProduct = async (e: Event) => {
-    e.preventDefault()
-    if (descriptionLength < 40) return "reject"
-    const form = e.target as HTMLFormElement
-    const formData = new FormData(form)
-    const imgInput = form.querySelector("#image-input") as HTMLInputElement
-    const file = imgInput?.files?.[0];
-      if (!file) return alert("Veuillez selectionner une image");
-     const resized: any = await resizeImage(file)
-     formData.append("image", resized)
-     formData.append("seller_id", data?.user?.id?.toString() as string)
-    
-    try {
-      const res = await fetch("/vendeurs/dashboard/api/add", {
-         method: "POST",
-         body: formData
-      })
-      if (!res.ok) {
-         const errorData = await res.json().catch(() => null)
-        throw new Error(JSON.stringify(errorData))
-      }
-      
-    } catch (error) {
-      alert(`Erreur lors de l'ajout du produit: ${error}`)
-    } finally {
-      modalIsOpen = false
-      window.location.reload()
+    const periodDurations = {
+      oneDayAgo: 1 * 24 * 60 * 60 * 1000,
+      sevenDaysAgo: 7 * 24 * 60 * 60 * 1000,
+      thirtyDaysAgo: 30 * 24 * 60 * 60 * 1000,
+      oneYearAgo: 365 * 24 * 60 * 60 * 1000,
     }
-  }
+
+    let period: "oneDayAgo" | "sevenDaysAgo" | "thirtyDaysAgo" | "oneYearAgo" = $state("oneDayAgo")
+    const eventsInThisPeriod = $derived(
+        data.events?.filter((event: Event) => new Date(event.created_at) >= new Date(periods[period])) || []
+    )
+    let views = $derived(
+      eventsInThisPeriod
+      .filter((event: Event) => event.type === "product_view")
+    )
+    let wsapp_opens = $derived(
+      eventsInThisPeriod
+      .filter((event: Event) => event.type === "wsapp_open")
+    )
+
+    let productViews = $derived(
+      views.reduce((acc: any, event: Event) => {
+        if (event.product_id) {
+          acc[event.product_id] = (acc[event.product_id] || 0) + 1;
+        }
+        return acc;
+      }, {} as Record<string, number>)
+    )
+
+    let topProducts = $derived(
+      data.products?.sort((a: Article, b: Article) => (productViews[b.id || 0] || 0) - (productViews[a.id || 0] || 0)).slice(0, 5) || []
+    )
+
+    let previousStart = $derived(new Date(periods[period].getTime() - periodDurations[period]))
+    let previousEnd = $derived(periods[period])
+    let previousEventsInPeriod = $derived(
+      data.events?.filter((event: Event) => {
+        const d = new Date(event.created_at)
+        return d >= previousStart && d < previousEnd
+      }) || []
+    )
+    let previousViews = $derived(
+      previousEventsInPeriod.filter((event: Event) => event.type === "product_view")
+    )
+    let previousWsapp_opens = $derived(
+      previousEventsInPeriod.filter((event: Event) => event.type === "wsapp_open")
+    )
 </script>
 
-<h1>Bienvenue <span class="text-3xl italic text-secondary">{data.user.name}</span></h1>
 
-{#snippet insight(heading: string, subheadng: string)}
-    <div class="flex flex-col gap-1 w-[100px]">
-        <p class="text-xl font-bold text-amber-600 italic">{heading}</p>
-        <p>{subheadng}</p>
-    </div>
-{/snippet}
 
-<div
- class="flex items-center justify-between px-4  border-card border-2 rounded-3xl py-2">
-  {@render insight(data.products ? data.products.length.toString() : '0', "produits")}
-  <Button onclick={() => modalIsOpen = true}>Ajouter un produit</Button>
-</div>
-<a href="/boutiques/{data.user.id}" class="my-4 flex justify-center items-center">
-  <Button variant="neutral">Voir Ma Boutique</Button>
-</a>
-<a target="_blank" href="https://wa.me?text={message}">
-<Button variant="secondary">Montrer DiMarket à un ami(e)</Button>
-</a>
 
-<div class="w-full flex justify-center my-8">
-    <div class="w-full max-w-[900px] border-card border-2 rounded-3xl flex justify-center gap-4 flex-wrap p-4">
-        {#each data.products as product}
-            <ArticleCard
-              title={product.title}
-              seller={data.user.name}
-              slug={product.slug}
-              price={product.price}
-              description={product.description}
-              img={product.image}
-              id={product.id}
-            ></ArticleCard>
+<h1>Vue d'ensemble</h1>
 
-        {:else}
-          <p>Aucun produits</p>
-        {/each}
-       
-    </div>
-</div>
-<Modal onSubmit={addProduct} open={modalIsOpen} close={() => modalIsOpen = false}>
-  <div class="flex flex-col items-center gap-4">
-    <Input 
-     label="Nom du produit" 
-     name="title"
-     minlength="5"
-     placeholder="Nom de votre produits"
-     required 
-    />
-    <Input 
-     label="Prix" 
-     name="price"
-     type="number"
-     placeholder="Prix de votre produits"
-     required 
-    />
-    
-    <label class="max-w-full flex gap-2 items-center" for="image-input">
-       <Button 
-         onclick={() => {
-            const el = document.querySelector("#image-input")
-            if (el) el.click()
-          }}
-         type="button" 
-         size="sm">{hasFile ? "Ajouté 👍" : "Ajouter un image"}</Button>
-    </label>
-     <input 
-      type="file"
-      id="image-input"
-      accept="image/*"
-      class="hidden"
-      onchange={() => hasFile = true}
-      required 
-     />
+{#if data.isPremium}
+  <h2>Bienvenue dans votre tableau de bord !</h2>
 
-    <div>
-        <Input 
-         list="categories" required
-         name="category"
-         placeholder="Choisir une categorie"></Input>
-        <datalist id="categories">
-            {#each productCatagories as category}
-                <option value={category}></option>
-            {/each}
-        </datalist>
-    </div>
+  <div class="bg-card p-4 rounded-lg">
+    <label for="period-select">Periode</label>
+    <select 
+       id="period-select"
+       bind:value={period} 
+       class="border border-gray-300 rounded-md p-2 bg-back-main"
+    >
+      <option value="oneDayAgo">Dernier jour</option>
+      <option value="sevenDaysAgo">7 derniers jours</option>
+      <option value="thirtyDaysAgo">30 derniers jours</option>
+      <option value="oneYearAgo">12 derniers mois</option>
+    </select>
+  </div>
 
-    <Textarea 
-      placeholder="Decrivez votre produit (minimum 40 lettres et symboles)"
-      name="description"
-      class="w-full"
-      oninput={e => descriptionLength = e.target.value.trim().length}
-    />
-    <p class="w-full mt-[-8px] text-right px-4 {descriptionLength < 40 ? "text-red-400" : "text-green-400"}">{descriptionLength} caractère(s)</p>
- </div>
-</Modal>
+  <section class="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <ChartCard title="Vues de produits" events={views} previousEvents={previousViews} period={period} />
+    <ChartCard title="Ouvertures de WhatsApp" events={wsapp_opens} previousEvents={previousWsapp_opens} period={period} />
+    <ChartCard title="Taux de conversion" events={wsapp_opens} previousEvents={previousWsapp_opens} period={period} type="rate" denominatorEvents={views} previousDenominatorEvents={previousViews} />
+    <TopProductsCard products={topProducts} productViews={productViews} />
+  </section>
+{:else}
+   <p class="text-primary">
+    Fonctionnalité Premium
+   </p>
+  <div 
+    class="w-full h-[50svh] flex flex-col justify-center items-center gap-4"
+  >
+    <h2 class="text-xl font-bold">🔒 Votre vue d’ensemble est bloquée</h2>
+    <h2>C'est ici que vous trouviez toutes les informations concernant votre boutique. </h2>
+    <a href="https://wa.me/781878234?text=Bonjour, j'aimerais avoir des information sur l'offre premium de DiMarket">
+      <Button label="Recuperer l'accés Premium" />
+    </a>
+  </div>
+{/if}

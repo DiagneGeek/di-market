@@ -1,8 +1,20 @@
 <script lang="ts">
   import Button from "$lib/components/Button.svelte"
+  import { page } from '$app/stores';
+  import { goto } from "$app/navigation"
+  import type { Article } from "$lib/types"
 
   const {data} = $props()
-  const {product} = data
+  const product: any = data.product
+
+  if (!product) throw new Error("Produit non trouvé")
+
+  const cameFrom = $page.url.searchParams.get("from") || null
+
+  const checkBadge = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+    </svg>
+    `
 
 const structuredData = {
     "@context": "https://schema.org/",
@@ -27,8 +39,9 @@ const structuredData = {
       }
   };
 
-const share = async (e) => {
-    const {target} = e
+const share = async (e: Event) => {
+    const target = e.target as HTMLButtonElement
+    if(!target) return 
     if (navigator.share) {
       try {
         await navigator.share({
@@ -42,7 +55,7 @@ const share = async (e) => {
     } else {
       // fallback (copy link)
       navigator.clipboard.writeText(window.location.href);
-      target.innerHTML = "URL copier!"
+      target.innerText = "URL copier!"
     }
   };
 </script>
@@ -65,13 +78,31 @@ const share = async (e) => {
   <p>{product.error}</p>
 {:else}
 
+
+  <Button 
+    onclick={() => cameFrom ? goto(cameFrom) : history.back()}
+    size="sm"
+    style="padding: 0 !important; margin: -8px !important"
+    variant="outline">
+    <span class="text-xs text-slate-600">&lt; Retour</span>
+  </Button>
+
   <img 
      src={product.image}  
      alt={product.title}
      class="rounded-2xl border-2 border-card my-4 w-full min-h-[150px]"
   />
-  <h1>{product.title}</h1>
 
+  <div class="w-full flex items-center justify-between gap-2 m-2 rounded-lg border border-card p-2">
+      <p>Vendue par <a href="/boutiques/{product.Sellers?.id}" class="font-bold underline">{product.Sellers?.name}</a></p>
+      {#if product.Sellers.plan === "PREMIUM"}
+        <span title="Vendeur certifié" class="text-amber-500 font-bold flex items-center gap-1">{@html checkBadge} Certifié</span>
+      {/if}
+  </div>
+
+  <h1>{product.title}</h1>
+  <p>Categorie: {product.category}</p>
+      
    <div 
       class="my-2 flex justify-center items-center gap-4">
    <Button 
@@ -92,14 +123,30 @@ const share = async (e) => {
         Copier le lien
     </Button>
   </div>
-  <div class="px-2 py-4 flex justify-between rounded-2xl border-1 border-card">
-    <p class="font-bold italic">{product.price} fcfa</p>
-    <p>Categorie: {product.category}</p>
-  </div>
-  <p class="my-2 mt-4 bg-card rounded-2xl text-right px-2 py-4">{product.description}</p>
-  <a href="https://wa.me/{product.Sellers?.phone}?text=Salut {product.Sellers?.name}, je suis interessé par votre produit sur DiMarket '{product.title}'. On peut en discuter ?" target="_blank" rel="noopener norefferer">
-  <Button class="my-4">Contacter le vendeur</Button>
-</a>
+  <div class="px-2 py-4 flex justify-center items-center  gap-2 rounded-2xl border-1 border-card flex-wrap">
+    <p class="font-bold italic {product.discount && "line-through text-gray scale-90"}">
+       {Number(product.price).toLocaleString("fr-FR")} fcfa
+    </p>
+    {#if product.discount}
+      <p class="font-bold italic">
+        {(product.discount_type === "percentage" ? (Number(product.price) - (Number(product.price) * product.discount / 100)) : (Number(product.price) - product.discount)).toLocaleString("fr-FR")} fcfa
+      </p>
 
-  <p>Par <a href="/boutiques/{product.Sellers?.id}" class="font-bold underline">{product.Sellers?.name}</a></p>
+      <p class="text-sm bg-amber-100 text-amber-800 font-semibold p-2 rounded-full">
+        -{product.discount_type === "percentage" ? `${product.discount}%` : `${product.discount}`} fcfa
+      </p>
+
+      <p>Promo valable jusqu'au {product.discount_end.split("T")[0]}</p>
+    {/if}
+  </div>
+  <div class="flex justify-center">
+  <p class="my-2 mt-4 bg-card rounded-2xl text-right px-2 py-4">{product.description}</p>
+  </div>
+  <form method="POST" action="?/add_wsapp_open">
+  <input type="hidden" name="product" value={JSON.stringify(product)} />
+  <input type="hidden" name="current" value={product.wsapp_open} />
+  <Button 
+     class="my-4">Contacter le vendeur</Button>
+    </form>
+
 {/if}

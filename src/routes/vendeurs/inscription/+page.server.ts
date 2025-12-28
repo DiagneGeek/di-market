@@ -6,7 +6,7 @@ import { error, fail, redirect, type Actions } from "@sveltejs/kit";
 
 const throwError = error
 
-export const load = async ({cookies, url}) => {
+export const load = async ({cookies} : {cookies: any}) => {
   const {user, error} : {
     error: any,
     user: any
@@ -19,9 +19,7 @@ export const load = async ({cookies, url}) => {
     redirect(307, "/vendeurs/dashboard")
   }
 
-  const submitError = url.searchParams.get("error") || "null"
-
-  return {submitError}
+  return {success: true}
 }
 
 
@@ -48,38 +46,38 @@ export const actions = {
       const phone = data.get("phone") as string
       const password = data.get("password") as string
 
-      const credits = 15000
-      const plan = "premium"
+      const plan = "PREMIUM"
+      const TRIAL_DAYS = 14
+      // trial ends value is the current data plus 14 days
+      const trial_ends_at = new Date(
+            Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000
+        ).toISOString()
 
       const row: User = {
          name,
         phone,
         password,
         plan,
-        credits
+        trial_ends_at
       }
       if (name.trim().length  < 3) {
-        redirect(301, "/vendeurs/inscription/?error=Le nom de votre boutiques doit contenir au moins 3 lettres")
+        return fail(400, {error: "Le nom de votre boutiques doit contenir au moins 3 lettres", name, phone, password})
       }
       if (password.trim().length  < 6) {
-        redirect(301, "/vendeurs/inscription/?error=Le mot de passe doit contenir au moins 6 charactères")
-      }
-      if (phone.trim().length  !== 9) {
-        redirect(301, "/vendeurs/inscription/?error=Ce numero n'est pas valide")
+        return fail(400, {error: "Le mot de passe doit contenir au moins 6 charactères",  name, phone, password})
       }
       const exists = await checkIfExists(phone as string)
       if (exists) {
-        redirect(301, "/vendeurs/inscription/?error=Ce numero Existe Deja")
+        return fail(400, {error: "Ce numero Existe Deja"})
       }
       const {data: user, error} = await insertIn('Sellers', [row]).select()
-      if (!user) {
-        const error : {error: string} = {error: "user not found"}
-        return fail(400, error)
+      if (error) {
+        return fail(400, {error: error.message, ...row})
       }
       cookies.set("session_id", user[0].id.toString(), {path: "/"})
       if(!error) {
         return redirect(301, "/vendeurs/dashboard")
       }
-      return {error}
+      return {error, ...row}
     }
 } satisfies Actions;

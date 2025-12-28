@@ -1,15 +1,17 @@
 <script lang="ts">
 	import Button from "./Button.svelte";
 
-    const {
+    let {
          type: inputType = "text", 
          "class": _class,
          label,
+         value = $bindable(),
          ...rest
     } : {
         type?: string,
         _class?: string,
         label?: string,
+        value?: any,
         [key: string]: any
     } = $props()
 
@@ -59,7 +61,8 @@
  </div>
 <input 
  type={type}
- class={`p-3 rounded-2xl ${_class} bg-yellow-50 `}
+ class={`p-3 rounded-2xl ${_class} bg-input border border-gray-300`}
+ {value}
  {...rest}
  >
  </div>

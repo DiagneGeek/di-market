@@ -1,6 +1,7 @@
 
 import { insertIn, removeRow, selectTable, updateRow } from "./supabase";
 import type { Article } from "../types";
+import type { restoreTextDirection } from "chart.js/helpers";
 
 export const getArticles = async ({ nameinclude = "", category = "", maxprice = "" } = {}) => {
   let query = selectTable("Products")
@@ -31,17 +32,22 @@ export const addArticle = async (article: Article) => {
 }
 
 export const updateArticle = async (newValue: {
-  id: string | number,
+  id: string,
   title: string,
   description: string,
   price: string,
+  category: string,
 }) => {
   const id = newValue.id
+  const {id: _, ...rest} = newValue
+
+  console.log(rest)
 
   const {data, error} = await updateRow("Products", {
-    where: ['id', id],
-    value: newValue
-  }) 
+    where: ['id', parseInt(id)],
+    value: rest
+  })
+  console.log({data, error})
   if (error) {
     return {success: false, error}
   }

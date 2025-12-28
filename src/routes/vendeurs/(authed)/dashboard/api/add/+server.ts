@@ -1,19 +1,32 @@
 
 import {addArticle} from "$lib/server/articles"
-import type {Article} from "$lib/types"
+import type {Article, User} from "$lib/types"
 import {uploadImage, getPublicUrl} from "$lib/server/supabase"
+import {isPremium} from "$lib/server/getUser"
 import { error, json } from "@sveltejs/kit"
 import type { RequestHandler } from './$types'
 
 export const POST: RequestHandler = async ({request}) => {
         const form = await request.formData()
         const image: any = form.get("image")
-        
+
         if (!image) {
           error(400, "image innexistant")
         }
 
-        const data: Article | any = Object.fromEntries(form)
+        const {user, products, ...data} : {
+          user: User,
+          data: Article | null,
+          products: Article[]
+        } = Object.fromEntries(form)
+
+        const premium = await isPremium(user)
+
+        if (!premium && 
+           products.length >= 15
+           ) {
+            error(403, "Limites atteintes pour les vendeurs non premium")
+           }
 
         const slug = data.title?.toLowerCase()
                 .replace(/\s+/g, "-") + Date.now()
@@ -32,8 +45,6 @@ export const POST: RequestHandler = async ({request}) => {
             image: publicUrl,
             slug
         }
-
-        
 
         const adding = await addArticle(newArticle)
 

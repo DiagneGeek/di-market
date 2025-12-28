@@ -2,13 +2,15 @@
     interface Props {
         children: any,
         isForLanding?: boolean,
-        class?: string
+        class?: string,
+        id?: string 
     }
-    const {children, isForLanding  = false, 'class': _class = ""} : Props = $props()
+    const {children, isForLanding  = false, 'class': _class = "",  id=""} : Props = $props()
 </script>
 
 <section
-  class="flex flex-col items-center w-full *:max-w-3xl my-14 {isForLanding ? '[&>h2]:text-3xl' : ''} {_class}"
+  {id}
+  class="flex flex-col items-center w-full *:max-w-3xl my-14 {isForLanding ? '[&>h2]:text-3xl my-24' : ''} {_class}"
 >
   {@render children()}
 </section>
