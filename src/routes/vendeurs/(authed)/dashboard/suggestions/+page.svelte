@@ -8,7 +8,7 @@
 <div class="p-6">
   <h1 class="text-3xl font-bold mb-6">Nos suggestions pour améliorer votre boutique</h1>
 
-  {#if !isPremium}
+  {#if !data.isPremium}
   <div class="my-8 flex items-center flex-col gap-4">
     <h2>Vous avez perdu l'accès aux suggestions</h2>
     <p>Vous n'avez plus accès aux Suggestions car vous ne faites plus des utilisateurs Premium</p>
