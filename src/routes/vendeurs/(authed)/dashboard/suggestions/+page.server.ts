@@ -113,7 +113,7 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
 
   // Generate product-specific suggestions
   const productSuggestions = [];
-  if (products && events) {
+  if (products && events && isPremium) {
     for (const product of products) {
       const productEvents = events.filter((e: Event) => e.product_id === product.id);
       const views = productEvents.filter((e: Event) => e.type === 'product_view');
