@@ -8,10 +8,10 @@
 
 <svelte:head>
     <title>Créez votre boutiques en ligne !</title>
-    <meta name="description" content="DiMarket est un marketplace senegalais qui vous permet de creer votre propre boutique en ligne afin d'avoir un business plus proffessionnel et un processus de vente facilité">
+    <meta name="description" content="DiMarket est un marketplace qui vous permet de créer votre propre boutique en ligne afin d'avoir un business plus proffessionnel et un processus de vente facilité">
 
   <meta property="og:title" content={`DiMarket - Créez votre boutiques en ligne gratuitement et facilitez le processus de vente`} />
-  <meta property="og:description" content="DiMarket est un marketplace senegalais qui vous permet de creer votre propre boutiques en ligne et facilitez la manière dont vos potentiels clients achètent" />
+  <meta property="og:description" content="DiMarket est un marketplace qui vous permet de créer votre propre boutiques en ligne et facilitez la manière dont vos potentiels clients achètent" />
   <meta property="og:image" content="https://dimarket.biz/dimarket-landing.jpg" />
   <meta property="og:type" content="website" />
 </svelte:head>
@@ -26,8 +26,7 @@
     <p>
        Créez votre propre boutique e-commerce et entourez vous
         d'un veritable écosystème d'outils 
-       pour analyser, interpreter et ameliorer vos permormances.<br>
-       Ouvrez une nouvelle page pour votre commerce, dès maintenant.
+       pour analyser, interpreter et ameliorer vos permormances.
     </p>
     <div class="w-full flex items-center flex-col justify-center gap-2 mt-2">
     <a href="/vendeurs/inscription">
@@ -43,7 +42,7 @@
 <Section isForLanding={true}>
     <h2>C'est quoi DiMarket ?</h2>
     <p>
-       DiMarket est une plateforme Sénégalaise qui a pour mission de
+       DiMarket est une plateforme Africaine qui a pour mission de
        développer l'activité des commerçants en leurs permettant 
        d'avoir leurs propres boutiques en ligne et tout l'outillage autour 
        pour vous aider à prendre les bonnes décisions
