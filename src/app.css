@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 /* Theme variables (used instead of a nonstandard @theme at-rule) */
 @theme {
@@ -9,18 +9,18 @@
   --color-primary-hover: oklch(82.8% 0.189 84.429);
   --color-secondary: oklch(84.1% 0.238 128.85);
   --color-secondary-hover: oklch(84.1% 0.238 128.85);
-  --color-t-main: rgb(30 30 30);
+  --color-t-main: rgba(43, 46, 46, 1);
   --color-gray: rgb(70, 75, 75);
   --color-t-white: rgb(230, 338, 230);
   --color-heading: oklch(14.1% 0.005 285.823);
   --color-back-main: rgba(255, 250, 250, 1);
   --color-back-dark: #1f1f15;
   --color-input: #fcf9ed;
-  --color-card: rgba(255, 250, 245, 1);
+  --color-card: rgba(255, 250, 240, 1);
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
 
   --font-sans: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  --font-heading: fantasy, var(--font-sans);
+  --font-heading: "Lato", var(--font-sans);
 }
 
 /* Base / reset + sensible defaults */
@@ -52,9 +52,15 @@ html {
      font-style: italic;
   }
 
+h2 {
+  font-weight: 500;
+}
+
+
   h1 {
      font-weight: 700;
      font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+     font-family: "Lora", "Lato", system-ui;
   }
 
   h2 {
