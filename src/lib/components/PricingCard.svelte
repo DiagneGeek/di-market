@@ -11,7 +11,7 @@
       } = $props();
   </script>
 
-<div class="w-[280px] p-4 rounded-2xl bg-card shadow" class:highlighted>
+<div class="w-[280px] p-4 rounded-2xl bg-card shadow {highlighted ? "border border-secondary bg-neutral-950 text-t-white" : ""}" class:highlighted>
       <h3 class="text-xl flex justify-center items-center gap-4">
         {title} 
         {#if highlighted}
@@ -36,10 +36,3 @@
 
      {@render children()}
   </div>
-
-
-  <style>
-.highlighted {
-   border: 2px solid #22c55e;
-}
-</style>
