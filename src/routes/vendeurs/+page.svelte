@@ -49,8 +49,12 @@
     </p>
 </Section>
 
-{#snippet featureCard(name: string, text: string)}
+{#snippet featureCard(image: string, name: string, text: string)}
     <div class="bg-card p-4 rounded-lg w-[300px]">
+     <img 
+         class="w-full rounded-lg h-[250px]"
+         src="/illustrations/{image}.svg" 
+         alt={name} />
       <h3 class="highlight italic">{name}</h3>
       <p>{text}</p>
     </div>
@@ -63,34 +67,41 @@
   {#each [
     {
         title: "Créez votre propre boutiques en ligne",
-        text: "Créez votre boutique en ligne en quelques minutes et ajoutez des produits en illimités"
+        text: "Créez votre boutique en ligne en quelques minutes et ajoutez des produits en illimités",
+        image: "online-store"
     },
     {
         title: "Partagez vos produits",
-        text: "DiMarket est fait pour partager votre boutique et vos produits dans tout vos reseaux sociaux en un clique"
+        text: "DiMarket est fait pour partager votre boutique et vos produits dans tout vos reseaux sociaux en un clique",
+        image: "sharing"
     },
     {
         title: "Soyez plus proffessionnel au yeux de vos clients",
-        text: "Démarquez vous de la masse. Avec une boutique en ligne, une vraie, vos potentiels clients sauront que vous êtes differents, plus organisé, donc plus apte à acheter"
+        text: "Démarquez vous de la masse. Avec une boutique en ligne, une vraie, vos potentiels clients sauront que vous êtes differents, plus organisé, donc plus apte à acheter",
+        image: "trust"
     },
     {
       title: "Donnez aux clients, les infos qu'ils ont besoin",
-      text: "Pour chaque produit, vos futurs clients pourront voir l'image du produit, son nom, sa description, son prix et plus encore, tout ça dans une page dédié"
+      text: "Pour chaque produit, vos futurs clients pourront voir l'image du produit, son nom, sa description, son prix et plus encore, tout ça dans une page dédié",
+      image: "info"
     },
     {
       title: "Analysez vos performances, puis améliorez",
-      text: "DiMarket vous offre plusieurs outils pour analyser l'état de vos produits comme le nombre dr visite d'une page, le taux de conversion, le temps passer et bien d'autres informations"
+      text: "DiMarket vous offre plusieurs outils pour analyser l'état de vos produits comme le nombre dr visite d'une page, le taux de conversion, le temps passer et bien d'autres informations",
+      image: "data-analysis"
     },
     {
       title: "Pas juste une boutique,  un écosysteme",
-      text: "DiMarket ne vous permet pas juste de créer une boutique,  mais de pouvoir analyser, faire des promotions, mais aussi avoir des suggestions d'axe d'amélioration"
+      text: "DiMarket ne vous permet pas juste de créer une boutique,  mais de pouvoir analyser, faire des promotions, mais aussi avoir des suggestions d'axe d'amélioration",
+      image: "ecosystem"
     },
     {
       title: "Une boutique découvrable par Google",
-      text: "DiMarket est optimisé pour google afin de faire apparaître votre boutique et vos produits dans les résultats de recherche google, c'est cool non ?"
+      text: "DiMarket est optimisé pour google afin de faire apparaître votre boutique et vos produits dans les résultats de recherche google, c'est cool non ?",
+      image: "search"
     }
   ] as feature}
-    {@render featureCard(feature.title, feature.text)}
+    {@render featureCard(feature.image, feature.title, feature.text)}
   {/each}
 </div>
 </Section>
