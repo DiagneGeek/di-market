@@ -22,11 +22,16 @@
 	 {/if}
 	</NavBar>
 
-	<main class="mb-6 mt-24 px-[20px] *:text-center">
+	<main class="mb-12 mt-24 sm:mt-28 px-4 sm:px-6 max-w-7xl mx-auto w-full">
 		{@render children()}
 	</main>
 
-	<footer>
-		
+	<footer class="bg-gray-50 border-t border-gray-200 mt-16">
+		<div class="max-w-7xl mx-auto px-6 py-8">
+			<div class="text-center text-gray-600">
+				<p>&copy; 2025 DiMarket. Tous droits réservés.</p>
+				<p class="text-sm mt-2">La plateforme qui réunit vos boutiques préférées</p>
+			</div>
+		</div>
 	</footer>
 </div>

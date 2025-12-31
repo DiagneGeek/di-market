@@ -94,7 +94,7 @@ const share = async (e: Event) => {
   />
 
   <div class="w-full flex items-center justify-between gap-2 m-2 rounded-lg border border-card p-2">
-      <p>Vendue par <a href="/boutiques/{product.Sellers?.id}" class="font-bold underline">{product.Sellers?.name}</a></p>
+      <p class="text-gray text-[12px]">Vendue par <a href="/boutiques/{product.Sellers?.id}" class="font-bold underline">{product.Sellers?.name}</a></p>
       {#if product.Sellers.plan === "PREMIUM"}
         <span title="Vendeur certifié" class="text-amber-500 font-bold flex items-center gap-1">{@html checkBadge} Certifié</span>
       {/if}
@@ -140,7 +140,7 @@ const share = async (e: Event) => {
     {/if}
   </div>
   <div class="flex justify-center">
-  <p class="my-2 mt-4 bg-card rounded-2xl text-right px-2 py-4">{product.description}</p>
+  <p class="my-2 mt-4 bg-card rounded-2xl text-left px-2 py-4">{product.description}</p>
   </div>
   <form method="POST" action="?/add_wsapp_open">
   <input type="hidden" name="product" value={JSON.stringify(product)} />

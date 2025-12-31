@@ -10,7 +10,7 @@ export const load = async ({params, url, cookies} : {params: any, url: any, cook
     const {data, error} : {
         data: any,
         error: any
-    } = await selectTable("Products", "*, Sellers (name, phone, plan)")
+    } = await selectTable("Products", "*, Sellers (name, phone, plan, id)")
          .eq("slug", slug)
          .single()
 

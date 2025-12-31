@@ -87,7 +87,7 @@
 <h1>Mes Produits</h1>
 
 {#snippet insight(heading: string, subheadng: string)}
-    <div class="flex flex-col gap-1 w-[100px]">
+    <div class="flex flex-col items-center  gap-1 w-[100px]">
         <p class="text-xl font-bold text-amber-600 italic">{heading}</p>
         <p>{subheadng}</p>
     </div>
@@ -127,14 +127,14 @@
      label="Nom du produit" 
      name="title"
      minlength="5"
-     placeholder="Nom de votre produits"
+     placeholder="Nom de votre produit"
      required 
     />
     <Input 
      label="Prix" 
      name="price"
      type="number"
-     placeholder="Prix de votre produits"
+     placeholder="Prix de votre produit"
      required 
     />
     
@@ -145,7 +145,7 @@
             if (el) el.click()
           }}
          type="button" 
-         size="sm">{hasFile ? "Ajouté 👍" : "Ajouter un image"}</Button>
+         size="sm">{hasFile ? "Ajouté 👍" : "Ajouter une image"}</Button>
     </label>
      <input 
       type="file"

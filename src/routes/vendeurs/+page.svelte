@@ -41,7 +41,7 @@
 </div>
 
 <Section isForLanding={true}>
-    <h2>C'est quoi DiMarket</h2>
+    <h2>C'est quoi DiMarket ?</h2>
     <p>
        DiMarket est une plateforme Sénégalaise qui a pour mission de
        développer l'activité des commerçants en leurs permettant 
@@ -105,8 +105,8 @@
       steps={
         [
           {
-            name: "Creer votre compte",
-            description: "Inscrivez vous en tant que vendeur, nom, numero, mot de passe et voilà"
+            name: "Créez votre compte",
+            description: "Inscrivez vous en tant que vendeur en quelques minutes: nom, numero, mot de passe et voilà"
           },
           {
             name: "Ajoutez vos produits",
@@ -114,7 +114,7 @@
           },
           {
             name: "Partager votre boutique et vos produits",
-            description: "Juste un clique et vous pourrez partager vos produits sur vos reseaux, et di vous voulez, vous pouvait faire des publicités pour grandir plus vite"
+            description: "Juste un clique et vous pourrez partager vos produits sur vos reseaux, et i vous voulez, vous préférez les publicités, rediriger juste vers l'url de la page"
           },
           {
             name: "Analysez et ameliorez",
@@ -174,9 +174,16 @@
     <PricingCard 
       title="Entreprise"
       price=""
-      period="Plan sur mesure"
+      period=""
+      features={[
+        "Tout sur Premium",
+        "Accompagnement",
+        "Extra services"
+      ]}
     >
-    <a href="https://wa.me/781878234?text=Salut l'équipe DiMarket. J'aimerais créer une boutique chez vous. Peut on en discuter ?">
+    <a 
+      class="flex justify-center"
+      href="https://wa.me/781878234?text=Salut l'équipe DiMarket. J'aimerais créer une boutique chez vous. Peut on en discuter ?">
     <Button variant="neutral">Contactez nous</Button>
     </a>
    </PricingCard>

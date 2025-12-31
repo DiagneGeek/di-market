@@ -49,7 +49,7 @@
  </div>
 </Hero>
 
-<h2 class="mb-4">Mes produits</h2>
+<h2 class=" text-xl px-4">Mes produits</h2>
 <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
     {#each data.products as product}
        <ArticleCard

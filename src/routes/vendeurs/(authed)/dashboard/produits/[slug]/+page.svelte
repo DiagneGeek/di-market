@@ -195,9 +195,9 @@
     </div>
  </section>
 
-
-{#if data.isPremium}
+ <br>
  <h2 class="text-2xl mb-4 my-12">Performances</h2>
+{#if data.isPremium}
   <div class="bg-card p-4 rounded-lg mb-4">
     <label for="period-select">Période</label>
     <select id="period-select" bind:value={period} class="border border-gray-300 rounded-md p-2 bg-back-main ml-2">
@@ -251,11 +251,11 @@
   </div>
 {:else}
   <p class="text-primary">Fonctionnalité Premium</p>
-  <div class="w-full h-[50svh] flex flex-col justify-center items-center gap-4">
-    <h2 class="text-xl font-bold">🔒 Analyse de performance bloquée</h2>
-    <h2>Cette page détaille les performances de vos produits.</h2>
+  <div class="w-full my-8 flex flex-col justify-center items-center gap-4">
+    <h2 class="text-xl font-bold text-center">🔒 Analyse de performance bloquée</h2>
+    <h2 class="text-center">Les données sur les performances sont dédiés aux vendeurs proffessionnels.</h2>
     <a href="https://wa.me/781878234?text=Bonjour, j'aimerais avoir des information sur l'offre premium de DiMarket">
-      <button class="bg-primary text-white px-4 py-2 rounded">Accéder au Premium</button>
+      <Button>Je suis proffessionnel</Button>
     </a>
   </div>
 {/if}

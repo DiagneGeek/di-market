@@ -94,8 +94,8 @@
   <div 
     class="w-full h-[50svh] flex flex-col justify-center items-center gap-4"
   >
-    <h2 class="text-xl font-bold">🔒 Votre vue d’ensemble est bloquée</h2>
-    <h2>C'est ici que vous trouviez toutes les informations concernant votre boutique. </h2>
+    <h2 class="text-xl text-center font-bold">🔒 Votre vue d’ensemble est bloquée</h2>
+    <h2 class="text-center">C'est ici que vous trouviez toutes les informations concernant votre boutique. </h2>
     <a href="https://wa.me/781878234?text=Salut, j'aimerais réactiviter les fonctionnalités Premium pour ma boutique">
       <Button label="Recuperer l'accés Premium" />
     </a>

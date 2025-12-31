@@ -5,9 +5,10 @@
     import Input from "$lib/components/Input.svelte"
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
+    import type { Article} from "$lib/types"
 
   const {data} = $props()
-  const products = data.data || []
+  const products: Article[] | any = (data.data || [])
 
    let isGoing = $state(false)
 
@@ -28,20 +29,24 @@
 
 <div>
   <Hero>
-	<h1 class="italic">La place qui reunis tous les articles que vous cherchez !</h1>
-	<p>decouvrer un large gamme de produits senagalais qui vont vous ravirent</p>
+    <div class="text-center mb-6 sm:mb-8 animate-slideInFromLeft" style="animation-delay: 0ms;">
+      <h1 class="italic text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">La place qui réunit tous les articles que vous cherchez !</h1>
+      <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">Découvrez une large gamme de produits sénégalais qui vont vous ravir</p>
+    </div>
+    <div class="w-full max-w-full sm:max-w-md mx-auto px-4 sm:px-0 animate-scaleIn" style="animation-delay: 100ms;">
+      <div class="rounded-2xl flex flex-col sm:flex-row justify-center gap-2 sm:gap-3 p-3 bg-white shadow-lg border border-gray-100">
+        <Input 
+          value={query} 
+          oninput={(e: Event) => query = e.target.value}
+          placeholder="Rechercher un produit" 
+          class="flex-1" />
+        <Button onclick={go} class="w-full sm:w-auto">{isGoing ? "En cours..." : "Rechercher"}</Button>
+      </div>
+    </div>
   </Hero>
 
-  <div class="w-full rounded-xl flex justify-center gap-2">
-    <Input 
-      value={query} 
-      oninput={(e) => query = e.target.value}
-      placeholder="Rechercher un produit" />
-    <Button onclick={go}>{isGoing ? "En cours..." : "Rechercher"}</Button>
-  </div>
-
-  <section class="w-full flex justify-center gap-8 md:px-20 flex-wrap my-12">
-    {#each products as product}
+  <section class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-12 justify-items-center">
+    {#each products as product (product.id)}
        <ArticleCard
          title={product.title}
          price={product.price}
@@ -51,7 +56,15 @@
          img={product.image}
         />
     {:else}
-      <p>Aucun produit trouvé :(</p>
+      <div class="col-span-full text-center py-12 animate-fadeIn">
+        <div class="mb-4">
+          <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-5.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H3" />
+          </svg>
+        </div>
+        <p class="text-gray-500 text-lg font-medium">Aucun produit trouvé</p>
+        <p class="text-sm text-gray-400 mt-2">Essayez de modifier votre recherche</p>
+      </div>
     {/each}
   </section>
 </div>

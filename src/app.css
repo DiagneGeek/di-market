@@ -16,7 +16,7 @@
   --color-back-main: rgba(255, 250, 250, 1);
   --color-back-dark: #1f1f15;
   --color-input: #fcf9ed;
-  --color-card: rgba(240, 240, 237, 1);
+  --color-card: rgb(245, 240, 235);
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
 
   --font-sans: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -119,4 +119,61 @@ h2 {
 
   .highlight {
     @apply underline decoration-secondary
+  }
+
+  /* Smooth animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slideInFromLeft {
+    animation: slideInFromLeft 0.5s ease-out forwards;
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  /* Card shadow and hover effects */
+  .card-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+    transition: box-shadow var(--transition), transform var(--transition);
+  }
+
+  .card-shadow:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-4px);
   }
