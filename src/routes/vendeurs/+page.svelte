@@ -42,8 +42,9 @@
 <Section isForLanding={true}>
     <h2>C'est quoi DiMarket ?</h2>
     <p>
-       DiMarket est une plateforme Africaine qui a pour mission de
-       développer l'activité des commerçants en leurs permettant 
+       <span class="font-semibold italic text-sm">
+          DiMarket est une plateforme Africaine qui a pour mission de
+       développer l'activité des commerçants</span> en leurs permettant 
        d'avoir leurs propres boutiques en ligne et tout l'outillage autour 
        pour vous aider à prendre les bonnes décisions
     </p>
