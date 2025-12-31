@@ -10,7 +10,7 @@
     <title>Créez votre boutiques en ligne !</title>
     <meta name="description" content="DiMarket est un marketplace qui vous permet de créer votre propre boutique en ligne afin d'avoir un business plus proffessionnel et un processus de vente facilité">
 
-  <meta property="og:title" content={`DiMarket - Créez votre boutiques en ligne gratuitement et facilitez le processus de vente`} />
+  <meta property="og:title" content={`DiMarket - Créez votre boutiques e-commerce optimisée pour l'Afrique et facilitez le processus de vente`} />
   <meta property="og:description" content="DiMarket est un marketplace qui vous permet de créer votre propre boutiques en ligne et facilitez la manière dont vos potentiels clients achètent" />
   <meta property="og:image" content="https://dimarket.biz/dimarket-landing.jpg" />
   <meta property="og:type" content="website" />
@@ -20,9 +20,11 @@
 <div class="h-[67svh]">
 <Hero>
     <h1>
-       <span class="highlight bg-card p-2">Repensez</span>,<br>
+      <p class="text-3xl">
+       <span class="bg-secondary rotate-[12deg] bg-card p-2">Repensez</span><br>
        La manière dont vous vendez !
-    </h1>
+      </p>
+</h1>
     <p>
        Créez votre propre boutique e-commerce et entourez vous
         d'un veritable écosystème d'outils 
