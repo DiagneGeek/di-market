@@ -87,12 +87,11 @@
 			<label for="category" class="text-xs font-semi-bold text-gray">Catégorie</label>
 			<select 
 			   id="category" 
-			   value={category}
 			   name="category"
 			   class="border border-gray-300 rounded-xl p-4 bg-input" 
 			   required>
 				{#each productCatagories as cat}
-					<option value={cat}>{cat}</option>
+					<option value={cat} selected={category === cat}>{cat}</option>
 				{/each}
 			</select>
 		</div>
