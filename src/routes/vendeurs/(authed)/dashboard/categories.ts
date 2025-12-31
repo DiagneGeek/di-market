@@ -3,6 +3,7 @@ export const  productCatagories = [
   "Téléphones & Accessoires",
   "Ordinateurs & Laptops",
   "Gaming",
+  "Prêt à porter",
   "Électroménager",
   "Appareils de Cuisine",
   "Meubles",
