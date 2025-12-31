@@ -41,5 +41,7 @@
   <style>
 .highlighted {
    border: 2px solid #22c55e;
+   background: var(--color-back-dark);
+   color: var(--color-gray);
 }
 </style>
