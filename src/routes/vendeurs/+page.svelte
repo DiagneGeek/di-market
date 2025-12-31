@@ -21,7 +21,7 @@
 <Hero>
     <h1>
       <p class="text-3xl">
-       <span class="bg-secondary rotate-[12deg] bg-card p-2">Repensez</span><br>
+       <span class="bg-secondary rotate-[20deg] bg-card p-2">Repensez</span><br>
        La manière dont vous vendez !
       </p>
 </h1>
