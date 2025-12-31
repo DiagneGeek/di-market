@@ -13,10 +13,10 @@
   --color-gray: rgb(70, 75, 75);
   --color-t-white: rgb(230, 338, 230);
   --color-heading: oklch(14.1% 0.005 285.823);
-  --color-back-main: #fcf9f2;
+  --color-back-main: rgba(255, 250, 250, 1);
   --color-back-dark: #1f1f15;
   --color-input: #fcf9ed;
-  --color-card: oklch(92% 0.03 85.277 / 0.5);
+  --color-card: rgba(255, 250, 245, 1);
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
 
   --font-sans: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
