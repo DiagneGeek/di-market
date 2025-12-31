@@ -12,8 +12,8 @@
   </script>
 
 <div class="w-[295px] p-4 rounded-2xl bg-card shadow {highlighted ? "border border-secondary bg-neutral-900 text-t-white" : ""}" class:highlighted>
-      <h3 class="text-xl flex justify-center items-center gap-4 {highlighted && "text-white"}">
-        {title} 
+      <h3 class="text-xl flex justify-center items-center gap-4">
+        <span class={highlighted && "text-white"}>{title}</span>
         {#if highlighted}
           <span class="bg-secondary p-2 rounded-full text-xs">
             Recommendé
