@@ -12,7 +12,7 @@
    <img 
      src={imgSrc} 
      alt={title} 
-     class="w-full h-[160px] sm:h-[180px] rounded-xl object-cover transition-transform duration-300 hover:scale-105"
+     class="w-full h-[180px] md:h-[130px] rounded-xl object-cover transition-transform duration-300 hover:scale-105"
     />
     <h2 class="text-base sm:text-lg font-semibold text-heading leading-tight line-clamp-2">{trimText(title, 35)}</h2>
     {#if description}

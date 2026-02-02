@@ -1,6 +1,6 @@
 import type { Cookies } from "@sveltejs/kit"
 import { selectTable, updateRow } from "./supabase"
-import type { User } from "../types"
+import type { Buyer, User } from "../types"
 
 export const getUser = async (cookies: Cookies) => {
   const sessionToken = cookies.get("session_id")
@@ -39,4 +39,23 @@ export const isPremium = async (user: User) => {
    })
   }
   return output
+}
+
+
+export const getBuyer = async (cookies: Cookies) => {
+  const sessionCookie = cookies.get("buyer_auth")
+
+  if (!sessionCookie) {
+    return {buyer: null, error: null}
+  }
+
+  const {data: buyer, error } : {
+    data: Buyer | null,
+    error: any
+  } = await selectTable("Buyers", "*")
+    .eq("auth_credential", sessionCookie)
+    .single()
+
+
+  return {buyer, error}
 }

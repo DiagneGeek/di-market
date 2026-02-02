@@ -28,7 +28,7 @@ export const POST: RequestHandler = async ({request}) => {
         const premium = await isPremium(user)
 
         if (!premium && 
-           products.length >= 2
+           products.length >= 15
            ) {
             error(403, "Limites atteintes pour les vendeurs non premium")
            }

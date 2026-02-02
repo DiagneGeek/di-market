@@ -79,7 +79,7 @@
     } finally {
       modalIsOpen = false
       toast.show("Produit ajouté", "success", 5000)
-      invalidateAll()
+      location.reload()
     }
   }
 </script>

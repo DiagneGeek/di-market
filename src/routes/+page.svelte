@@ -2,10 +2,11 @@
 	import ArticleCard from "../lib/components/ArticleCard.svelte";
 	import Button from "../lib/components/Button.svelte";
 	import Hero from "../lib/components/Hero.svelte";
-    import Input from "$lib/components/Input.svelte"
-    import { page } from '$app/stores';
-    import { goto } from '$app/navigation';
-    import type { Article} from "$lib/types"
+  import Input from "$lib/components/Input.svelte"
+  import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
+  import type { Article} from "$lib/types"
+
 
   const {data} = $props()
   const products: Article[] | any = (data.data || [])
@@ -33,14 +34,22 @@
       <h1 class="italic text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">La place qui réunit tous les articles que vous cherchez !</h1>
       <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">Découvrez une large gamme de produits sénégalais qui vont vous ravir</p>
     </div>
+    <div class="w-full flex justify-center gap-4 my-8">
+      <a href="/panier">
+        <Button size="md" variant="neutral">Voir Mon Panier</Button>
+      </a>
+      <a href="/boutiques">
+        <Button size="md" variant="">Les Boutiques</Button>
+      </a>
+    </div>
     <div class="w-full max-w-full sm:max-w-md mx-auto px-4 sm:px-0 animate-scaleIn" style="animation-delay: 100ms;">
       <div class="rounded-2xl flex flex-col sm:flex-row justify-center gap-2 sm:gap-3 p-3 bg-white shadow-lg border border-gray-100">
         <Input 
           value={query} 
-          oninput={(e: Event) => query = e.target.value}
+          oninput={(e: Event) => query = (e.target as HTMLInputElement).value}
           placeholder="Rechercher un produit" 
           class="flex-1" />
-        <Button onclick={go} class="w-full sm:w-auto">{isGoing ? "En cours..." : "Rechercher"}</Button>
+        <Button variant="neutral" onclick={go} class="w-full sm:w-auto">{isGoing ? "En cours..." : "Rechercher"}</Button>
       </div>
     </div>
   </Hero>

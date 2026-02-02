@@ -6,7 +6,7 @@ import type { User } from "$lib/types"
 
 const throwError = error
 
-export const load = async ({cookies, url}) => {
+export const load = async ({cookies, url}: {cookies: any, url: any}) => {
   const {user, error} : {
     error: any,
     user: User | null

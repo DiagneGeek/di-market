@@ -2,10 +2,14 @@
   import Button from "$lib/components/Button.svelte"
   import { page } from '$app/stores';
   import { goto } from "$app/navigation"
+  import { useCart } from "$lib/composables/useCart.svelte"
   import type { Article } from "$lib/types"
+  import { enhance } from '$app/forms';
 
   const {data} = $props()
   const product: any = data.product
+  let showButton = $state(false)
+  let quantity = $state(1)
 
   if (!product) throw new Error("Produit non trouvé")
 
@@ -90,7 +94,7 @@ const share = async (e: Event) => {
   <img 
      src={product.image}  
      alt={product.title}
-     class="rounded-2xl border-2 border-card my-4 w-full min-h-[150px]"
+     class="rounded-2xl mx-auto border-2 border-card my-4 w-full max-w-[400px] min-h-[150px]"
   />
 
   <div class="w-full flex items-center justify-between gap-2 m-2 rounded-lg border border-card p-2">
@@ -104,7 +108,7 @@ const share = async (e: Event) => {
   <p>Categorie: {product.category}</p>
       
    <div 
-      class="my-2 flex justify-center items-center gap-4">
+      class="my-2 flex items-center gap-4">
    <Button 
       onclick={share}
       class="flex gap-2 justify-center items-center my-2"
@@ -123,13 +127,28 @@ const share = async (e: Event) => {
         Copier le lien
     </Button>
   </div>
-  <div class="px-2 py-4 flex justify-center items-center  gap-2 rounded-2xl border-1 border-card flex-wrap">
+  
+  <p class="w-full max-w-[500px] my-2 mt-4 bg-card rounded-2xl text-left px-2 py-4">{product.description}</p>
+  
+   <br><br>
+  <h2>Commander</h2>
+   <div class="w-[200px] bg-card p-4 rounded-lg">
+    <p class="text-xs text-gray">Quantité</p>
+    <div class="w-full flex justify-between items-center gap-2">
+      <Button disabled={quantity <= 1} onclick={() => quantity--} variant="neutral">-</Button>
+      <span>{quantity}</span>
+      <Button onclick={() => quantity++} variant="neutral">+</Button>
+    </div>
+   </div>
+<div class="mt-12">
+<h3 class="mb-[-30px]">Total</h3>
+<div class="px-4 py-4 flex items-center  gap-2 rounded-2xl border-1 border-card flex-wrap">
     <p class="font-bold italic {product.discount && "line-through text-gray scale-90"}">
-       {Number(product.price).toLocaleString("fr-FR")} fcfa
+       {(Number(product.price) * quantity).toLocaleString("fr-FR")} fcfa
     </p>
     {#if product.discount}
       <p class="font-bold italic">
-        {(product.discount_type === "percentage" ? (Number(product.price) - (Number(product.price) * product.discount / 100)) : (Number(product.price) - product.discount)).toLocaleString("fr-FR")} fcfa
+        {(product.discount_type === "percentage" ? (Number(product.price) - (Number(product.price) * product.discount / 100)) * quantity : (Number(product.price) - product.discount) * quantity).toLocaleString("fr-FR")} fcfa
       </p>
 
       <p class="text-sm bg-amber-100 text-amber-800 font-semibold p-2 rounded-full">
@@ -139,14 +158,35 @@ const share = async (e: Event) => {
       <p>Promo valable jusqu'au {product.discount_end.split("T")[0]}</p>
     {/if}
   </div>
-  <div class="flex justify-center">
-  <p class="my-2 mt-4 bg-card rounded-2xl text-left px-2 py-4">{product.description}</p>
-  </div>
-  <form method="POST" action="?/add_wsapp_open">
-  <input type="hidden" name="product" value={JSON.stringify(product)} />
-  <input type="hidden" name="current" value={product.wsapp_open} />
-  <Button 
-     class="my-4">Contacter le vendeur</Button>
-    </form>
+</div>
 
+  <form action="?/add_to_cart_event" 
+     class="flex items-center gap-4"
+      use:enhance={() => {
+        return ({update}) => {
+        const cart = useCart();
+        const item = {
+          product,
+          quantity,
+          seller_id: product.Sellers.id,
+          sellerName: product.Sellers.name 
+        }
+        cart.addItem(item);
+        showButton = true;
+        update()
+      }}}
+      method="POST">
+      <input type="hidden" name="product" value={JSON.stringify(product)} />
+      <Button
+      class="my-4">
+      Ajouter au panier
+    </Button>
+
+    {#if showButton}
+      <a href="/panier"> 
+        <Button 
+          class="my-4">Voir mon panier</Button>
+       </a>
+    {/if}
+  </form>
 {/if}

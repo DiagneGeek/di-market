@@ -31,3 +31,28 @@ export interface Event {
   created_at: any,
   product_id?: number | string
 }
+
+export interface Buyer {
+  id?: number,
+  name: string,
+  phone: number,
+  auth_credential: string
+}
+
+export interface OrderItem {
+  id?: number,
+  order_id: number | string,
+  product_id: number | string,
+  created_at?: any
+}
+
+export interface Order {
+  id?: number | string,
+  created_at?: any,
+  address: string,
+  address_info: string,
+  status: string,
+  seller_id: number | string,
+  buyer_id: number | string,
+  Order_Items?: OrderItem[]
+}

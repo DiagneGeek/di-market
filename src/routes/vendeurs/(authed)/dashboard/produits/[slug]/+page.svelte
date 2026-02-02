@@ -2,59 +2,36 @@
   import ChartCard from "$lib/components/ChartCard.svelte"
   import Button from "$lib/components/Button.svelte"
   import Modal from "$lib/components/Modal.svelte"
-  import { getDates } from "$lib/composables/getDates"
-  import type { Event } from "$lib/types"
+  import OrderCard from "$lib/components/OrderCard.svelte"
+  import OrdersTable from "$lib/components/OrdersTable.svelte"
+  import { useAnalytics } from "$lib/composables/useAnalytics.svelte"
+  import type { Event, Article } from "$lib/types"
   import SuggestionCard from "$lib/components/SuggestionCard.svelte"
 	import { goto } from "$app/navigation";
   import { useToast } from "$lib/composables/useToast"
 
-  const { data } = $props()
+  const { data } : {
+    data: {
+      productEvents: Event[],
+      product: Article,
+      productOrders: any[],
+      isPremium: boolean
+    }
+  } = $props()
 
-  const periods = getDates()
   let deleteModalIsOpen = $state(false)
   const toast = useToast()
 
-  const periodDurations = {
-    oneDayAgo: 1 * 24 * 60 * 60 * 1000,
-    sevenDaysAgo: 7 * 24 * 60 * 60 * 1000,
-    thirtyDaysAgo: 30 * 24 * 60 * 60 * 1000,
-    oneYearAgo: 365 * 24 * 60 * 60 * 1000,
-  }
-
   let period: "oneDayAgo" | "sevenDaysAgo" | "thirtyDaysAgo" | "oneYearAgo" = $state("oneDayAgo")
 
-  const eventsInThisPeriod = $derived(
-    data.productEvents?.filter((event: Event) => new Date(event.created_at) >= new Date(periods[period])) || []
-  )
-
-  let views = $derived(
-    eventsInThisPeriod.filter((event: Event) => event.type === "product_view")
-  )
-  let wsapp_opens = $derived(
-    eventsInThisPeriod.filter((event: Event) => event.type === "wsapp_open")
-  )
-
-  let previousStart = $derived(new Date(periods[period].getTime() - periodDurations[period]))
-  let previousEnd = $derived(periods[period])
-  let previousEventsInPeriod = $derived(
-    data.productEvents?.filter((event: Event) => {
-      const d = new Date(event.created_at)
-      return d >= previousStart && d < previousEnd
-    }) || []
-  )
-  let previousViews = $derived(
-    previousEventsInPeriod.filter((event: Event) => event.type === "product_view")
-  )
-  let previousWsapp_opens = $derived(
-    previousEventsInPeriod.filter((event: Event) => event.type === "wsapp_open")
-  )
+  const analytics = $derived(useAnalytics(data.productEvents || [], [], period, data.productOrders || []))
 
   const format = (n: any) => n.toLocaleString('fr-FR');
 
   // Top hours
   const topHours = $derived(() => {
     const hourCounts: { [hour: number]: number } = {}
-    views.forEach((event: Event) => {
+    analytics.views.forEach((event: Event) => {
       const hour = new Date(event.created_at).getHours()
       hourCounts[hour] = (hourCounts[hour] || 0) + 1
     })
@@ -64,14 +41,14 @@
       .map(([hour, count]) => ({ hour: parseInt(hour), count }))
   })
 
-  // Estimated revenue (price * opens, assuming each open leads to sale)
-  const estimatedRevenue = $derived(parseInt(data.product.price.replace(".", "")) * wsapp_opens.length)
+  // Estimated revenue (price * cart adds, assuming each add leads to sale)
+  const estimatedRevenue = $derived(parseInt(data.product.price.replace(".", "")) * analytics.addToCart.length)
 
   // Suggestions
   const suggestions = $derived(() => {
-    const totalViews = views.length
-    const totalOpens = wsapp_opens.length
-    const conversionRate = totalViews > 0 ? (totalOpens / totalViews) * 100 : 0
+    const totalViews = analytics.views.length
+    const totalCartAdds = analytics.addToCart.length
+    const conversionRate = totalViews > 0 ? (totalCartAdds / totalViews) * 100 : 0
     const suggestions = []
 
     if (conversionRate < 5) {
@@ -119,7 +96,7 @@
     if (estimatedRevenue < 10000) {
       suggestions.push({
         title: "Revenus estimés faibles",
-        description: "Basé sur vos ouvertures WhatsApp, vos revenus estimés sont inférieurs à 10 000 FCFA pour cette période. Envisagez de réduire le prix, d'offrir des promotions ou d'augmenter la visibilité du produit.",
+        description: "Basé sur vos ajouts au panier, vos revenus estimés sont inférieurs à 10 000 FCFA pour cette période. Envisagez de réduire le prix, d'offrir des promotions ou d'augmenter la visibilité du produit.",
         action: { text: "Ajuster le prix", href: `/vendeurs/dashboard/produits/${data.product.slug}` },
         type: "urgent"
       })
@@ -131,7 +108,7 @@
   const deleteProduct = async (e: any) => {
       e.preventDefault()
       const form = new FormData()
-       form.append("productId", data?.product?.id)
+       form.append("productId", data?.product?.id as string)
       try {
          const res = await fetch("/vendeurs/dashboard/api/delete", {
                method: "DELETE",
@@ -166,8 +143,6 @@
 </script>
 
 <h1>{data.product.title}</h1>
-
-
 
  <section class="my-8">
    <h2 class="text-2xl mb-4">Gestion</h2>
@@ -209,12 +184,12 @@
   </div>
 
   <section class="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <ChartCard title="Vues de produits" events={views} previousEvents={previousViews} period={period} />
-    <ChartCard title="Ouvertures de WhatsApp" events={wsapp_opens} previousEvents={previousWsapp_opens} period={period} />
-    <ChartCard title="Taux de conversion" events={wsapp_opens} previousEvents={previousWsapp_opens} period={period} type="rate" denominatorEvents={views} previousDenominatorEvents={previousViews} />
+    <ChartCard title="Vues de produits" events={analytics.views} previousEvents={analytics.previousViews} period={period} />
+    <ChartCard title="Ajouts au panier" events={analytics.addToCart} previousEvents={analytics.previousAddToCart} period={period} />
+    <ChartCard title="Taux de conversion" events={analytics.addToCart} previousEvents={analytics.previousAddToCart} period={period} type="rate" denominatorEvents={analytics.views} previousDenominatorEvents={analytics.previousViews} />
   </section>
 
-  <section class="my-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+  <section class="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
     <div class="bg-card p-4 rounded-lg">
       <h3>Top heures de vues</h3>
       <ul>
@@ -227,8 +202,10 @@
     <div class="bg-card p-4 rounded-lg">
       <h3>Revenus estimés</h3>
       <p class="text-2xl font-bold">{format(estimatedRevenue)} FCFA</p>
-      <p class="text-sm text-gray-500">Basé sur {wsapp_opens.length} ouvertures WhatsApp × {data.product.price} FCFA</p>
+      <p class="text-sm text-gray-500">Basé sur {analytics.addToCart.length} ajouts au panier × {data.product.price} FCFA</p>
     </div>
+
+    <OrderCard title="Commandes" ordersCount={analytics.ordersCount} previousOrdersCount={analytics.previousOrdersCount} period={period} orders={analytics.orders} />
   </section>
 
   <div class="bg-card p-4 rounded-lg">
@@ -249,11 +226,18 @@
       {/each}
     </div>
   </div>
+
+  {#if analytics.orders && analytics.orders.length > 0}
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold mb-4">Commandes de ce produit</h2>
+      <OrdersTable orders={analytics.orders} />
+    </div>
+  {/if}
 {:else}
   <p class="text-primary">Fonctionnalité Premium</p>
   <div class="w-full my-8 flex flex-col justify-center items-center gap-4">
-    <h2 class="text-xl font-bold text-center">🔒 Analyse de performance bloquée</h2>
-    <h2 class="text-center">Les données sur les performances sont dédiés aux vendeurs proffessionnels.</h2>
+    <h2 class="text-xl font-bold text-center">🔒 Analyse de performances bloqué</h2>
+    <h2 class="text-center">Vous avez perdu l'accés à cette fonctionnalité. Les données sur les performances sont dédiés aux vendeurs proffessionnels.</h2>
     <a href="https://wa.me/781878234?text=Bonjour, j'aimerais avoir des information sur l'offre premium de DiMarket">
       <Button>Je suis proffessionnel</Button>
     </a>

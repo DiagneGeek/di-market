@@ -2,65 +2,17 @@
     import Button from "$lib/components/Button.svelte"
     import ChartCard from "$lib/components/ChartCard.svelte"
     import TopProductsCard from "$lib/components/TopProductsCard.svelte"
-    import {getDates} from "$lib/composables/getDates"
+    import OrderCard from "$lib/components/OrderCard.svelte"
+    import OrdersTable from "$lib/components/OrdersTable.svelte"
+    import { useAnalytics } from "$lib/composables/useAnalytics.svelte"
 	import { useToast } from "$lib/composables/useToast.js";
-    import type { Event, Article } from "$lib/types"
 
     const {data} = $props()
 
-    const periods = getDates()
-
-    const periodDurations = {
-      oneDayAgo: 1 * 24 * 60 * 60 * 1000,
-      sevenDaysAgo: 7 * 24 * 60 * 60 * 1000,
-      thirtyDaysAgo: 30 * 24 * 60 * 60 * 1000,
-      oneYearAgo: 365 * 24 * 60 * 60 * 1000,
-    }
-
     let period: "oneDayAgo" | "sevenDaysAgo" | "thirtyDaysAgo" | "oneYearAgo" = $state("oneDayAgo")
-    const eventsInThisPeriod = $derived(
-        data.events?.filter((event: Event) => new Date(event.created_at) >= new Date(periods[period])) || []
-    )
-    let views = $derived(
-      eventsInThisPeriod
-      .filter((event: Event) => event.type === "product_view")
-    )
-    let wsapp_opens = $derived(
-      eventsInThisPeriod
-      .filter((event: Event) => event.type === "wsapp_open")
-    )
-
-    let productViews = $derived(
-      views.reduce((acc: any, event: Event) => {
-        if (event.product_id) {
-          acc[event.product_id] = (acc[event.product_id] || 0) + 1;
-        }
-        return acc;
-      }, {} as Record<string, number>)
-    )
-
-    let topProducts = $derived(
-      data.products?.sort((a: Article, b: Article) => (productViews[b.id || 0] || 0) - (productViews[a.id || 0] || 0)).slice(0, 5) || []
-    )
-
-    let previousStart = $derived(new Date(periods[period].getTime() - periodDurations[period]))
-    let previousEnd = $derived(periods[period])
-    let previousEventsInPeriod = $derived(
-      data.events?.filter((event: Event) => {
-        const d = new Date(event.created_at)
-        return d >= previousStart && d < previousEnd
-      }) || []
-    )
-    let previousViews = $derived(
-      previousEventsInPeriod.filter((event: Event) => event.type === "product_view")
-    )
-    let previousWsapp_opens = $derived(
-      previousEventsInPeriod.filter((event: Event) => event.type === "wsapp_open")
-    )
+    
+    const analytics = $derived(useAnalytics(data.events, data.products, period, (data.orders || []) as any))
 </script>
-
-
-
 
 <h1>Vue d'ensemble</h1>
 
@@ -82,22 +34,33 @@
   </div>
 
   <section class="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-    <ChartCard title="Vues de produits" events={views} previousEvents={previousViews} period={period} />
-    <ChartCard title="Ouvertures de WhatsApp" events={wsapp_opens} previousEvents={previousWsapp_opens} period={period} />
-    <ChartCard title="Taux de conversion" events={wsapp_opens} previousEvents={previousWsapp_opens} period={period} type="rate" denominatorEvents={views} previousDenominatorEvents={previousViews} />
-    <TopProductsCard products={topProducts} productViews={productViews} />
+    <ChartCard title="Vues de produits" events={analytics.views} previousEvents={analytics.previousViews} period={period} />
+    <ChartCard title="Ajouts au panier" events={analytics.addToCart} previousEvents={analytics.previousAddToCart} period={period} />
+    <ChartCard title="Taux de conversion" events={analytics.addToCart} previousEvents={analytics.previousAddToCart} period={period} type="rate" denominatorEvents={analytics.views} previousDenominatorEvents={analytics.previousViews} />
+    <OrderCard title="Commandes" ordersCount={analytics.ordersCount} previousOrdersCount={analytics.previousOrdersCount} period={period} orders={analytics.orders} />
   </section>
+
+  <section class="my-8">
+    <TopProductsCard products={analytics.topProducts} productViews={analytics.productViews} />
+  </section>
+
+  {#if analytics.orders && analytics.orders.length > 0}
+    <section class="my-8">
+      <h2 class="text-2xl font-bold mb-4">Dernières commandes</h2>
+      <OrdersTable orders={analytics.orders} />
+    </section>
+  {/if}
 {:else}
    <p class="text-primary">
     Fonctionnalité Premium
    </p>
-  <div 
+<div 
     class="w-full h-[50svh] flex flex-col justify-center items-center gap-4"
   >
-    <h2 class="text-xl text-center font-bold">🔒 Votre vue d’ensemble est bloquée</h2>
-    <h2 class="text-center">C'est ici que vous trouviez toutes les informations concernant votre boutique. </h2>
-    <a href="https://wa.me/781878234?text=Salut, j'aimerais réactiviter les fonctionnalités Premium pour ma boutique">
-      <Button label="Recuperer l'accés Premium" />
+    <h2 class="text-xl text-center font-bold">Ne perdez pas votre votre devance !</h2>
+    <h2 class="text-center">Votre Accés a été révoqué, recuperez le pour continuer à voir plus claire sur vos produit et gagner du temps</h2>
+    <a href="https://wa.me/781878234?text=Salut, je voudrais recupérer mes avantages sur DiMarket que je vient de perdre !">
+      <Button label="Recuperer mes avantages" />
     </a>
   </div>
 {/if}

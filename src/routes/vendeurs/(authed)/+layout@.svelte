@@ -37,7 +37,7 @@
   class="flex w-full flex-wrap gap-4 justify-center my-8 border-b border-slate-200 p-2 mx-2 text-xs *:transition-all *:duration-200">
   <a href="/vendeurs/dashboard" class={tabIs("") ? activeStyle : ""}>Vue d'ensemble</a>
   <a href="/vendeurs/dashboard/produits" class={tabIs("produits") ? activeStyle : ""}>Produits</a>
-  <a href="/vendeurs/dashboard/objectifs" class={tabIs("objectifs") ? activeStyle : ""}>Objectifs</a>
+  <a href="/vendeurs/dashboard/commandes" class={tabIs("commandes") ? activeStyle : ""}>Commandes</a>
   <a href="/vendeurs/dashboard/suggestions" class={tabIs("suggestions") ? activeStyle : ""}>Suggestions</a>
 </nav>
 {/if}

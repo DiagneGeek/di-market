@@ -44,11 +44,11 @@
 <Section isForLanding={true}>
     <h2>C'est quoi DiMarket ?</h2>
     <p>
-       <span class="font-semibold italic text-sm">
+       <span class="font-bold italic text-[15px] text-[#000] text-md">
           DiMarket est une plateforme Africaine qui a pour mission de
-       développer l'activité des commerçants</span> en leurs permettant 
-       d'avoir leurs propres boutiques en ligne et tout l'outillage autour 
-       pour vous aider à prendre les bonnes décisions
+       développer l'activité des commerçants en ligne</span> en vous permettant 
+       d'avoir votre propres boutiques en ligne et tout l'outillage autour 
+       pour vous aider à être plus productifs, proffessionnel et prendre les bonnes décisions tout en gagnant du temps. Le rêve quoi, non ?
     </p>
 </Section>
 
@@ -64,12 +64,12 @@
 {/snippet}
 
 <Section isForLanding={true}>
-  <h2>Qu'est ce que vous apporte DiMarket ?</h2>
-  <p>De la creation de la boutique jusqu'au processus de vente, <strong>Nous sommes là</strong></p>
+  <h2>Qu'est ce que DiMarket va changer pour vous ?</h2>
+  <p>Un commerce organisé, digne de confiance et un futur vous moins débordé•e</p>
   <div class="flex gap-4 flex-wrap justify-center mt-4">
   {#each [
     {
-        title: "Créez votre propre boutiques en ligne",
+        title: "Créez votre propre boutique en ligne",
         text: "Créez votre boutique en ligne en quelques minutes et ajoutez des produits en illimités",
         image: "online-store"
     },
@@ -80,27 +80,27 @@
     },
     {
         title: "Soyez plus proffessionnel au yeux de vos clients",
-        text: "Démarquez vous de la masse. Avec une boutique en ligne, une vraie, vos potentiels clients sauront que vous êtes differents, plus organisé, donc plus apte à acheter",
+        text: "Démarquez vous de la masse. Avec une boutique en ligne, une vraie, vos potentiels clients sauront que vous êtes differents, plus organisé, donc plus apte à acheter chez vous",
         image: "trust"
     },
     {
-      title: "Donnez aux clients, les infos qu'ils ont besoin",
-      text: "Pour chaque produit, vos futurs clients pourront voir l'image du produit, son nom, sa description, son prix et plus encore, tout ça dans une page dédié",
+      title: "Montrez votre respect envers vos clients",
+      text: "Pour chaque produit, vos futurs clients pourront voir l'image du produit, son nom, sa description, son prix et plus encore, tout ça dans une page dédié afin de leur faciliter la tache à eux mais aussi à vous car vous n'aurez plus à répéter les mêmes conversations à chaque fois",
       image: "info"
     },
     {
       title: "Analysez vos performances, puis améliorez",
-      text: "DiMarket vous offre plusieurs outils pour analyser l'état de vos produits comme le nombre dr visite d'une page, le taux de conversion, le temps passer et bien d'autres informations",
+      text: "Au lieu de devoir déviner ce qui marche ou pas, DiMarket vous offre plusieurs outils pour analyser différents informations clés sur vos produits. Fini le tâtonnement",
       image: "data-analysis"
     },
     {
       title: "Pas juste une boutique,  un écosysteme",
-      text: "DiMarket ne vous permet pas juste de créer une boutique,  mais de pouvoir analyser, faire des promotions, mais aussi avoir des suggestions d'axe d'amélioration",
+      text: "DiMarket ne vous permet pas juste de créer une boutique,  mais de pouvoir analyser, faire des promotions, mais aussi avoir des suggestions d'axes d'améliorations",
       image: "ecosystem"
     },
     {
       title: "Une boutique découvrable par Google",
-      text: "DiMarket est optimisé pour google afin de faire apparaître votre boutique et vos produits dans les résultats de recherche google, c'est cool non ?",
+      text: "DiMarket est optimisé pour google afin de faire apparaître votre boutique et vos produits dans les résultats de recherche google",
       image: "search"
     }
   ] as feature}
@@ -127,11 +127,11 @@
           },
           {
             name: "Partager votre boutique et vos produits",
-            description: "Juste un clique et vous pourrez partager vos produits sur vos reseaux, et i vous voulez, vous préférez les publicités, rediriger juste vers l'url de la page"
+            description: "Juste un clique et vous pourrez partager vos produits sur vos reseaux, et si vous préférez les publicités, redirigez juste vers l'url de la page"
           },
           {
             name: "Analysez et ameliorez",
-            description: "Rien n'est parfait au premier coup, c'est pourquoi nous avons fait pour vous des outils pour analyser vos performances et les améliorer en consequences"
+            description: "Rien n'est parfait du premier coup, c'est pourquoi nous avons fait pour vous des outils pour analyser vos performances et pouvoir savoir ce qui merite d'être amélioré"
           },
         ]
       }
@@ -146,7 +146,7 @@
 
   <div class="flex justify-center gap-4 flex-wrap my-4">
     <PricingCard 
-      title="Minimal"
+      title="Amateur"
       price="0 fcfa"
       period=""
       features={[
@@ -156,13 +156,13 @@
       ]}
     >
      <a href="/vendeurs/inscription">
-      <Button variant="neutral">Créer une boutique</Button>
+      <Button variant="neutral">Créer ma boutique</Button>
      </a>
-     <p class="font-bold italic py-1">2 semaine d'essaie gratuit du plan Premium</p>
+     <p class="font-bold italic py-1">1mois d'essaie gratuit du plan Premium</p>
     </PricingCard>
     <PricingCard
       title="Premium"
-      price="15k fcfa"
+      price="7k fcfa"
       highlighted={true}
       freeTrial={true}
       period="/mois"
@@ -170,24 +170,28 @@
          "Tout sur le plan Basic",
          "Produits illimités",
          "Badge de vendeur vérifié",
+         "Signe de professionnalisme chez vos clients",
+         "Confiance accrue",
          "Prioritaire dans les résultats",
-         "Possiblité d'ajouter plusieurs images pour un produit",
+         //"Possiblité d'ajouter plusieurs images pour un produit",
          "Informations sur la performance (cliques, conversions...)",
-         "Suggestions d'améliorations personnalisés",
-         "Possiblité de definir des objectifs de ventes",
-         "Possiblité de faire des reductions",
-         "Service clients plus reactif"
+         "Gestions des commandes",
+         "Conseils pour améliorer vos ventes",
+         "Possiblité de faire des promotions ",
+         "Service clients plus reactif",
+         "Du temps gagner pour l'acquisition de clients...",
+         "Et pour les livraisons",
       ]}
     >
     <a href="/vendeurs/inscription">
-      <Button variant="secondary">Créer une boutique Proffesionnelle</Button>
+      <Button variant="secondary">Essayer Gratuitement</Button>
     </a>
-      <p class="py-1 font-bold">Avec deux semaines d'essaie gratuit</p>
+      <p class="py-1 font-bold italic">30 jours d'essaie gratuit</p>
     </PricingCard>
     <PricingCard 
       title="Entreprise"
-      price=""
-      period=""
+      price="+99.000 fcfa"
+      period="/mois"
       features={[
         "Tout sur Premium",
         "Accompagnement",

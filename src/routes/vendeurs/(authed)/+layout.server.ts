@@ -20,7 +20,7 @@ export const load = async ({cookies}: {cookies: any}) => {
   const isPremium = await _isPremium(user)
 
   if (!user) {
-    redirect(307, "/vendeurs")
+    redirect(307, "/vendeurs/connection")
   }
 
   const {data: events} : {
@@ -37,5 +37,19 @@ export const load = async ({cookies}: {cookies: any}) => {
    if (pErrors || products === null) {
     return throwError(500, "Une erreur c'est produite lors du chargement des produits")
   }
-  return {user, products, isPremium, events}
+
+  const {data: orders, error: ordersError} = await selectTable("Orders", "*, Order_Items (*), Buyers (name, phone)")
+      .eq("seller_id", user.id)
+
+  if (ordersError) {
+    return throwError(500, "Une erreur c'est produite lors du chargement des commandes")
+  }
+  /*const {data: orderItems, error: orderItemsError} = await selectTable("Order_Items")
+      .eq("seller_id", user.id)
+
+  if (orderItemsError) {
+    return throwError(500, "Une erreur c'est produite lors du chargement des items de commande")
+  }
+*/
+  return {user, products, isPremium, events, orders}
 }

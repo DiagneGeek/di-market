@@ -9,7 +9,13 @@ export const selectTable = (table: string, selected?: string) => {
     return client.from(table).select(selected || '*')
 }
 
-export const insertIn = (table: string, toInsert: object) => {
+export const insertIn = (table: string, toInsert: object, upsert: boolean = false, onConflict?: string) => {
+    if (upsert) {
+        if (!onConflict) {
+            throw new Error("onConflict must be provided for upsert")
+        }
+        return client.from(table).upsert(toInsert, { onConflict })
+    }
     return client.from(table).insert(toInsert)
 }
 

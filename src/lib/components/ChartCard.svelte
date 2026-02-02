@@ -128,8 +128,8 @@
   {#if type === "rate"}
     <p class="text-xs text-gray mt-[-8px]">
       Le taux de conversion est le nombre 
-      d'ouvertures whatsapp par rapport 
-      au nombre de vues
+      de fois où un produit est ajouté au panier par 
+      rapport au nombre de vues
     </p>
   {/if}
   <!-- numeric datas (events, and evolution)-->

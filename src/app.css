@@ -9,7 +9,7 @@
   --color-primary-hover: oklch(82.8% 0.189 84.429);
   --color-secondary: oklch(84.1% 0.238 128.85);
   --color-secondary-hover: oklch(84.1% 0.238 128.85);
-  --color-t-main: rgba(43, 46, 46, 1);
+  --color-t-main: rgba(60, 63, 60, 1);
   --color-gray: rgb(70, 75, 75);
   --color-t-white: rgb(230, 338, 230);
   --color-heading: oklch(14.1% 0.005 285.823);
@@ -83,6 +83,7 @@ h2 {
 
   p {
      max-width: 72ch;
+     font-weight: 600;
   }
 
   /* Inputs & textareas: clean, accessible focus states */
