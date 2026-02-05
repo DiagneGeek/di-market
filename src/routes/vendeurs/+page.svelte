@@ -25,7 +25,7 @@
 
 <svelte:head>
     <title>Vendez, sans expliquer. — DiMarket</title>
-    <meta name="description" content="DiMarket laisse vos clients comprendre et commander sans devoir y consacrer votre temps si précieux.">
+    <meta name="description" content="DiMarket est la solution pour les vendeurs qui veulent vendre mieux, en beaucoup moins de temps">
 </svelte:head>
 
 
@@ -41,10 +41,10 @@
 				<span class="text-sm font-semibold text-teal-900">✨ La solution pour vos ventes</span>
 			</div>
 			<h1 in:fade={{ delay: 100 }}>
-        <span class="text-4xl">Vendez, sans expliquer</span></h1>
+        <span class="text-4xl">Vendez, sans devoir expliquer</span></h1>
 			<p class="mb-10 font-semibold max-w-2xl mx-auto" in:fade={{ delay: 200 }}>DiMarket laisse vos clients comprendre et commander sans devoir y consacrer votre temps si précieux.</p>
 			<div class="flex gap-4 justify-center flex-wrap" in:fade={{ delay: 300 }}>
-				<a href="/vendeurs/inscription"><Button>🚀 Créer ma Collection</Button></a>
+				<a href="/vendeurs/inscription"><Button>🚀 Commencer</Button></a>
 				<a href="#how"><Button variant="neutral">📖 Comment ça marche</Button></a>
 			</div>
 			<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto" in:fade={{ delay: 400 }}>
