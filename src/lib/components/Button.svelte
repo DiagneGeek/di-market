@@ -11,7 +11,7 @@
     variant ||= "primary"
 
     const type = {
-        primary: "bg-primary text-slate-50 hover:bg-primary-hover transition-all duration-200 hover:shadow-lg hover:scale-105 active:scale-95",
+        primary: "bg-primary text-white hover:bg-primary-hover transition-all duration-200 hover:shadow-lg hover:scale-105 active:scale-95",
         secondary: "bg-secondary text-white hover:bg-secondary-hover transition-all duration-200 hover:shadow-lg active:scale-95",
         neutral: "bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all duration-200 border border-gray-200 active:scale-95",
         outline: "bg-transparent text-[13px] text-t-main hover:bg-primary/5 scale-90 transition-all duration-200 active:scale-85",
