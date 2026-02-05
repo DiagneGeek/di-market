@@ -4,12 +4,6 @@
 	import NavBar from "../lib/components/NavBar.svelte";
 	import { page } from "$app/stores"
 	let { children } = $props();
-
-	let isMounted = $state(false)
-
-	$effect(() => {
-		isMounted = true
-	})
 </script>
 
 <div class="app">
@@ -30,13 +24,7 @@
 	</NavBar>
 
 	<main class="mb-12 {$page.url.pathname !== "/vendeurs" ? "mt-24 sm:mt-28 px-4" : "mt-12"} max-w-7xl mx-auto w-full min-h-[60vh]">
-	  {#if isMounted}
 		{@render children()}
-	  {:else}
-	    <div class="w-full h-[80svh] flex items-center justify-center">
-          <p class="text-gray text-lg animate-ping">●●●</p>
-		</div>
-	  {/if}
 	</main>
 
 	<footer class="bg-gray-50 border-t border-gray-200 mt-16">
