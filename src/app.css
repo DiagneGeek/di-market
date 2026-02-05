@@ -43,7 +43,6 @@ html {
 
   /* Headings: responsive, compact, distinct heading color */
   h1, h2, h3, h4 {
-     
      color: var(--color-heading);
      margin: 0 0 0.5rem 0;
      line-height: 1.2;
@@ -95,7 +94,7 @@ h2 {
      line-height: 1.4;
      color: var(--color-t-main);
      transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
-     box-sizg: border-box;
+     box-sizing: border-box;
   }
 
   input::placeholder,

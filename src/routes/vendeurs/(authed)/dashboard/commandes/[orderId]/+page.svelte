@@ -254,7 +254,7 @@
                   <p class="text-sm text-gray-600 mt-1">Article #{item.product_id}</p>
                 </div>
                 <div class="flex flex-col md:flex-row items-center justify-between">
-                  <p class="text-primary font-bold text-lg">{formatPrice(item.product?.price || '0', item)} FCFA</p>
+                  <p class="text-primary font-bold text-lg">{formatPrice(item.product?.price || '0')} FCFA</p>
                   <br>
                   <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">Quantité: {item.quantity}</span>
                 </div>

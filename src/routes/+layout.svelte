@@ -15,8 +15,9 @@
 <div class="app">
 	<NavBar>
 	{#if !["/vendeurs/connection", "/vendeurs/inscription"].includes($page.url.pathname)}
+	  {#if $page.url.pathname !== "/vendeurs"}	  
 	  <a href="/panier">Panier</a>
-	  {#if $page.url.pathname !== "/vendeurs"}
+
       <a href="/vendeurs" class="text-[14px]">
 	    <Button size="sm" variant="outline">Créer ma boutique</Button>
 	 </a>
@@ -28,7 +29,7 @@
 	 {/if}
 	</NavBar>
 
-	<main class="mb-12 mt-24 sm:mt-28 px-4 sm:px-6 max-w-7xl mx-auto w-full min-h-[60vh]">
+	<main class="mb-12 {$page.url.pathname !== "/vendeurs" ? "mt-24 sm:mt-28 px-4" : "mt-12"} max-w-7xl mx-auto w-full min-h-[60vh]">
 	  {#if isMounted}
 		{@render children()}
 	  {:else}
