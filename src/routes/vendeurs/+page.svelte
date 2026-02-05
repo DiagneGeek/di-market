@@ -27,7 +27,7 @@
     <title>Vendez, sans expliquer. — DiMarket</title>
     <meta name="description" content="DiMarket est la solution pour les vendeurs qui veulent vendre mieux, en beaucoup moins de temps">
 	<meta name="og:title" content="Vendez, sans devoir engager des discussions inutiles">
-	<meta name="og:image" content="https://dimarket.biz/landing/landing-og.png">
+	<meta name="og:image" content="https://dimarket.biz/landing/landing-og.jpg">
 </svelte:head>
 
 
