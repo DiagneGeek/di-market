@@ -26,6 +26,8 @@
 <svelte:head>
     <title>Vendez, sans expliquer. — DiMarket</title>
     <meta name="description" content="DiMarket est la solution pour les vendeurs qui veulent vendre mieux, en beaucoup moins de temps">
+	<meta name="og:title" content="Vendez, sans devoir engager des discussions inutiles">
+	<meta name="og:image" content="https://dimarket.biz/landing/landing-og.png">
 </svelte:head>
 
 
@@ -89,8 +91,9 @@
 				</div>
 				<div class="relative h-80">
 					<div class="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-300 to-blue-300 rounded-2xl shadow-2xl opacity-75"></div>
-					<div class="absolute inset-2 bg-gradient-to-br from-blue-100 to-teal-100 rounded-2xl"></div>
-					<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-5xl">📊</div>
+					<div class="absolute inset-2 bg-gradient-to-br from-blue-100 to-teal-100 rounded-2xl overflow-hidden ">
+						<img src="/landing/chat-demo.jpg" alt="Demo" class="w-full h-full object-cover rounded-2xl scale-110" />
+					</div>
 				</div>
 			</div>
 		</div>
