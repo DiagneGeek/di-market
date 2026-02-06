@@ -98,7 +98,7 @@ export const actions = {
        }
     }
 
-    redirect(302, `/boutiques/${params.seller_id}/commander/succes?order_number=DI-${id}&seller_name=${sellerName}&total=${totalPrice}`)
+    redirect(302, `/collections/${params.seller_id}/commander/succes?order_number=DI-${id}&seller_name=${sellerName}&total=${totalPrice}`)
     return {
       order: "confirmed",
       ...credentials

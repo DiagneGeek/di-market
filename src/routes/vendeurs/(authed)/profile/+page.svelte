@@ -22,7 +22,7 @@
   <h2 class="text-2xl mt-4">Informations</h2>
 
   <div class="flex w-full max-w-xl justify-between flex-wrap items-center p-2 px-4 rounded-3xl bg-card my-4">
-    <p>nom de la boutique:</p>
+    <p>nom de la collection:</p>
     <p>{data.user.name}</p>
   </div>
   <div class="flex w-full max-w-xl justify-between flex-wrap items-center p-2 px-4 rounded-3xl bg-card my-4">

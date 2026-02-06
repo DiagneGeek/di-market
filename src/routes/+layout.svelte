@@ -13,7 +13,7 @@
 	  <a href="/panier">Panier</a>
 
       <a href="/vendeurs" class="text-[14px]">
-	    <Button size="sm" variant="outline">Créer ma boutique</Button>
+	    <Button size="sm" variant="outline">Créer ma collection</Button>
 	 </a>
 	 {:else}
 	  <a href="/vendeurs/connection">
@@ -31,7 +31,7 @@
 		<div class="max-w-7xl mx-auto px-6 py-8">
 			<div class="text-center text-gray-600">
 				<p>&copy; 2026 DiMarket. Tous droits réservés.</p>
-				<p class="text-sm mt-2">La plateforme qui réunit vos boutiques préférées</p>
+				<p class="text-sm mt-2">La plateforme qui réunit vos collections préférées</p>
 			</div>
 		</div>
 	</footer>

@@ -17,7 +17,7 @@
       {#each products as product, i}
         <li class="flex justify-between items-center p-2 bg-bg-2 rounded border-b-1 border-back-main">
           <span class="font-medium truncate">{i + 1}. {product.title}</span>
-          <span class="text-sm text-gray-500">{productViews[product.id] || 0} vues</span>
+          <span class="text-sm text-gray-500">{product.id && productViews[product?.id] || 0} vues</span>
         </li>
        {:else}
          <div class="w-full h-[150px] flex justify-center items-center flex-col items-center gap-4">

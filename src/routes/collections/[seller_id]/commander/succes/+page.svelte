@@ -5,7 +5,7 @@
 
 	const sellerId = $page.params.seller_id;
 	const orderNumber = $page.url.searchParams.get("order_number")
-	const sellerName = $page.url.searchParams.get("seller_name") ?? 'Boutique';
+	const sellerName = $page.url.searchParams.get("seller_name") ?? 'collection';
 	const total = $page.url.searchParams.get("total");
 
 	const {removeSubcart} = useCart()
@@ -35,7 +35,7 @@
 				<dd>{orderNumber}</dd>
 			</div>
 			<div>
-				<dt>Boutique</dt>
+				<dt>collection</dt>
 				<dd>{sellerName}</dd>
 			</div>
 			{#if total}
@@ -52,9 +52,9 @@
                 Retour au magasin
               </Button>
             </a>
-			<a href="/boutiques/{sellerId}">
+			<a href="/collections/{sellerId}">
               <Button variant="outlineSecondary">
-                Voir la boutique
+                Voir la collection
               </Button>
             </a>
 			<a href="/panier">
@@ -64,7 +64,7 @@
             </a>
 		</div>
 
-		<p class="note">Si vous avez des questions, contactez la boutique.</p>
+		<p class="note">Si vous avez des questions, contactez la collection.</p>
 	</div>
 </section>
 

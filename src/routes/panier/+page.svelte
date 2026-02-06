@@ -61,7 +61,7 @@
          .toLocaleString("fr-FR")} FCFA
       </p>
       
-    <a href="/boutiques/{subCart.seller_id}/commander">
+    <a href="/collections/{subCart.seller_id}/commander">
      <Button class="w-full mt-2" variant="neutral">
         Commander pour ce vendeur
      </Button>

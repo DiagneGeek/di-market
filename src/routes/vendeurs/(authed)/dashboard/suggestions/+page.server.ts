@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
   if (!products || products.length === 0) {
     suggestions.push({
       title: 'Ajoutez vos premiers produits',
-      description: 'Votre boutique semble vide. Commencez par ajouter des produits pour attirer des clients.',
+      description: 'Votre collection semble vide. Commencez par ajouter des produits pour attirer des clients.',
       type: 'urgent',
       cta: {
         text: 'Ajouter un produit',

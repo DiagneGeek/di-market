@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-	<title>DiMarket - La plateforme qui reunis vos boutiques preferees</title>
+	<title>DiMarket - La plateforme qui reunis vos collections preferees</title>
 	<meta name="description" content="DiMarket est un marketplace Africain qui regroupe divers produits de qualités qui vont vous ravir !" />
   <link rel="canonical" href="https://dimarket.biz">
 </svelte:head>
@@ -38,8 +38,8 @@
       <a href="/panier">
         <Button size="md" variant="neutral">Voir Mon Panier</Button>
       </a>
-      <a href="/boutiques">
-        <Button size="md" variant="">Les Boutiques</Button>
+      <a href="/collections">
+        <Button size="md" variant="">Les collections</Button>
       </a>
     </div>
     <div class="w-full max-w-full sm:max-w-md mx-auto px-4 sm:px-0 animate-scaleIn" style="animation-delay: 100ms;">

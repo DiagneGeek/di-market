@@ -98,7 +98,7 @@ const share = async (e: Event) => {
   />
 
   <div class="w-full flex items-center justify-between gap-2 m-2 rounded-lg border border-card p-2">
-      <p class="text-gray text-[12px]">Vendue par <a href="/boutiques/{product.Sellers?.id}" class="font-bold underline">{product.Sellers?.name}</a></p>
+      <p class="text-gray text-[12px]">Vendue par <a href="/collections/{product.Sellers?.id}" class="font-bold underline">{product.Sellers?.name}</a></p>
       {#if product.Sellers.plan === "PREMIUM"}
         <span title="Vendeur certifié" class="text-amber-500 font-bold flex items-center gap-1">{@html checkBadge} Certifié</span>
       {/if}

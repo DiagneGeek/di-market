@@ -3,7 +3,7 @@
 	import { fade, fly, slide } from 'svelte/transition';
 
 	let faqs = [
-		{ q: "C'est quoi une Collection ?", a: "Une Collection dans DiMarket, c'est votre propre espace où vous pourrez ajouter vos produits pour pouvoir utiliser les fonctionnalités de DiMarket. Pensez y comme une boutique e-commerce", open: false },
+		{ q: "C'est quoi une Collection ?", a: "Une Collection dans DiMarket, c'est votre propre espace où vous pourrez ajouter vos produits pour pouvoir utiliser les fonctionnalités de DiMarket. Pensez y comme une collection e-commerce", open: false },
 		{ q: "Est-ce que vous proposez un essaie gratuit ?", a: "Oui, vous pouvez créer votre Collection et commencer à recevoir des commandes gratuitement pendant 1 mois. Toutes les fonctionnalités seront disponibles", open: false },
 		{ q: "Est-ce que DiMarket gère la livraison ?", a: "Non. DiMarket s'occupe uniquement de la présentation des produits et de la gestion des commandes. La livraison reste entre vous et votre client.", open: false },
 		{ q: "Mes clients doivent-ils créer un compte pour commander ?", a: "Non. Vos clients peuvent consulter vos produits et passer commande sans créer de compte.", open: false },
@@ -247,7 +247,7 @@
 						<li class="flex items-start"><span class="mr-3 text-slate-400">✓</span><span>Services additionnels</span></li>
 						<li class="flex items-start"><span class="mr-3 text-slate-400">✓</span><span>Support 24/7</span></li>
 					</ul>
-					<a href="https://wa.me/781878234?text=Salut l'équipe DiMarket. J'aimerais créer une boutique chez vous. Peut on en discuter ?">
+					<a href="https://wa.me/781878234?text=Salut l'équipe DiMarket. J'aimerais créer une collection chez vous. Peut on en discuter ?">
 						<Button class="w-full">Nous contacter</Button>
 					</a>
 				</div>

@@ -115,7 +115,7 @@
 {:else}
  <div class="my-8 flex flex-col items-center gap-4">
    <h2 class="text-xl font-bold text-center">Vous êtes entreint de rater les commandes d'aujourd'hui 😩</h2>
-   <p class="text-gray-600 text-center">Vous avez perdu accés au commandes de vos clients. Reactiver votre boutique proffessionnel pour accéder à vos commandes</p>
+   <p class="text-gray-600 text-center">Vous avez perdu accés au commandes de vos clients. Reactiver votre collection proffessionnel pour accéder à vos commandes</p>
    <a href="https://wa.me/781878234?text=Salut, je voudrais recuperer mes avantages sur DiMarket que je vient de perdre !" class="mt-4 inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">
      Recuperer mes commandes
    </a>

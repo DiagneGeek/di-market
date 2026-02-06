@@ -7,7 +7,7 @@ export const load = async ({ params }: {params: any}) => {
          .eq("id", seller_id)
         .single()
 	if (!seller) {
-		throw new Error("Cette boutique n'existe pas !")
+		throw new Error("Cette collection n'existe pas !")
 	}
   const {data, error} = await selectTable("Products")
 	      .eq("seller_id", seller_id)

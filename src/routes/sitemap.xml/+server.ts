@@ -17,7 +17,7 @@ export async function GET() {
         `),
         ...sellers.map(s => `
           <url>
-             <loc>${baseUrl}/boutiques/${s.id}</loc>
+             <loc>${baseUrl}/collections/${s.id}</loc>
              <lastmod>${s.updated_at}</lastmod>
              <changefreq>weekly</changefreq>
           </url>
@@ -28,7 +28,7 @@ export async function GET() {
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
            <url>
              <loc>${baseUrl}</loc>
-             <changefreq>daily</changefreq>
+             <changefreq>weekly</changefreq>
            </url>
 
            <url>
@@ -45,7 +45,7 @@ export async function GET() {
            </url>
 
            <url>
-             <loc>${baseUrl}/boutiques</loc>
+             <loc>${baseUrl}/collections</loc>
              <changefreq>weekly</changefreq>
            </url>
 

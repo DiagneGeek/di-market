@@ -59,9 +59,9 @@
   >
   <p>Aucun produit de votre panier est vendue par ce vendeur</p>
   </div>
-   <a href="/boutiques/{page.params.seller_id}"
+   <a href="/collections/{page.params.seller_id}"
      class="highlight my-4 inline-block">
-      Retourner à la boutique de ce vendeur 
+      Retourner à la collection de ce vendeur 
     </a>
 {:else}
 <section 

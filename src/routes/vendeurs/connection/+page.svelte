@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from "$lib/components/Button.svelte";
 	import Input from "$lib/components/Input.svelte";
-	import Section from "$lib/components/Section.svelte";
+	import Hero from "$lib/components/Hero.svelte";
 
    const {data} : {
     data: {
@@ -12,41 +12,47 @@
 
 <svelte:head>
   <title>Connectez vous à DiMarket</title>
+  <meta name="description" content="Connectez-vous à votre collection DiMarket et gérez vos produits et commandes" />
 </svelte:head>
 
-<Section>
-<h1 class="text-cente w-full ">Connection</h1>
+<Hero>
+  <div class="text-center mb-8 animate-slideInFromLeft" style="animation-delay: 0ms;">
+    <h1 class="italic text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">Bienvenue dans votre collection</h1>
+    <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">Connectez-vous pour gérer vos produits, commandes et développer votre activité</p>
+  </div>
 
-<div class="w-full flex flex-col gap-8 justify-center h-90svh items-center mt-4">
-  <form 
-   method="POST"
-   class="bg-card rounded-lg w-[300px] py-12 flex flex-col items-center gap-4 *:w-[250px]">
-     <Input 
-      minlength="9"
-      maxlength="9"
-      placeholder="Votre numero de telephone..."
-      name="phone"
-      type="tel"
-      label="Numero de Telephone"
-      required
-      />
-    <Input 
-      type="password" 
-      placeholder="Mot de passe"
-      minlength="6"
-      maxlength="20"
-      name="password"
-      label="Mot De Passe"
-      required/>
-      {#if data.submitError !== "null"}
-        <p class="text-red-400">{data.submitError}</p>
-      {/if}
-      <Button class="mt-2">Me connecter</Button>
-  </form>
+  <div class="w-full max-w-md mx-auto px-4 sm:px-0 animate-scaleIn" style="animation-delay: 100ms;">
+    <form 
+     method="POST"
+     class="bg-white rounded-2xl py-8 px-6 sm:px-8 flex flex-col items-center gap-5 shadow-lg border border-gray-100">
+       <Input 
+        minlength="9"
+        maxlength="9"
+        placeholder="Votre numéro de téléphone..."
+        name="phone"
+        type="tel"
+        label="Numéro de Téléphone"
+        class="w-full"
+        required
+        />
+      <Input 
+        type="password" 
+        placeholder="Mot de passe"
+        minlength="6"
+        maxlength="20"
+        name="password"
+        label="Mot de Passe"
+        class="w-full"
+        required/>
+        {#if data.submitError !== "null"}
+          <p class="text-red-500 text-sm font-medium bg-red-50 px-4 py-2 rounded-lg w-full text-center">{data.submitError}</p>
+        {/if}
+        <Button class="w-full mt-4">Me connecter</Button>
+    </form>
 
-  <p class="text-center w-full">
-    Pas encore de compte?
-     <a class="text-secondary highlight italic" href="/vendeurs/inscription">M'inscrire</a>
-  </p>
-</div>
-</Section>
+    <p class="text-center mt-6 text-gray-600">
+      Pas encore de compte?
+       <a class="text-secondary font-semibold hover:underline" href="/vendeurs/inscription">M'inscrire</a>
+    </p>
+  </div>
+</Hero>

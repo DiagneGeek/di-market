@@ -61,7 +61,7 @@ export const actions = {
         trial_ends_at
       }
       if (name.trim().length  < 3) {
-        return fail(400, {error: "Le nom de votre boutiques doit contenir au moins 3 lettres", name, phone, password})
+        return fail(400, {error: "Le nom de votre collections doit contenir au moins 3 lettres", name, phone, password})
       }
       if (password.trim().length  < 6) {
         return fail(400, {error: "Le mot de passe doit contenir au moins 6 charactères",  name, phone, password})

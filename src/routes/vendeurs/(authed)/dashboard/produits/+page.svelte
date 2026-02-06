@@ -21,7 +21,7 @@
     }
 
     const toast = useToast()
-  const message = "Si tu veux créer ta boutique en ligne gratuitement sans commision, clique sur le lien: https://dimarket.biz/vendeurs"
+  const message = "Si tu veux créer ta collection en ligne gratuitement sans commision, clique sur le lien: https://dimarket.biz/vendeurs"
     
   let modalIsOpen = $state(false)
 
@@ -98,8 +98,8 @@
   {@render insight(data.products ? data.products.length.toString() : '0', "produits")}
   <Button onclick={() => modalIsOpen = true}>Ajouter un produit</Button>
 </div>
-<a href="/boutiques/{data.user.id}" class="my-4 flex justify-center items-center">
-  <Button variant="neutral">Voir Ma Boutique</Button>
+<a href="/collections/{data.user.id}" class="my-4 flex justify-center items-center">
+  <Button variant="neutral">Voir Ma Collection</Button>
 </a>
 
 <div class="w-full flex justify-center my-8">

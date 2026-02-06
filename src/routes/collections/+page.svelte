@@ -5,8 +5,8 @@
 </script>
 
 <svelte:head>
-  <title>Decouvrez toutes les boutiques créées avec DiMarket</title>
-  <meta name="description" content="Explorer les boutiques de nos illustres vendeurs" />
+  <title>Decouvrez toutes les collections créées avec DiMarket</title>
+  <meta name="description" content="Explorer les collections de nos illustres vendeurs" />
 </svelte:head>
   
 <Hero>
@@ -15,7 +15,7 @@
       Découvrez Nos Illustres Vendeurs
     </h1>
     <p>
-      Explorez une sélection curatée des meilleures boutiques créées avec DiMarket. Trouvez les produits et services de qualité de nos vendeurs vérifiés.
+      Explorez une sélection curatée des meilleures collections créées avec DiMarket. Trouvez les produits et services de qualité de nos vendeurs vérifiés.
     </p>
   </div>
   <div class="my-2 flex justify-center gap-4">
@@ -96,10 +96,10 @@
           <!-- Action Button -->
           <div class="p-6 pt-0">
             <a 
-              href="/boutiques/{seller.id}"
+              href="/collections/{seller.id}"
               class="w-full highlight block text-center py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
             >
-              Découvrir la boutique →
+              Découvrir la collection →
             </a>
           </div>
         </div>

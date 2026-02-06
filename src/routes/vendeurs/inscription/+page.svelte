@@ -1,61 +1,67 @@
 <script lang="ts">
 	import Button from "$lib/components/Button.svelte";
 	import Input from "$lib/components/Input.svelte";
-	import Section from "$lib/components/Section.svelte";
+	import Hero from "$lib/components/Hero.svelte";
 
    const {data, form} = $props()
 </script>
 
 <svelte:head>
   <title>Page d'inscription pour DiMarket</title>
-  <meta name="description" content="Créez votre boutique en ligne en moins d'une minute avec DiMarket" />
+  <meta name="description" content="Créez votre collection en ligne en moins d'une minute avec DiMarket" />
 </svelte:head>
 
-<Section>
-<h1 class="text-cente w-full ">Incription</h1>
+<Hero>
+  <div class="text-center mb-8 animate-slideInFromLeft" style="animation-delay: 0ms;">
+    <h1 class="italic text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">Créez votre Collection</h1>
+    <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">Rejoignez DiMarket en quelques minutes et commencez à vendre vos produits à des milliers de clients</p>
+  </div>
 
-<div class="w-full flex flex-col gap-4 justify-center h-90svh items-center mt-4">
-  <form 
-   method="POST"
-   class="bg-card rounded-lg w-[300px] py-8 flex flex-col items-center gap-4 *:w-[250px]">
-    <Input 
-      type="text" 
-      minlength="3"
-      placeholder="Le nom de votre boutique..."
-      name="name"
-      label="nom de votre boutique"
-      value={form?.name ?? ""}
-      required
-      />
-     <Input 
-      type="number" 
-      minlength="9"
-      maxlength="9"
-      placeholder="Votre numero de telephone..."
-      name="phone"
-      label="Numero Whatsapp"
-      value={form?.phone ?? ""}
-      required
-      />
-    <Input 
-      type="password" 
-      placeholder="Mot de passe"
-      minlength="6"
-      maxlength="20"
-      name="password"
-      value={form?.password ?? ""}
-      label="Mot de passe"
-      required/>
-       {#if form?.error !== "null"}
-        <p class="text-red-400 text-[12px]">{form?.error}</p>
-      {/if}
-      <Button class="mt-2">Creer ma boutique</Button>
-  </form>
+  <div class="w-full max-w-md mx-auto px-4 sm:px-0 animate-scaleIn" style="animation-delay: 100ms;">
+    <form 
+     method="POST"
+     class="bg-white rounded-2xl py-8 px-6 sm:px-8 flex flex-col items-center gap-5 shadow-lg border border-gray-100">
+      <Input 
+        type="text" 
+        minlength="3"
+        placeholder="Le nom de votre Collection..."
+        name="name"
+        label="Nom de votre Collection"
+        value={form?.name ?? ""}
+        class="w-full"
+        required
+        />
+       <Input 
+        type="number" 
+        minlength="9"
+        maxlength="9"
+        placeholder="Votre numéro de téléphone..."
+        name="phone"
+        label="Numéro WhatsApp"
+        value={form?.phone ?? ""}
+        class="w-full"
+        required
+        />
+      <Input 
+        type="password" 
+        placeholder="Mot de passe"
+        minlength="6"
+        maxlength="20"
+        name="password"
+        value={form?.password ?? ""}
+        label="Mot de passe"
+        class="w-full"
+        required/>
+         {#if form?.error}
+          <p class="text-red-500 text-sm font-medium bg-red-50 px-4 py-2 rounded-lg w-full text-center">{form?.error}</p>
+        {/if}
+        <Button class="w-full mt-4">Créer ma collection</Button>
+    </form>
 
-  <p class="text-center w-full">
-    deja un compte ?
-     <a class="text-secondary highlight italic" href="/vendeurs/connection">Se connecter</a>
-  </p>
-</div>
-</Section>
+    <p class="text-center mt-6 text-gray-600">
+      Vous avez déjà un compte ?
+       <a class="text-secondary font-semibold hover:underline" href="/vendeurs/connection">Se connecter</a>
+    </p>
+  </div>
+</Hero>
 

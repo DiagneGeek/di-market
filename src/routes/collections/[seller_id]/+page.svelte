@@ -10,7 +10,7 @@
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Découvrez la boutique de ${data.seller.name} chez DiMarket` || document.title,
+          title: `Découvrez la collection de ${data.seller.name} chez DiMarket` || document.title,
           url: window.location.href,
         });
       } catch (err) {
@@ -29,7 +29,7 @@
 
 <Hero>
 <h1>
-  Bienvenue dans la boutique de<br>
+  Bienvenue dans la collection<br>
   <span class="highlight italic">
    {data?.seller?.name}
   </span>
@@ -61,6 +61,8 @@
          description={product.description}
          img={product.image}
         />
+        {:else}
+         <p class="text-gray-500">Aucun produit disponible pour cette collection.</p>
     {/each}
   </section>
 
