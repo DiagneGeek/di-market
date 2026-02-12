@@ -18,7 +18,7 @@ import { browser } from '$app/environment';
      if ($page.url.searchParams.has("identified")) {
         const search = $page.url.searchParams
         posthog.identify("seller-"+search.get("phone"), {
-          phone: search.get("phone),
+          phone: search.get("phone"),
           collection: search.get("collection")
 		})
 	 }
