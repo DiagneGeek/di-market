@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Button from "$lib/components/Button.svelte";
 	import { fade, fly, slide } from 'svelte/transition';
+    import posthog from 'posthog-js'
+    import { browser } from '$app/environment';
 
 	let faqs = [
 		{ q: "C'est quoi une Collection ?", a: "Une Collection dans DiMarket, c'est votre propre espace où vous pourrez ajouter vos produits pour pouvoir utiliser les fonctionnalités de DiMarket. Pensez y comme une collection e-commerce", open: false },
@@ -20,6 +22,10 @@
 	function toggle(i: number) {
 		faqs[i].open = !faqs[i].open;
 		faqs = [...faqs];
+	}
+
+    const addEvent = (name: string, détails: object) => {
+      posthog.capture(name, details)
 	}
 </script>
 
@@ -46,8 +52,14 @@
         <span class="text-4xl">Vendez, sans devoir expliquer</span></h1>
 			<p class="mb-10 font-semibold max-w-2xl mx-auto" in:fade={{ delay: 200 }}>DiMarket laisse vos clients comprendre et commander sans devoir y consacrer votre temps si précieux.</p>
 			<div class="flex gap-4 justify-center flex-wrap" in:fade={{ delay: 300 }}>
-				<a href="/vendeurs/inscription"><Button>🚀 Commencer</Button></a>
-				<a href="#how"><Button variant="neutral">📖 Comment ça marche</Button></a>
+				<a href="/vendeurs/inscription">
+                 <Button 
+                   on:click={() => addEvent("cta-click", {
+                      from: "Vendeurs Hero"
+                   })}>🚀 Commencer</Button></a>
+				<a 
+                   on:click={() => addEvent("hero-how-it-works-btn", {})}
+                   href="#how"><Button variant="neutral">📖 Comment ça marche</Button></a>
 			</div>
 			<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto" in:fade={{ delay: 400 }}>
 				<div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-teal-200 hover:shadow-lg transition">
@@ -196,7 +208,13 @@
 						<li class="flex items-start"><span class="mr-3 text-teal-500">✓</span><span>Ajoutez jusqu'à 15 produits</span></li>
 						<li class="flex items-start"><span class="mr-3 text-teal-500">✓</span><span>Partagez sur vos réseaux</span></li>
 					</ul>
-					<a href="/vendeurs/inscription"><Button class="w-full">Commencer</Button></a>
+					<a href="/vendeurs/inscription">
+                    <Button
+                     on:click={() => addEvent("cta-click", {
+                      from: "Vendeurs Pricing Card",
+                      plan: "free"
+                   })}
+                    class="w-full">Commencer</Button></a>
 					<p class="text-sm text-slate-500 mt-4 font-semibold">1 mois gratuit du Premium</p>
 				</div>
 
@@ -227,7 +245,10 @@
 							<li class="flex items-start"><span class="mr-3 text-purple-500">✓</span><span>Promotions & réductions</span></li>
 							<li class="flex items-start"><span class="mr-3 text-purple-500">✓</span><span>Support prioritaire</span></li>
 						</ul>
-						<a href="/vendeurs/inscription"><Button variant="secondary" class="w-full">Essayer 1 mois gratuit</Button></a>
+						<a href="/vendeurs/inscription"><Button on:click={() => addEvent("cta-click", {
+                      from: "Vendeurs Pricing Card",
+plan: "Premium"
+                   })} variant="secondary" class="w-full">Essayer 1 mois gratuit</Button></a>
 					</div>
 				</div>
 
@@ -248,7 +269,10 @@
 						<li class="flex items-start"><span class="mr-3 text-slate-400">✓</span><span>Support 24/7</span></li>
 					</ul>
 					<a href="https://wa.me/781878234?text=Salut l'équipe DiMarket. J'aimerais créer une collection chez vous. Peut on en discuter ?">
-						<Button class="w-full">Nous contacter</Button>
+						<Button on:click={() => addEvent("cta-click", {
+                      from: "Vendeurs Pricing Card",
+                      plan: "Premium"
+                   })} class="w-full">Nous contacter</Button>
 					</a>
 				</div>
 			</div>
@@ -294,7 +318,9 @@
 			 <span class="text-secondary">Devenez le meilleur</span>
 			</h2>
 			<p class="text-slate-200 mb-10">DiMarket n'est pas seulement un outil, c'est la solution à un problème purement Africain qui ralentit votre progression.</p>
-			<a href="/vendeurs/inscription"><Button>🚀 Créer ma Collection!</Button></a>
+			<a href="/vendeurs/inscription"><Button on:click={() => addEvent("cta-click", {
+                      from: "Vendeurs Final CTA"
+                   })}>🚀 Créer ma Collection!</Button></a>
 		</div>
 	</section>
 
