@@ -56,7 +56,7 @@ export const actions = {
       
       if (user.id) {
         cookies.set("session_id", user.id.toString(), {path: "/"})
-         redirect(301, "/vendeurs/dashboard")
+         redirect(301, `/vendeurs/dashboard?identified=true&collection=${user.name}&phone=${user.phone}`)
       }
     }
 } satisfies Actions;
