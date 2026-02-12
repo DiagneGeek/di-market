@@ -8,7 +8,7 @@ export const load = async () => {
         {
             api_host: 'https://us.i.posthog.com',
             defaults: '2025-11-30',
-            person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+            person_profiles: 'always', // or 'always' to create profiles for anonymous users as well
         }
       )
    }
