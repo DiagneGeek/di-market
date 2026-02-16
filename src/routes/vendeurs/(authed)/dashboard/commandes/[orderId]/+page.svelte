@@ -36,7 +36,7 @@
   const statuses = [
     "En attente",
     "Confirmée",
-    "Expédiée",
+    "En cours",
     "Livrée",
     "Annulée"
   ]
@@ -44,7 +44,7 @@
   const statusColors: Record<string, string> = {
     "En attente": "bg-yellow-100 text-yellow-800",
     "Confirmée": "bg-green-100 text-green-800",
-    "Expédiée": "bg-blue-100 text-blue-800",
+    "En cours": "bg-blue-100 text-blue-800",
     "Livrée": "bg-emerald-100 text-emerald-800",
     "Annulée": "bg-red-100 text-red-800"
   }
@@ -60,13 +60,12 @@
   }
 
   const formatPrice = (price: string) => {
-    const numPrice = parseInt(price.replace(/\./g, ''))
-    return numPrice.toLocaleString('fr-FR')
+    return parseInt(price.replace(/\./g, "")).toLocaleString("fr-FR")
   }
 
   const calculateTotal = () => {
     return (order.Order_Items || []).reduce((sum: number, item: any) => {
-      const price = parseInt(item.product?.price?.replace(/\./g, '') || '0') * item.quantity 
+      const price = item.price_at_the_time || 0
       return sum + price
     }, 0)
   }
@@ -254,7 +253,10 @@
                   <p class="text-sm text-gray-600 mt-1">Article #{item.product_id}</p>
                 </div>
                 <div class="flex flex-col md:flex-row items-center justify-between">
-                  <p class="text-primary font-bold text-lg">{formatPrice(item.product?.price || '0')} FCFA</p>
+                  <p class="text-primary font-bold text-lg">
+                    {formatPrice((item.price_at_the_time / item.quantity).toString() || '0')} FCFA 
+                    <span class="text-xs text-gray">{item.price_at_the_time < item.product.price * item.quantity ? "(reduction)" : ""}</span>
+                  </p>
                   <br>
                   <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">Quantité: {item.quantity}</span>
                 </div>

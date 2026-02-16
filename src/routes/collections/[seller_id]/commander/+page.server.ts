@@ -70,7 +70,6 @@ export const actions = {
       seller_id,
       buyer_id: buyer.id
     }
-    console.log("order", order)
     const {data: orderData, error} = await insertIn("Orders", order).select().single()
     if (error) {
       console.error("Error inserting order:", error)
@@ -84,6 +83,9 @@ export const actions = {
 
     const {error: itemsError} = await insertIn("Order_Items", items.map((item: any) => ({
       product_id: item.product.id,
+      price_at_the_time: item.product.discount ? 
+          (item.product.discount_type === "percentage" ? (Number(item.product.price) - (Number(item.product.price) * item.product.discount / 100)) * item.quantity : (Number(item.product.price) - item.product.discount) * item.quantity) :
+          (Number(item.product.price) * item.quantity),
       quantity: item.quantity,
       order_id: id
     })))

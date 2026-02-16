@@ -7,6 +7,8 @@
     import {productCatagories} from "./categories"
 	import type { Article } from '$lib/types';
 	import type { PageProps } from './$types';
+  import { browser } from '$app/environment';
+
     import { page } from "$app/stores"
 	import { invalidateAll } from '$app/navigation';
   import { useToast } from "$lib/composables/useToast"
@@ -16,7 +18,7 @@
   let hasFile = $state(false)
   let descriptionLength = $state(0)
 
-    if ($page.url.searchParams.get("reload")){
+    if ($page.url.searchParams.get("reload") && browser){
       invalidateAll()
     }
 

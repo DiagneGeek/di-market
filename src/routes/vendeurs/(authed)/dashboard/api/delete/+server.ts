@@ -5,8 +5,7 @@ import { error, json, redirect } from "@sveltejs/kit"
 
 export const DELETE: RequestHandler = async ({request}) => {
     const form = await request.formData()
-    const id = form.get("productId") as string
-
+    const id = parseInt(form.get("productId") as string)
     const {data: product} : {
         data: any
     } = await selectTable("Products", "*")
@@ -17,8 +16,9 @@ export const DELETE: RequestHandler = async ({request}) => {
     }
     
      await removeRow("Events", ["product_id", id])
+     await removeRow("Order_Items", ["product_id", id])
      const {error: err} = await removeRow("Products", ["id", id])
-    
+     console.log(err)
  
     const {data: file, error: errWhenDelete} = await removeFile(
         "product-images",
