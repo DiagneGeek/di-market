@@ -43,7 +43,9 @@ export interface OrderItem {
   id?: number,
   order_id: number | string,
   product_id: number | string,
-  created_at?: any
+  created_at?: any,
+  quantity?: number,
+  price_at_the_time?: number | string
 }
 
 export interface Order {

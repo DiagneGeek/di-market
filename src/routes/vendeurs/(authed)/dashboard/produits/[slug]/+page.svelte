@@ -41,8 +41,46 @@
       .map(([hour, count]) => ({ hour: parseInt(hour), count }))
   })
 
-  // Estimated revenue (price * cart adds, assuming each add leads to sale)
-  const estimatedRevenue = $derived(parseInt(data.product.price.replace(".", "")) * analytics.addToCart.length)
+  // Calculate price after discount
+  const getDiscountedPrice = $derived.by(() => {
+    const basePrice = parseInt(data.product.price.replace(".", ""))
+    if (!data.product.discount) return basePrice
+    
+    if (data.product.discount_type === "percentage") {
+      return Math.round(basePrice * (1 - data.product.discount / 100))
+    } else {
+      return Math.max(0, basePrice - data.product.discount)
+    }
+  })
+
+  // Calculate total quantity from orders
+  const totalQuantityOrdered = $derived(analytics.orders.reduce((sum: number, order: any) => {
+    const orderQuantity = (order.Order_Items || []).reduce((itemSum: number, item: any) => {
+      return itemSum + (item.quantity || 1)
+    }, 0)
+    return sum + orderQuantity
+  }, 0))
+
+  // Actual revenue from confirmed orders (considering quantities and actual prices)
+  const actualRevenue = $derived(analytics.orders.reduce((sum: number, order: any) => {
+    const orderRevenue = (order.Order_Items || []).reduce((itemSum: number, item: any) => {
+      return itemSum + (item.price_at_the_time || 0)
+    }, 0)
+    return sum + orderRevenue
+  }, 0))
+
+  // Average order value
+  const averageOrderValue = $derived(analytics.ordersCount > 0 ? Math.round(actualRevenue / analytics.ordersCount) : 0)
+
+  // Estimated revenue based on cart additions and conversion quality
+  const conversionQuality = $derived(totalQuantityOrdered > 0 && analytics.addToCart.length > 0
+    ? (totalQuantityOrdered / analytics.addToCart.length)
+    : 0.5) // Default 50% conversion rate if no orders yet
+
+  const estimatedRevenue = $derived(Math.round(getDiscountedPrice * analytics.addToCart.length * conversionQuality))
+
+  // Potential revenue if all cart items convert (assuming 1 quantity per cart add by default)
+  const potentialRevenue = $derived(getDiscountedPrice * analytics.addToCart.length)
 
   // Suggestions
   const suggestions = $derived(() => {
@@ -93,12 +131,28 @@
       })
     }
 
-    if (estimatedRevenue < 10000) {
+    if (actualRevenue === 0 && analytics.addToCart.length > 0) {
       suggestions.push({
-        title: "Revenus estimés faibles",
-        description: "Basé sur vos ajouts au panier, vos revenus estimés sont inférieurs à 10 000 FCFA pour cette période. Envisagez de réduire le prix, d'offrir des promotions ou d'augmenter la visibilité du produit.",
-        action: { text: "Ajuster le prix", href: `/vendeurs/dashboard/produits/${data.product.slug}` },
+        title: "Pas de commandes confirmées",
+        description: `Vous avez ${analytics.addToCart.length} ajouts au panier mais aucune commande confirmée. Cela indique un problème dans le processus de paiement ou une barrière à la conversion. Vérifiez que le processus de commande est fluide et offrez des moyens de paiement variés.`,
+        action: { text: "Modifier le produit", href: `/vendeurs/dashboard/produits/${data.product.slug}` },
         type: "urgent"
+      })
+    } else if (actualRevenue > 0 && totalQuantityOrdered > 0) {
+      if (averageOrderValue < 5000) {
+        suggestions.push({
+          title: "Panier moyen faible",
+          description: `Votre panier moyen est de ${format(averageOrderValue)} FCFA avec le client achetant en moyenne ${(totalQuantityOrdered / analytics.ordersCount).toFixed(1)} unités. Encouragez les achats groupés avec des réductions ou des offres bundle.`,
+          action: { text: "Faire une réduction", href: `/vendeurs/dashboard/produits/reduction/?product_id=${data.product.id}` },
+          type: "normal"
+        })
+      }
+    } else if (actualRevenue < 10000 && analytics.ordersCount === 0) {
+      suggestions.push({
+        title: "Aucune vente encore",
+        description: "Votre produit n'a pas encore généré de ventes. Améliorez les photos, optimisez la description, et augmentez la visibilité avec le partage social et les promotions.",
+        action: { text: "Faire une réduction", href: `/vendeurs/dashboard/produits/reduction/?product_id=${data.product.id}` },
+        type: "normal"
       })
     }
 
@@ -201,9 +255,18 @@
 
     <div class="bg-card p-4 rounded-lg">
       <h3>Revenus estimés</h3>
-      <p class="text-2xl font-bold">{format(estimatedRevenue)} FCFA</p>
-      <p class="text-sm text-gray-500">Basé sur {analytics.addToCart.length} ajouts au panier × {data.product.price} FCFA</p>
+      <p class="text-2xl font-bold">{format(actualRevenue)} FCFA</p>
+      <p class="text-sm text-gray-500">{analytics.ordersCount} commande(s) × {totalQuantityOrdered} unité(s) vendue(s)</p>
+      {#if analytics.ordersCount && averageOrderValue}
+        <p class="text-xs text-gray-400 mt-2">Panier moyen: {format(averageOrderValue)} FCFA</p>
+      {/if}
+      {#if data.product.discount}
+        <p class="text-xs text-primary mt-2">
+          Réduction active: {data.product.discount_type === 'percentage' ? `${data.product.discount}%` : `${data.product.discount} FCFA`}
+        </p>
+      {/if}
     </div>
+  
 
     <OrderCard title="Commandes" ordersCount={analytics.ordersCount} previousOrdersCount={analytics.previousOrdersCount} period={period} orders={analytics.orders} />
   </section>
