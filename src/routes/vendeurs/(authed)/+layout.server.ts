@@ -14,14 +14,17 @@ interface Data {
 export const load = async ({cookies}: {cookies: any}) => {
   const {user, error} = await getUser(cookies)
 
-  if (error || user === null) {
+  if (error) {
     return throwError(500, "Une erreur c'est produite lors de l'access a votre tableau de bord")
   }
-  const isPremium = await _isPremium(user)
 
   if (!user) {
     redirect(307, "/vendeurs/connection")
   }
+  const isPremium = await _isPremium(user)
+
+  delete user.password
+  delete user.created_at
 
   const {data: events} : {
     data: Event[] | any

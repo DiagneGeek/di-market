@@ -6,6 +6,23 @@ import {isPremium} from "$lib/server/getUser"
 import { error, json } from "@sveltejs/kit"
 import type { RequestHandler } from './$types'
 
+function slugify(title: string) {
+    return title
+        .normalize("NFD")                   // separate accents
+        .replace(/[\u0300-\u036f]/g, "")    // remove accents
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, "")       // remove special chars
+        .trim()
+        .replace(/\s+/g, "-")               // spaces → -
+        .replace(/-+/g, "-");               // avoid multiple -
+   }
+
+function generateImageName(title: string) {
+    const slug = slugify(title);
+    const unique = crypto.randomUUID(); // or your product ID
+    return `${slug}-${unique}`;
+}
+
 export const POST: RequestHandler = async ({request}) => {
         const form = await request.formData()
         const image: any = form.get("image")
@@ -21,7 +38,8 @@ export const POST: RequestHandler = async ({request}) => {
         } = Object.fromEntries(form)
          user = JSON.parse(user as string)
          products = JSON.parse(products as string) as Article[]
-        console.log(products)
+        
+        data.seller_id = user.id
 
         if (typeof user === "string" || data === null) error(403, "Erreur interne")
 
@@ -33,10 +51,9 @@ export const POST: RequestHandler = async ({request}) => {
             error(403, "Limites atteintes pour les vendeurs non premium")
            }
 
-        const slug = data?.title?.toLowerCase()
-                .replace(/\s+/g, "-") + Date.now()
+        const slug = slugify(data.title) + Date.now()
 
-        const imageName = `${data.seller_id}-${slug}-${image.name}`
+        const imageName = generateImageName(data.title)
 
         const {data: imageUploadData, error: errWhenUpload} = await uploadImage("product-images", imageName, image)
         if (errWhenUpload) {

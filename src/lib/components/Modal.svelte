@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Button from "./Button.svelte";
 
-  const {children, open, close, onSubmit} = $props()
-  let btnText = $state("Continuer")
+  const {children, open, close, onSubmit, btnLabel = "Continuer"} = $props()
+  let btnText = $state(btnLabel)
 
   const close2 = (e: Event) => {
     if (e.currentTarget === e.target) {
@@ -37,7 +37,7 @@
               variant="neutral" 
               type="button">Annuler</Button>
             <Button 
-              variant="secondary" 
+              variant="sober" 
               type="submit"
               label={btnText}
             />

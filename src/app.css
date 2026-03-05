@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
 
 /* Theme variables (used instead of a nonstandard @theme at-rule) */
 @theme {
@@ -20,7 +20,7 @@
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
 
   --font-sans: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  --font-heading: "Lato", var(--font-sans);
+  --font-heading: "Fraunces", var(--font-sans);
 }
 
 /* Base / reset + sensible defaults */
@@ -57,13 +57,15 @@ h2, h3, h4 {
 
 h2 {
   font-weight: 500;
+    font-family: var(--font-heading);
 }
 
 
   h1 {
      font-weight: 700;
      font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-     font-family: "Lora", "Lato", system-ui;
+       font-family: var(--font-heading);
+
   }
 
   h2 {
@@ -106,7 +108,6 @@ h2 {
   input:focus,
   textarea:focus {
      outline: none;
-     border-color: var(--color-primary);
      /* subtle focus ring using color-mix where available */
      box-shadow: 0 0 0 6px color-mix(in oklch, var(--color-primary) 12%, transparent);
   }

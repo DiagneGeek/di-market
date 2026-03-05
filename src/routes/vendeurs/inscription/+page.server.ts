@@ -76,7 +76,7 @@ export const actions = {
       }
       cookies.set("session_id", user[0].id.toString(), {path: "/"})
       if(!error) {
-        redirect(301, `/vendeurs/dashboard?identified=true&collection=${user.name}&phone=${user.phone}`)
+        redirect(301, `/vendeurs/dashboard?identified=true&collection=${user[0].name}&phone=${user[0].phone}`)
       }
       return {error, ...row}
     }

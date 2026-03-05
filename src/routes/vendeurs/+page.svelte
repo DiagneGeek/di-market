@@ -24,7 +24,7 @@
 		faqs = [...faqs];
 	}
 
-    const addEvent = (name: string, détails: object) => {
+    const addEvent = (name: string, details: object) => {
       posthog.capture(name, details)
 	}
 </script>
@@ -36,6 +36,12 @@
 	<meta name="og:image" content="https://dimarket.biz/landing/landing-og.jpg">
 </svelte:head>
 
+{#snippet heroInfos(big: string,  small: string)}
+ <div class="flex flex-col items-center gap-1">
+	<span class="text-3xl font-[900] text-dark">{big}</span>
+	<span class="text-sm text-slate-500">{small}</span>
+ </div>
+{/snippet}
 
 	<!-- HERO -->
 	<section class="relative overflow-hidden pb-32 pt-24 px-4 bg-gradient-to-b from-teal-50 via-blue-50 to-purple-50" in:fly={{ y: 20, duration: 400 }}>
@@ -46,11 +52,11 @@
 		
 		<div class="relative max-w-4xl mx-auto text-center">
 			<div class="inline-block mb-6 px-4 py-2 bg-gradient-to-r from-teal-100 to-blue-100 rounded-full border border-teal-300">
-				<span class="text-sm font-semibold text-teal-900">✨ La solution pour vos ventes</span>
+				<span class="text-sm text-teamax-w-2xl">Pour les vendeurs d'Afrique</span>
 			</div>
-			<h1 in:fade={{ delay: 100 }}>
-        <span class="text-4xl">Vendez, sans devoir expliquer</span></h1>
-			<p class="mb-10 font-semibold max-w-2xl mx-auto" in:fade={{ delay: 200 }}>DiMarket laisse vos clients comprendre et commander sans devoir y consacrer votre temps si précieux.</p>
+			<h1 class="w-full" in:fade={{ delay: 100 }}>
+        <span class="text-4xl mx-auto font-medium inline-block leading-snug text-left font-bold text-slate-900">Vendez <span class="text-red-600">sans</span> devoir <span class="text-red-400">expliquer.</span><br><span class="text-teal-500">DiMarket</span> s'occupe de tout</span></h1>
+			<p class="mb-10 font-semibold max-w-2xl mx-auto" in:fade={{ delay: 200 }}>Ne perdez plus des  heures à repondre aux messages WhatsApp. DiMarket fait comprendre vos produits aux curieux sans la moindre intervention de votre part</p>
 			<div class="flex gap-4 justify-center flex-wrap" in:fade={{ delay: 300 }}>
 				<a href="/vendeurs/inscription">
                  <Button 
@@ -61,22 +67,14 @@
                    on:click={() => addEvent("hero-how-it-works-btn", {})}
                    href="#how"><Button variant="neutral">📖 Comment ça marche</Button></a>
 			</div>
-			<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto" in:fade={{ delay: 400 }}>
-				<div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-teal-200 hover:shadow-lg transition">
-					<div class="text-3xl mb-2">⚡</div>
-					<h3 class="font-bold text-slate-900">Rapide</h3>
-					<p class="text-sm text-slate-600">Commencez en 5 min</p>
-				</div>
-				<div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-purple-200 hover:shadow-lg transition">
-					<div class="text-3xl mb-2">🎯</div>
-					<h3 class="font-bold text-slate-900">Efficace</h3>
-					<p class="text-sm text-slate-600">Réduisez vos efforts</p>
-				</div>
-				<div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-pink-200 hover:shadow-lg transition">
-					<div class="text-3xl mb-2">💰</div>
-					<h3 class="font-bold text-slate-900">Gratuit</h3>
-					<p class="text-sm text-slate-600">1 mois d'essai</p>
-				</div>
+			<div class="mt-16 bg-primary mx-[-16px] p-4 text-dark md:rounded-xl flex gap-4 flex-wrap justify-center" in:fade={{ delay: 400 }}>
+			  {#each [
+				{ big: "2x", small: "Moins de temps à consacrer à vendre" },
+				{ big: "8x", small: "Moins de messages à traiter" },
+				{ big: "4x", small: "Moins de stress" }
+			  ] as info}
+				{@render heroInfos(info.big, info.small)}
+			  {/each}
 			</div>
 		</div>
 	</section>

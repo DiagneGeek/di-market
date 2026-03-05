@@ -53,6 +53,8 @@ export const actions = {
       if (!user) {
         redirect(301, "/vendeurs/connection/?error=Numero de telephone ou mot de passe incorrect")
       }
+
+      console.log(user)
       
       if (user.id) {
         cookies.set("session_id", user.id.toString(), {path: "/"})

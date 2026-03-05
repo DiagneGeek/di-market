@@ -207,20 +207,20 @@
       </a>
 
       <a href="/vendeurs/dashboard/produits/reduction/?product_id={data.product.id}">
-        <Button>Faire une reduction</Button>
+        <Button class="bg-blue-400" variant="neutral">Faire une reduction</Button>
       </a>
+
+      <a class="w-full max-w-md md:w-auto" href="/products/{data.product.slug}">
+          <Button class="w-full max-w-md" variant="sober">Voir le produit</Button>
+       </a>
 
       <Button 
         onclick={share}
-        class="w-full"
-        variant="secondary">Partager</Button>
+        class="bg-secondary"
+        variant="neutral">Partager</Button>
       <Button
          onclick={() => deleteModalIsOpen = true}
          variant="danger">Supprimer</Button>
-
-      <a href="/products/{data.product.slug}">
-        <Button>Voir le produit</Button>
-      </a>
     </div>
  </section>
 
@@ -311,6 +311,7 @@
   open={deleteModalIsOpen} 
   close={() => deleteModalIsOpen = false}
   onSubmit={deleteProduct}
+  btnLabel="Supprimer"
   >
-  <p>Êtes vous sure de vouloir supprimer "<span class="font-bold">{data.product.title}</span>"</p>
+  <p>Êtes vous sure de vouloir supprimer "<span class="font-bold">{data.product.title}</span>" ? Vous perdrez toutes les informations associés</p>
 </Modal>
