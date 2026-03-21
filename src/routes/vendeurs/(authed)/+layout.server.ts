@@ -1,5 +1,6 @@
 import { getUser, isPremium as _isPremium} from "$lib/server/getUser"
 import { selectTable } from "$lib/server/supabase"
+import { isSetupComplete } from "$lib/server/setupCheck"
 import { error, redirect } from "@sveltejs/kit"
 import type { Article, Event } from "$lib/types/index.js"
 import type { PostgrestError } from "@supabase/supabase-js"
@@ -11,7 +12,7 @@ interface Data {
   error: PostgrestError | null
 }
 
-export const load = async ({cookies}: {cookies: any}) => {
+export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
   const {user, error} = await getUser(cookies)
 
   if (error) {
@@ -21,6 +22,7 @@ export const load = async ({cookies}: {cookies: any}) => {
   if (!user) {
     redirect(307, "/vendeurs/connection")
   }
+  
   const isPremium = await _isPremium(user)
 
   delete user.password
@@ -47,12 +49,17 @@ export const load = async ({cookies}: {cookies: any}) => {
   if (ordersError) {
     return throwError(500, "Une erreur c'est produite lors du chargement des commandes")
   }
-  /*const {data: orderItems, error: orderItemsError} = await selectTable("Order_Items")
-      .eq("seller_id", user.id)
 
-  if (orderItemsError) {
-    return throwError(500, "Une erreur c'est produite lors du chargement des items de commande")
+  // Check if setup is complete (>= 5 products)
+  const setupComplete = await isSetupComplete(user, products)
+  
+  // Redirect to setup if not complete and not already on setup/add pages
+  const isOnSetupPage = url.pathname.includes('/commencer') || (url.pathname.includes('/produits/ajouter') && url.searchParams.get('setup') === 'true')
+  const isOnProfile = url.pathname.includes('/profile')
+  
+  if (!setupComplete && !isOnSetupPage && !isOnProfile && url.pathname.includes('/dashboard')) {
+    redirect(307, '/vendeurs/dashboard/commencer')
   }
-*/
-  return {user, products, isPremium, events, orders}
+  
+  return {user, products, isPremium, events, orders, setupComplete}
 }

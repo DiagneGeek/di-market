@@ -9,7 +9,7 @@
        class="w-20 sm:w-24"
        src={logo} alt="DiMarket">
      </a>
-	 <nav class="flex items-center gap-1 md:gap-2 justify-end">
+	 <nav class="flex items-center gap-2 text-xs md:gap-2 justify-end">
 		{@render children()}
 	 </nav>
 </header>

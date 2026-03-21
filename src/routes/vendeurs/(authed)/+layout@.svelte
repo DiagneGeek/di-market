@@ -40,7 +40,7 @@ import { browser } from '$app/environment';
 <div>
 <NavBar>
   <a target="_blank" href="https://wa.me?text={message}">
-    <Button size="sm" variant="neutral">Partager</Button>
+    <Button size="sm" variant="neutral">Affliation</Button>
   </a>
   <a href="/vendeurs/profile">
     <Button variant="neutral" size="sm">
@@ -55,7 +55,7 @@ import { browser } from '$app/environment';
 {#if !$page.url.pathname.startsWith("/vendeurs/profile")}
 <nav 
   class="flex w-full flex-wrap gap-4 justify-center my-8 border-b border-slate-200 p-2 mx-2 text-xs *:transition-all *:duration-200">
-  <a href="/vendeurs/dashboard" class={tabIs("") ? activeStyle : ""}>Vue d'ensemble</a>
+  <a href="/vendeurs/dashboard" class={tabIs("") ? activeStyle : ""}>Accueil</a>
   <a href="/vendeurs/dashboard/produits" class={tabIs("produits") ? activeStyle : ""}>Produits</a>
   <a href="/vendeurs/dashboard/commandes" class={tabIs("commandes") ? activeStyle : ""}>Commandes</a>
   <a href="/vendeurs/dashboard/suggestions" class={tabIs("suggestions") ? activeStyle : ""}>Suggestions</a>

@@ -4,8 +4,9 @@
     import TopProductsCard from "$lib/components/TopProductsCard.svelte"
     import OrderCard from "$lib/components/OrderCard.svelte"
     import OrdersTable from "$lib/components/OrdersTable.svelte"
+    import ShareCollectionCard from "$lib/components/ShareCollectionCard.svelte"
     import { useAnalytics } from "$lib/composables/useAnalytics.svelte"
-	import { useToast } from "$lib/composables/useToast.js";
+import { useToast } from "$lib/composables/useToast.js";
 
     const {data} = $props()
 
@@ -14,12 +15,20 @@
     const analytics = $derived(useAnalytics(data.events, data.products, period, (data.orders || []) as any))
 </script>
 
-<h1>Vue d'ensemble</h1>
-
+<h1>Accueil</h1>
 {#if data.isPremium}
   <h2>Bienvenue dans votre tableau de bord !</h2>
+  
+  <div class="my-6">
+    <ShareCollectionCard 
+      sellerId={data.user.id}
+      sellerName={data.user.name}
+      productCount={data.products?.length || 0}
+      compact={true}
+    />
+  </div>
 
-  <div class="bg-card p-4 rounded-lg">
+  <div class="bg-card p-4 rounded-lg my-4">
     <label for="period-select">Periode</label>
     <select 
        id="period-select"
@@ -51,16 +60,13 @@
     </section>
   {/if}
 {:else}
-   <p class="text-primary">
-    Fonctionnalité Premium
-   </p>
 <div 
     class="w-full h-[50svh] flex flex-col justify-center items-center gap-4"
   >
-    <h2 class="text-xl text-center font-bold">Ne perdez pas votre votre devance !</h2>
-    <h2 class="text-center">Votre Accés a été révoqué, recuperez le pour continuer à voir plus claire sur vos produit et gagner du temps</h2>
-    <a href="https://wa.me/781878234?text=Salut, je voudrais recupérer mes avantages sur DiMarket que je vient de perdre !">
-      <Button label="Recuperer mes avantages" />
+    <h2 class="text-xl text-center font-bold">Votre essai est terminé !</h2>
+    <h2 class="text-center">Ça fait déjà 1 mois que vous avez decider de changer votre manière de vendre 🥳<br> Voulez vous continuer à utiliser notre service ?</h2>
+    <a href="https://wa.me/781878234?text=Salut, je viens de terminer mon essaie gratuit ! On peut en discuter ?">
+      <Button label="Je continue" />
     </a>
   </div>
 {/if}

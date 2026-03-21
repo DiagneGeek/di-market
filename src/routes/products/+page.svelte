@@ -1,7 +1,7 @@
 <script lang="ts">
-	import ArticleCard from "$lib/components/ArticleCard.svelte";
-	import Button from "$lib/components/Button.svelte";
-	import Hero from "$lib/components/Hero.svelte";
+        import ArticleCard from "$lib/components/ArticleCard.svelte";
+        import Button from "$lib/components/Button.svelte";
+        import Hero from "$lib/components/Hero.svelte";
   import Input from "$lib/components/Input.svelte"
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
@@ -9,7 +9,7 @@
 
 
   const {data} = $props()
- const products: Article[] | any = data?.data?.sort((a: Article, b: Article) => parseInt(new Date(b.created_at).getTime().toString()) - parseInt(new Date(a.created_at).getTime().toString()));
+ const products: Article[] | any = data?.products?.sort((a: Article, b: Article) => parseInt(new Date(b.created_at).getTime().toString()) - parseInt(new Date(a.created_at).getTime().toString()));
 
    let isGoing = $state(false)
 
@@ -23,8 +23,8 @@
 </script>
 
 <svelte:head>
-	<title>DiMarket - La plateforme qui reunis vos collections preferees</title>
-	<meta name="description" content="DiMarket est un marketplace Africain qui regroupe divers produits de qualités qui vont vous ravir !" />
+        <title>DiMarket - La plateforme qui reunis vos collections preferees</title>
+        <meta name="description" content="DiMarket est un marketplace Africain qui regroupe divers produits de qualités qui vont vous ravir !" />
 </svelte:head>
 
 <div>
@@ -74,5 +74,19 @@
         <p class="text-sm text-gray-400 mt-2">Essayez de modifier votre recherche</p>
       </div>
     {/each}
+  </section>
+
+  <!-- Call to action for sellers -->
+  <section class="my-16 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8 sm:p-12 text-center max-w-4xl mx-auto">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-3">🏪 Vendez Votre Collection</h2>
+    <p class="text-gray-600 mb-8 text-lg">Rejoignez des centaines de vendeurs qui partagent leurs produits sénégalais sur DiMarket. C'est gratuit et facile !</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/vendeurs/inscription">
+        <Button size="md" variant="primary">Créer Ma Collection</Button>
+      </a>
+      <a href="/collections">
+        <Button size="md" variant="neutral">Découvrir les Collections</Button>
+      </a>
+    </div>
   </section>
 </div>

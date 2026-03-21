@@ -1,62 +1,96 @@
-import {getArticles } from "$lib/server/articles"
-import {selectTable} from "$lib/server/supabase"
+import { getArticles } from "$lib/server/articles"
+import { selectTable } from "$lib/server/supabase"
+import { getPosts } from '$lib/composables/getPosts'
+import { getGuides } from '$lib/composables/getGuides'
+import { getTutorials } from '$lib/composables/getTutorials'
 
 export async function GET() {
-      const baseUrl = 'https://dimarket.biz'
+  const baseUrl = 'https://dimarket.biz'
 
-        // Fetch data from your DB or API
-     const {data: products} = await getArticles()
-     const {data: sellers, error} = await selectTable("Sellers", "*")
+  // Fetch data with null safety
+  const { data: products = [] } = await getArticles()
+  const { data: sellers = [] } = await selectTable("Sellers", "*")
+  const posts = getPosts() || []
+  const guides = getGuides() || []
+  const tutorials = getTutorials() || []
 
-    const urls = [
-        ...products.map(p => `
-             <url>
-                <loc>${baseUrl}/products/${p.slug}</loc>
-                <lastmod>${p.updated_at}</lastmod>
-            </url>
-        `),
-        ...sellers.map(s => `
-          <url>
-             <loc>${baseUrl}/collections/${s.id}</loc>
-             <lastmod>${s.updated_at}</lastmod>
-             <changefreq>weekly</changefreq>
-          </url>
-         `)
-    ].join('')
+  // Static pages
+  const staticPages = [
+    "/",
+    "/vendeurs",
+    "/vendeurs/connection",
+    "/vendeurs/inscription",
+    "/collections",
+    "/products",
+    "/partenaires",
+    "/ressources"
+  ]
 
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-           <url>
-             <loc>${baseUrl}</loc>
-             <changefreq>weekly</changefreq>
-           </url>
+  // Generate URL entries
+  const urls = [
+    // Static pages
+    ...staticPages.map(path => `
+      <url>
+        <loc>${baseUrl}${path}</loc>
+        <changefreq>weekly</changefreq>
+      </url>
+    `),
+    
+    // Products
+    ...(products?.length ? products.map((p: any) => `
+      <url>
+        <loc>${baseUrl}/products/${p.slug}</loc>
+        <lastmod>${p.updated_at}</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    `) : []),
+    
+    // Collections (seller pages)
+    ...(sellers?.length ? sellers.map((s: any) => `
+      <url>
+        <loc>${baseUrl}/collections/${s.id}</loc>
+        <lastmod>${s.updated_at}</lastmod>
+        <changefreq>weekly</changefreq>
+      </url>
+    `) : []),
+    
+    // Blog posts
+    ...(posts?.length ? posts.map((p: any) => `
+      <url>
+        <loc>${baseUrl}/ressources/blog/${p.slug}</loc>
+        <lastmod>${p.updated_at || p.date}</lastmod>
+        <changefreq>monthly</changefreq>
+      </url>
+    `) : []),
+    
+    // Guides
+    ...(guides?.length ? guides.map((g: any) => `
+      <url>
+        <loc>${baseUrl}/ressources/guides/${g.slug}</loc>
+        <lastmod>${g.updated_at || g.date}</lastmod>
+        <changefreq>monthly</changefreq>
+      </url>
+    `) : []),
+    
+    // Tutorials
+    ...(tutorials?.length ? tutorials.map((t: any) => `
+      <url>
+        <loc>${baseUrl}/ressources/tutoriels/${t.slug}</loc>
+        <lastmod>${t.updated_at || t.date}</lastmod>
+        <changefreq>monthly</changefreq>
+      </url>
+    `) : [])
+  ].join('')
 
-           <url>
-             <loc>${baseUrl}/vendeurs</loc>
-             <lastmod>2025-12-16</lastmod>
-           </url>
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      ${urls}
+    </urlset>
+  `
 
-           <url>
-            <loc>${baseUrl}/vendeurs/connection</loc>
-           </url>
-
-           <url>
-            <loc>${baseUrl}/vendeurs/inscription</loc>
-           </url>
-
-           <url>
-             <loc>${baseUrl}/collections</loc>
-             <changefreq>weekly</changefreq>
-           </url>
-
-           
-           ${urls}
-        </urlset>
-    `
-
-     return new Response(sitemap, {
-          headers: {
-            'Content-Type': 'application/xml'
-         }
-    })
- }
+  return new Response(sitemap, {
+    headers: {
+      'Content-Type': 'application/xml'
+    }
+  })
+}

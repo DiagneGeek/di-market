@@ -1,5 +1,6 @@
 <script lang="ts">
   import SuggestionCard from "$lib/components/SuggestionCard.svelte";
+  import ShareCollectionCard from "$lib/components/ShareCollectionCard.svelte";
   import Button from "$lib/components/Button.svelte";
 
   const { data } = $props();
@@ -66,12 +67,17 @@
     {/each}
   {/if}
 
-
-
   {#if data.isPremium && (!data.suggestions || data.suggestions.length === 0) && (!data.productSuggestions || data.productSuggestions.length === 0)}
-    <div class="text-center py-12">
+    <div class="text-center py-12 mb-12">
       <h2 class="text-xl font-semibold mb-4">Félicitations !</h2>
-      <p class="text-gray-600">Votre collection est en excellente forme. Continuez comme ça !</p>
+      <p class="text-gray-600 mb-8">Votre collection est en excellente forme. Continuez comme ça !</p>
+      <div class="max-w-2xl mx-auto">
+        <ShareCollectionCard 
+          sellerId={data.user?.id}
+          sellerName={data.user?.name}
+          productCount={data.products?.length || 0}
+        />
+      </div>
     </div>
   {/if}
 

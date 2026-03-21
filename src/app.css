@@ -1,7 +1,6 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Roboto+Slab:wght@100..900&display=swap');
+@import "tailwindcss";
 
 /* Theme variables (used instead of a nonstandard @theme at-rule) */
 @theme {
@@ -12,15 +11,15 @@
   --color-t-main: rgba(60, 63, 60, 1);
   --color-gray: rgb(70, 75, 75);
   --color-t-white: rgb(230, 338, 230);
-  --color-heading: oklch(14.1% 0.005 285.823);
+  --color-heading: #0f0f0d;
   --color-back-main: rgba(255, 250, 250, 1);
   --color-back-dark: #1f1f15;
   --color-input: #fcf9ed;
   --color-card: rgb(245, 240, 235);
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
-
+  --font-fraunces: "Fraunces", var(--font-sans);
   --font-sans: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  --font-heading: "Fraunces", var(--font-sans);
+  --font-heading: "Roboto Slab", var(--font-sans);
 }
 
 /* Base / reset + sensible defaults */
@@ -51,8 +50,8 @@ html {
      font-style: italic;
   }
 
-h2, h3, h4 {
-  font-family: var(--font-heading);
+h1, h2, h3, h4 {
+  @apply font-heading
 }
 
 h2 {
@@ -63,8 +62,8 @@ h2 {
 
   h1 {
      font-weight: 700;
-     font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-       font-family: var(--font-heading);
+     font-size: clamp(2rem, 5vw, 3rem);
+     font-family: var(--font-heading);
 
   }
 
@@ -177,4 +176,25 @@ h2 {
   .card-shadow:hover {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     transform: translateY(-4px);
+  }
+
+  .resource-layout {
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem)
+    }
+    p{
+      margin-top: 8px;
+      margin-bottom: 12px;
+    }
+    h1, h2, h3 {
+      margin-top: 32px;
+      margin-bottom: 4px;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+    h3 {
+      font-size: clamp(1.1125rem, 2.4vw, 1.5rem);
+
+    }
   }

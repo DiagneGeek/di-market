@@ -11,9 +11,10 @@
 	{#if !["/vendeurs/connection", "/vendeurs/inscription"].includes($page.url.pathname)}
 	  {#if $page.url.pathname !== "/vendeurs"}	  
 	  <a href="/panier">Panier</a>
-
-      <a href="/vendeurs" class="text-[14px]">
-	    <Button size="sm" variant="outline">Créer ma collection</Button>
+      <a href="/collections">Collections</a>
+	  <a href="/products">Produits</a>
+	  <a href="/ressources">
+	    Ressources
 	 </a>
 	 {:else}
 	  <a href="/vendeurs/connection">

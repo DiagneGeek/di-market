@@ -15,7 +15,6 @@ export const getArticles = async ({ nameinclude = "", category = "", maxprice = 
   }
 
   if (maxprice.trim() !== "") {
-    // up to you how you handle this
     query = query.lte("price", maxprice);
   }
   
@@ -55,7 +54,7 @@ export const updateArticle = async (newValue: {
 }
 
 export const deleteArticle = async (id: number) => {
-  const {error} = await removeRow("Products", id)
+  const {error} = await removeRow("Products", ["id", id])
   if (error) {
     return {success: false, error}
   }

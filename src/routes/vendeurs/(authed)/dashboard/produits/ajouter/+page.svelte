@@ -126,7 +126,13 @@
 
             // Success!
             toast.show("Produit ajouté avec succès!", "success", 3000)
-            goto(`/vendeurs/dashboard/produits?reload=true`)
+            
+            // If in setup mode, redirect back to commencer to show progress
+            if (isSetup) {
+                goto(`/vendeurs/dashboard/commencer`)
+            } else {
+                goto(`/vendeurs/dashboard/produits?reload=true`)
+            }
             
             // Reset form
             form = {
@@ -149,7 +155,7 @@
     }
 </script>
 <h1 class="text-center">{isSetup ? "Ajoutez vos premiers produits" : "Ajoutez un produit !"} </h1>
-<p class="text-center text-gray-500">{isSetup ? "Commencez par vos meilleurs produits" : "Ajoutez un produit à votre boutique"}</p>
+<p class="text-center text-gray-500">{isSetup ? "Conseil : Commencez par vos meilleurs produits" : "Ajoutez un produit à votre boutique"}</p>
 <form 
  onsubmit={handleSubmit}
  class="my-8 flex flex-col gap-5 max-w-[500px] mx-auto bg-card p-4 rounded-3xl"

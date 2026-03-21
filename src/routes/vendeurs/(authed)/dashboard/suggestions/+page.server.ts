@@ -84,6 +84,19 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
     });
   }
 
+  // Suggest sharing collection if premium and has products
+  if (isPremium && products && products.length >= 3) {
+    suggestions.push({
+      title: 'Partagez votre collection',
+      description: 'Vous avez une belle collection ! Partagez-la sur vos réseaux sociaux pour attirer plus de clients.',
+      type: 'positive',
+      cta: {
+        text: 'Voir ma collection',
+        href: `/collections/${user.id}`
+      }
+    });
+  }
+
   // If not premium, suggest upgrading
   if (!isPremium) {
     suggestions.length = 0
@@ -158,6 +171,8 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
   return {
     suggestions,
     productSuggestions,
-    isPremium
+    isPremium,
+    user,
+    products
   };
 };

@@ -22,7 +22,8 @@ export interface User {
   phone: string,
   password?: string,
   plan: string,
-  trial_ends_at: any
+  trial_ends_at: any,
+  setupping?: boolean
 }
 
 export interface Event {
