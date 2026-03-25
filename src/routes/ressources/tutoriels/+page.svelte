@@ -17,9 +17,9 @@
    <div class="p-4 rounded-2xl bg-white shadow-lg backdrop-blur-sm flex gap-4 justify-center flex-wrap items-center">
     <Input 
       placeholder="Rechercher..."
-      class="flex-1 w-full"
+      class="flex-1 w-full m-0"
     />
-    <Button class="w-full sm:w-auto" variant="neutral">Rechercher</Button>
+    <Button class="w-full sm:w-auto m-0" variant="neutral">Rechercher</Button>
     </div>
 </Hero>
 

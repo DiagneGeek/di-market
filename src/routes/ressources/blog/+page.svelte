@@ -12,7 +12,7 @@ const modules = import.meta.glob('/src/content/blog/*.md', { eager: true })
 
 <Hero>
     <h1>Recevez des <span class="font-fraunces opacity-50">conseils et astuces</span> pour devenir le meilleur</h1>
-    <p>
+    <p class="mx-auto">
         Bienvenue dans notre section dédiée aux vendeurs ! Ici, vous trouverez une mine d'information à propos de la vente en ligne
     </p>
     <br>
@@ -21,7 +21,7 @@ const modules = import.meta.glob('/src/content/blog/*.md', { eager: true })
       placeholder="Rechercher..."
       class="flex-1 w-full"
     />
-    <Button class="w-full sm:w-auto" variant="neutral">Rechercher</Button>
+    <Button class="w-full sm:w-auto m-0" variant="neutral">Rechercher</Button>
     </div>
 </Hero>
 

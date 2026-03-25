@@ -14,7 +14,7 @@
     <h1 class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
       Découvrez Nos Illustres Vendeurs
     </h1>
-    <p>
+    <p class="mx-auto">
       Explorez une sélection curatée des meilleures collections créées avec DiMarket. Trouvez les produits et services de qualité de nos vendeurs vérifiés.
     </p>
   </div>

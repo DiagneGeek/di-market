@@ -31,7 +31,7 @@
   <Hero>
     <div class="text-center mb-6 sm:mb-8 animate-slideInFromLeft" style="animation-delay: 0ms;">
       <h1 class="italic text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">La place qui réunit tous les articles que vous cherchez !</h1>
-      <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">Découvrez un large gamme de produits sénégalais qui vont vous ravir</p>
+      <p class="mx-auto">Comparez, commandez, tout simplement</p>
     </div>
     <div class="w-full flex justify-center gap-4 my-8">
       <a href="/panier">

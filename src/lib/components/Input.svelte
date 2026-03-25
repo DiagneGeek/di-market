@@ -73,7 +73,8 @@
 </svg>
 {/snippet}
 {validity?.autohighlight?.()}
-<div class="flex flex-col gap-1">
+<div class="flex flex-col justify-center gap-1">
+{#if label || inputType === "password"}
  <div class="flex items-center justify-between ">
     <span class="text-xs font-semi-bold text-gray">{label}</span>
     <div>
@@ -99,6 +100,7 @@
       {/if}
     </div>
  </div>
+ {/if}
 <input 
  type={type}
  class={`p-3 rounded-2xl ${_class} bg-input border ${isValid === false && validity ? "border-red-500 border-2" : isValid === true && validity ? "border-green-500 border-2" : "border-gray-300"}`}
@@ -106,6 +108,7 @@
  {...rest}
  oninput={onInput}
  >
-
+{#if validity}
  <p class="text-xs text-red-400">{isValid === false ? validity?.message : ""}</p>
+ {/if}
  </div>
