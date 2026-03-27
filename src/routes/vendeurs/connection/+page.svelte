@@ -26,8 +26,7 @@
      method="POST"
      class="bg-white rounded-2xl py-8 px-6 sm:px-8 flex flex-col items-center gap-5 shadow-lg border border-gray-100">
        <Input 
-        minlength="9"
-        maxlength="9"
+        minlength="7"
         placeholder="Votre numéro de téléphone..."
         name="phone"
         type="tel"

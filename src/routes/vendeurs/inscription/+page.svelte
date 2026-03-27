@@ -37,7 +37,7 @@
         maxlength="9"
         placeholder="Votre numéro de téléphone..."
         name="phone"
-        label="Numéro WhatsApp"
+        label="Numéro WhatsApp (sans le +XXX)"
         value={form?.phone ?? ""}
         class="w-full"
         required

@@ -6,12 +6,19 @@
 		class?: string;
 		center?: boolean;
 		toDark?: boolean;
+		once?: boolean;
 	}
 
-	let { children, class: _class = '', toDark = false }: Props = $props();
+	let { children, class: _class = '', toDark = false, once = false }: Props = $props();
 
 	let element: HTMLElement | null = null;
 	let isVisible = $state(false);
+
+	let options: any = {
+		threshold: 0.3
+	}
+	if (!once) options.rootMargin = "-50% 0px -40% 0px"
+
 
 	onMount(() => {
 		if (!element) return;
@@ -32,10 +39,7 @@
 					}
 				});
 			},
-			{
-				threshold: 0.3,
-				rootMargin: "-50% 0px -40% 0px"
-			}
+			options
 		);
 
 		observer.observe(element);
@@ -50,7 +54,7 @@
 	bind:this={element}
 	class={`${_class} transition-all duration-700 ${
 		isVisible
-			? 'scale-110 opacity-100 translate-y-0'
+			? `${once ? 'scale-100 opacity-100 translate-y-0' : 'scale-110 opacity-100 translate-y-0'}`
 			: 'scale-80 opacity-60 translate-y-2 bg-transparent'
 	} px-4 py-3 rounded-lg`}
 >

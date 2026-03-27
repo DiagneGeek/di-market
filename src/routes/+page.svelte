@@ -11,19 +11,30 @@
     import Hero from "$lib/components/Hero.svelte"
 	// State
 	let phoneInput = $state('');
-	let hoursPerDay = $state(2);
+	let customerPerDay = $state(10);
 	let showPhoneModal = $state(false);
 
 	// Calculate hours lost stats
-	const calculateStats = (hours: number) => {
-		const daily = hours;
-		const weekly = hours * 5; // assuming 5 business days
+	const calculateStats = () => {
+		const timePerCustomer = 0.3
+		const daily = customerPerDay * timePerCustomer;
+		const weekly = customerPerDay * 6 * timePerCustomer; // assuming 5 business days
 		const monthly = weekly * 4;
 		const yearly = monthly * 12;
-		return { daily, weekly, monthly, yearly };
+		return { daily: formatHours(daily), weekly, monthly, yearly };
 	};
 
-	const stats = $derived(calculateStats(hoursPerDay));
+	function formatHours(decimal: number) {
+		const totalMinutes = Math.round(decimal * 60);
+		const hours = Math.floor(totalMinutes / 60);
+		const minutes = totalMinutes % 60;
+
+	    if (hours === 0) return `${minutes}min`;
+	    if (minutes === 0) return `${hours}h`;
+		return `${hours}h ${minutes}min`;
+	} 
+
+	const stats = $derived(calculateStats());
 
 	// Carousel slides data
 	const carouselSlides = [
@@ -53,12 +64,37 @@
 		}
 	];
 
+	const steps = [
+      {
+		title: "Créez votre Collection",
+		text: "Ajoutez facilement vos produits et toutes les infos importantes en quelques minutes. Vos clients auront tout ce qu’ils cherchent dès le départ",
+		icon: "🗂️",
+		img: "collection-page",
+		tip: "Une Collection est l'endroit où tout vos produits sont regroupés"
+	  },
+	  {
+		title: "Envoyez le lien de votre Collection",
+        text: "Partagez le lien de votre Collection à chaque nouveau client — sur WhatsApp, Instagram, Facebook ou où vous voulez. Ainsi vos clients verront tout vos produits et pourront commander sans vous déranger",
+	    icon: "🔗",
+		img: "chat-with-dimarket",
+		tip: "Conseil: Pour envoyer le lien de votre Collection, vous pouvez utiliser les messages automatiques."
+	 },
+	 {
+		title: "Délivrez les produits",
+		icon: "📦",
+		img: "order-page",
+		text: "Vous verrez toutes les commandes en un seul lieu. Fini les carnets ou le besoin de noter les commandes. Après vous n'aurait qu'à livrer ou appeler le client pour qu'il cherche sa commande"
+	 }
+	]
+
 	// FAQ items
 	const faqItems = [
 		{
-			question: "Combien coûte DiMarket ?",
+			question: "Puis-je essayer DiMarket avant de payer ?",
 			answer:
-				"DiMarket offre un plan freemium avec des fonctionnalités de base gratuites, et des plans premium pour les vendeurs qui veulent plus de fonctionnalités avancées et un support prioritaire. Contactez-nous pour discuter du plan qui convient à votre commerce."
+				`Oui. Vous pouvez utiliser DiMarket gratuitement pendant 1 mois.
+				Testez toutes les fonctionnalités, recevez vos premières commandes et voyez si ça correspond à votre business.
+				Si DiMarket vous aide vraiment à gagner du temps et à vendre plus, vous pourrez ensuite débloquer un accès à vie avec un paiement unique, adapté aux réalités des vendeurs africains.`
 		},
 		{
 			question: "C'est disponible dans mon pays ?",
@@ -73,12 +109,12 @@
 		{
 			question: "Combien de temps pour commencer ?",
 			answer:
-				"Vous pouvez créer votre première collection en moins de 5 minutes. Ajoutez vos produits, copiez le lien, partagez-le avec vos clients via Instagram, WhatsApp, ou Email, et les commandes commenceront à arriver organisées automatiquement."
+				"Vous pouvez créer votre première collection en moins de 5 minutes. Ajoutez vos produits, copiez le lien, partagez-le avec vos clients via Instagram, WhatsApp..., et les commandes commenceront à arriver organisées automatiquement."
 		},
 		{
 			question: "Faut-il abandonner WhatsApp ou Instagram ?",
 			answer:
-				"Non ! DiMarket s'intègre parfaitement avec les plateformes que vous utilisez déjà. Partagez votre lien via WhatsApp, Instagram, Facebook ou Email. Vos clients passeront commande via DiMarket, et vous recevrez les commandes organisées. C'est plus simple pour tous."
+				"Non ! DiMarket s'intègre parfaitement avec les plateformes que vous utilisez déjà. Partagez votre lien via WhatsApp, Instagram, Facebook etc. Vos clients passeront commande via DiMarket, et vous recevrez les commandes organisées. C'est plus simple pour tous."
 		},
 		{
 			question: "Et si je n'aime pas ?",
@@ -131,8 +167,9 @@
 					<Input
 						bind:value={phoneInput}
 						type="tel"
-						placeholder="+221 77 123 45 67"
+						placeholder="77 123 45 67"
 						class="flex-1"
+						label="Votre numero (sans le +XXX)"
 					/>
 					<Button
 						variant="sober"
@@ -204,10 +241,22 @@
 					</p>
 				</ScrollHighlight>
 
+                <ScrollHighlight>
+					<p class="text-lg">
+						Le pire ? Vous pensez que vous ne perdez pas beaucoup trop de temps, mais mis ensemble, ces petites interruptions deviennent des heures perdues chaque jour
+					</p>
+				</ScrollHighlight>
+
 				<ScrollHighlight>
 					<p class="text-lg">
-						Pendant ce temps, vos autres ventes attendent, vos heures s'évaporent.
+						Sans compter le nombre de fois que vous allez vérifier s'il y'a de nouveaux messages, ou le stress de devoir repondre rapidement, ou la galère de devoir noter chaque commande.
 					</p>
+				</ScrollHighlight>
+
+				<ScrollHighlight>
+				  <p class="text-lg text-secondary">
+				   Mais pourquoi continuer comme ça s'il existe un moyen de supprimer toute cette charge ?
+				  </p>
 				</ScrollHighlight>
 			</div>
 
@@ -220,8 +269,7 @@
 						<strong>toutes les réponses… sans vous déranger</strong>.
 					</p>
 					<p class="text-lg text-secondary leading-relaxed">
-						<strong>DiMarket</strong> transforme ce problème
-						en véritable force. 
+						<strong>DiMarket</strong> vous permet d'avoir exactement cette vie de <strong>calme total</strong>
 					</p>
 				</div>
 
@@ -249,96 +297,33 @@
 				<strong>Simple</strong>. <strong>Rapide</strong>. <strong>Efficace</strong>.
 			</p>
 
-			<div class="max-w-4xl mx-auto px-4">
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-					<!-- Step 1 -->
-					<div class="flex flex-col items-center text-center">
-						<div
-							class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mb-6"
-						>
-							1
-						</div>
-						<h3 class="text-xl font-bold text-gray-900 mb-3">Créez votre Collection</h3>
-						<p class="text-gray-700 mb-4 leading-relaxed">
-							Ajoutez facilement vos produits et toutes les infos importantes en quelques minutes.
-							Vos clients auront tout ce qu\'ils cherchent dès le départ.
-						</p>
-						<p class="text-sm text-gray-600 italic">
-							💡 Une <strong>Collection</strong> est l\'endroit où tous vos produits sont regroupés
-						</p>
-						<div
-							class="mt-6 w-full h-32 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg flex items-center justify-center border-2 border-dashed border-primary/30"
-						>
-							<svg
-								class="w-12 h-12 text-primary/40"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="1.5"
-									d="M20 7l-8-4m0 0L4 7m16 0v10l-8 4m0-4v4m0-4L4 7m8 4v10m8-10l-8 4M4 7l8 4"
-								/>
-							</svg>
-						</div>
-					</div>
-
-					<!-- Step 2 -->
-					<div class="flex flex-col items-center text-center">
-						<div
-							class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mb-6"
-						>
-							2
-						</div>
-						<h3 class="text-xl font-bold text-gray-900 mb-3">Envoyez le lien</h3>
-						<p class="text-gray-700 mb-4 leading-relaxed">
-							Une fois votre Collection créée, vous pouvez envoyer à chaque nouveau client le lien de
-							votre collection.
-						</p>
-						<p class="text-sm text-gray-600 italic">
-							💡 <strong>Conseil</strong> : utilisez les messages automatiques pour supprimer complètement le
-							besoin d\'écrire aux clients
-						</p>
-						<div
-							class="mt-6 w-full h-32 bg-gradient-to-br from-secondary/5 to-primary/5 rounded-lg flex items-center justify-center border-2 border-dashed border-secondary/30"
-						>
-							<svg
-								class="w-12 h-12 text-secondary/40"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="1.5"
-									d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-								/>
-							</svg>
-						</div>
-					</div>
-
-					<!-- Step 3 -->
-					<div class="flex flex-col items-center text-center">
-						<div
-							class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mb-6"
-						>
-							3
-						</div>
-						<h3 class="text-xl font-bold text-gray-900 mb-3">Livrez</h3>
-						<p class="text-gray-700 mb-4 leading-relaxed">
-							DiMarket s\'occupe de vous montrer toutes les commandes avec les produits, les prix, les
-							coordonnées du client et l\'adresse. Vous n\'avez qu\'à livrer.
-						</p>
-						<p class="text-sm text-gray-600 italic">
-							✅ <strong>Et voilà !</strong> Vos commandes arrivent organisées automatiquement.
-						</p>
-						<div class="mt-6 w-full h-32">
-							<DeliveryIllustration />
-						</div>
-					</div>
+			<div class="max-w-4xl mx-auto">
+				<div class="grid grid-colss-1 gap-12">
+					{#each steps as step, index}
+					<ScrollHighlight once>
+					<div class="flex bg-card p-4 rounded-2xl border-content flex-col-reverse md:flex-row gap-2 w-full max-w-[700px] mx-[-16px]">
+					  <img
+					    src="/landing/{step.img}.jpg"
+						alt="{step.title} étape illustration"
+						class="saturate-100 rounded-2xl w-full w-1/3 md:w-1/3 object-cover shadow shadow-gray-300 "
+					/>
+                      <div class="mx-auto shadow shadow-secondary bg-card p-4 rounded-2xl relative w-full max-w-[400px]">
+						<span class="inline-block p-0 text-[6rem] font-fraunces font-bold z-[0] text-gray/20 absolute top-[0px] right-[8px]">0{index + 1}</span>
+						<span class="block text-3xl mb-4">{step.icon}</span>
+						<h3>{step.title}</h3>
+					    <p>{step.text}</p>
+						{#if step.tip}
+							<div class="my-2 text-xs bg-secondary/10 p-2 rounded-xl border-l-4 border-secondary">💡 {step.tip}</div>
+						{/if}
+					 </div>
+					 </div>
+					 </ScrollHighlight>
+					 <ScrollHighlight once>
+					  {#if index != steps.length - 1}
+					   <img src="/icons/curved-arrow.svg" alt="|" class="rotate-[90deg] w-16 mx-auto" />
+					   {/if}
+					 </ScrollHighlight>
+					{/each}
 				</div>
 			</div>
 		</Section>
@@ -357,12 +342,19 @@
 					vous allez <strong>perdre du temps sans DiMarket</strong>.
 				</p>
 
-			<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto px-4">
-				{#each ['💚 WhatsApp', '📱 Instagram', '👍 Facebook', '📧 Email'] as platform}
+			<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto p-4">
+				{#each ['WhatsApp', 'Instagram', 'Facebook', 'etc.'] as platform}
 					<div
-						class="bg-white border-2 border-gray-200 rounded-full p-4 text-center hover:border-primary hover:shadow-md transition-all duration-300"
+						class="bg-white border-2 border-gray-200 rounded-2xl p-4 text-center hover:border-primary hover:shadow-md transition-all duration-300"
 					>
-						<p class="font-semibold text-gray-900">{platform}</p>
+						<p class="font-semibold text-gray-900">
+						   {#if platform === 'etc.'}
+								<img src="/icons/plus.svg" alt="Plus logo" class="mx-auto mb-2 w-9 h-9 object-contain" />
+							{:else}
+								<img src="/landing/{platform.toLowerCase()}.png" alt="{platform} logo" class="mx-auto mb-2 w-8 h-8 object-contain" />
+							{/if}
+							{platform}
+						</p>
 					</div>
 				{/each}
 			</div>
@@ -397,7 +389,7 @@
 
 				<div class="text-5xl text-center space-y-4">
 					<p>
-						🇸🇳 🇨🇮 🇨🇲 🇧🇯 🇨🇬 🇬🇭 🇬🇼 🇱🇷 🇲🇦 🇳🇬 🇺🇬 🇹🇿 🇳🇲 🇱🇲 🇧🇫
+						🇸🇳 🇨🇮 🇨🇲 🇧🇯 🇨🇬 🇬🇭 🇬🇼 🇱🇷 🇲🇱 🇲🇦 🇳🇬 🇺🇬 🇹🇿 🇳🇲 🇱🇲 🇧🇫
 					</p>
 					<p class="text-lg text-gray-600">+ 30 pays africains</p>
 				</div>
@@ -407,21 +399,23 @@
 	<!-- AGITATE SECTION -->
 	{#snippet agitateSection()}
 		<Section id="agitate" isForLanding={true} class="bg-gray-50 py-20">
-			<h2 class="text-3xl font-bold text-center mb-4 text-gray-900">
-				⏳ Des heures perdues chaque semaine…
+			<h2>
+				⏳ Des heures <span class="font-fraunces bg-red-400">perdues</span> chaque semaine…
 			</h2>
-			<p class="text-center text-gray-600 mb-12 text-lg">
+			<p class="text-center text-gray-600 mb-2 text-lg">
 				…pour quelque chose qui pourrait être évité
 			</p>
 
-			<div class="max-w-2xl mx-auto px-4">
-				<p class="text-lg text-gray-700 mb-8 text-center leading-relaxed">
-					Le temps est précieux, et il l\'est encore plus pour un business. Imaginez ce que vous
+			<div class="max-w-2xl mx-auto">
+			  <p>
+					Le temps est précieux, et il l'est encore plus pour un business. 
+					<br>Imaginez ce que vous
 					pourriez faire avec tout ce temps récupéré : <strong
 						>développer votre business, créer de nouvelles Collections, ou simplement se reposer un
 						peu</strong
-					>. Avec DiMarket, vos ventes avancent pendant que vous vous concentrez sur l\'essentiel.
+					>. Avec DiMarket, vos ventes avancent pendant que vous vous concentrez sur l'essentiel.
 				</p>
+				<br>
 
 				<!-- Hours Calculator -->
 				<div class="bg-white border-2 border-gray-200 rounded-2xl p-8 mb-8">
@@ -429,48 +423,44 @@
 
 					<div class="mb-6">
 						<label for="hours" class="block text-sm font-semibold text-gray-700 mb-3">
-							Heures perdues par jour à répondre aux questions :
+							Nombre de personnes qui vous contactent par jour :
 						</label>
 						<input
 							id="hours"
 							type="range"
-							bind:value={hoursPerDay}
-							min="0.5"
-							max="8"
-							step="0.5"
+							bind:value={customerPerDay}
+							min="3"
+							max="50"
+							step="1"
 							class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
 						/>
-						<div class="text-center mt-2 text-lg font-bold text-primary">
-							{hoursPerDay} heure{hoursPerDay > 1 ? 's' : ''}
+						<div class="text-center mt-2 text-lg font-bold">
+							<span class="text-primary">{customerPerDay}</span> personne{customerPerDay > 1 ? 's' : ''}
 						</div>
-					</div>
-
-					<div class="mb-6">
-						<ProgressBar percentage={Math.min((hoursPerDay / 8) * 100, 100)} color="primary" />
 					</div>
 
 					<!-- Stats Grid -->
 					<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-						<div class="bg-gradient-to-br from-primary/5 to-primary/10 rounded-lg p-4 text-center">
-							<p class="text-2xl font-bold text-primary mb-1">
-								{stats.daily.toFixed(1)}h
+						<div class="bg-gradient-to-br from-orange-400/5 to-orange-400/20 rounded-lg p-4 text-center">
+							<p class="text-2xl font-bold text-orange-300 mb-1">
+						    {stats.daily}
 							</p>
 							<p class="text-xs text-gray-600">Par jour</p>
 						</div>
-						<div class="bg-gradient-to-br from-secondary/5 to-secondary/10 rounded-lg p-4 text-center">
-							<p class="text-2xl font-bold text-secondary mb-1">
+						<div class="bg-gradient-to-br from-orange-400/5 to-orange-400/20 rounded-lg p-4 text-center">
+							<p class="text-2xl font-bold text-pink-500 mb-1">
 								{stats.weekly.toFixed(0)}h
 							</p>
 							<p class="text-xs text-gray-600">Par semaine</p>
 						</div>
-						<div class="bg-gradient-to-br from-green-500/5 to-green-500/10 rounded-lg p-4 text-center">
-							<p class="text-2xl font-bold text-green-600 mb-1">
+						<div class="bg-gradient-to-br from-purple-500/5 to-green-500/20 rounded-lg p-4 text-center">
+							<p class="text-2xl font-bold text-fuchsia-800 mb-1">
 								{stats.monthly.toFixed(0)}h
 							</p>
 							<p class="text-xs text-gray-600">Par mois</p>
 						</div>
-						<div class="bg-gradient-to-br from-yellow-500/5 to-yellow-500/10 rounded-lg p-4 text-center">
-							<p class="text-2xl font-bold text-yellow-600 mb-1">
+						<div class="bg-gradient-to-br from-red-500/5 to-red-500/20 rounded-lg p-4 text-center">
+							<p class="text-2xl font-bold text-red-600 mb-1">
 								{stats.yearly.toFixed(0)}h
 							</p>
 							<p class="text-xs text-gray-600">Par an</p>
@@ -478,7 +468,7 @@
 					</div>
 
 					<p class="text-sm text-gray-600 mt-6 text-center italic">
-						Avec DiMarket, ces heures seraient automatisées et vous seriez libre de vous concentrer sur la livraison.
+						Avec DiMarket, ces heures ne seront pas source de stress mais au contraire, ces heures vous permettront de progresser ou juste de vous reposer.
 					</p>
 				</div>
 
@@ -503,36 +493,36 @@
 
 			<div class="max-w-2xl mx-auto px-4 space-y-6">
 				<div class="bg-gradient-to-r from-primary/5 to-secondary/5 border-l-4 border-primary rounded-lg p-6">
-					<p class="text-lg text-gray-700 leading-relaxed">
+					<p class="leading-relaxed">
 						Imaginez vos clients vous voyant agir intelligemment.
 					</p>
 				</div>
 
 				<div class="bg-gradient-to-r from-secondary/5 to-primary/5 border-l-4 border-secondary rounded-lg p-6">
-					<p class="text-lg text-gray-700 leading-relaxed">
+					<p class="leading-relaxed">
 						Ils ne voient pas juste quelqu\'un qui suit les autres… Ils voient un vendeur qui
-						<strong>sait ce qu\'il fait</strong>, qui choisit de <strong>leur faciliter la vie</strong>, et qui
+						<strong>sait ce qu'il fait</strong>, qui choisit de <strong>leur faciliter la vie</strong>, et qui
 						<strong>délivre des résultats</strong>.
 					</p>
 				</div>
 
 				<div class="bg-gradient-to-r from-green-500/5 to-primary/5 border-l-4 border-green-500 rounded-lg p-6">
-					<p class="text-lg text-gray-700 leading-relaxed">
-						C\'est cette image qui fait la différence :
+					<p class="leading-relaxed">
+						C'est cette image qui fait la différence :
 						<strong>crédible, fiable, professionnel</strong>.
 					</p>
 				</div>
 
 				<div class="bg-gradient-to-r from-primary/5 to-green-500/5 border-l-4 border-primary rounded-lg p-6">
-					<p class="text-lg text-gray-700 leading-relaxed">
-						Vos clients le remarquent. Et ceux qui hésitaient… <strong>passent à l\'action avec vous</strong>.
+					<p class="leading-relaxed">
+						Vos clients le remarquent. Et ceux qui hésitaient… <strong>passent à l'action avec vous</strong>.
 					</p>
 				</div>
 			</div>
 
 			<div class="mt-12 text-center">
-				<p class="text-xl font-bold text-primary">
-					C\'est la crédibilité qui vend.
+				<p class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+					C'est la crédibilité qui vend.
 				</p>
 			</div>
 		</Section>
@@ -554,18 +544,19 @@
 
 	<!-- FINAL CTA SECTION -->
 	{#snippet finalCtaSection()}
-		<Section id="final-cta" isForLanding={true} class="bg-white py-20">
+		<Section id="final-cta" isForLanding={true} class="rounded-2xl shadow-4 bg-gradient-to-r from-primary/10 to-secondary/40 py-20">
 			<div class="max-w-2xl mx-auto px-4 text-center">
-				<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-					Vous avez choisi de vendre comme les autres,<br />il est désormais temps de vendre
-					<span class="text-primary">comme les meilleurs</span>.
+				<h2 class="text-white text-2xl sm:text-3xl font-bold text-gray-900 mb-6 leading-tight">
+					Vous avez choisi de vendre <span class='text-red-500'>comme les autres</span>.<br />
+					Il est désormais temps de vendre
+					<span class="font-fraunces bg-primary">comme les meilleurs</span>.
 				</h2>
 
-				<p class="text-lg text-gray-600 mb-12 leading-relaxed">
-					La vraie question n\'est pas si ça marche. C\'est :
+				<p class="text-gray mb-8 leading-relaxed">
+					La vraie question n'est pas si ça marche. C'est :
 					<strong
-						>êtes-vous quelqu\'un qui copie sans réfléchir… ou quelqu\'un qui cherche la manière la plus
-						simple et efficace de vendre — et qui passe à l\'action ?</strong
+						>êtes-vous quelqu'un qui copie sans réfléchir… ou quelqu'un qui cherche la manière la plus
+						simple et efficace de vendre — et qui passe à l'action ?</strong
 					>
 				</p>
 
@@ -575,11 +566,6 @@
 					size="lg"
 					onclick={() => (showPhoneModal = true)}
 				/>
-
-				<p class="text-sm text-gray-500 mt-6">
-					Aucune carte bancaire requise. Configuration en moins de 5 minutes.<br />Rejoignez des centaines
-					de vendeurs qui gagnent déjà du temps chaque jour.
-				</p>
 			</div>
 		</Section>
 	{/snippet}
@@ -609,7 +595,7 @@
 		<Input
 			bind:value={phoneInput}
 			type="tel"
-			placeholder="+221 77 123 45 67"
+			placeholder="77 123 45 67"
 			label="Numéro de téléphone"
 		/>
 	</div>

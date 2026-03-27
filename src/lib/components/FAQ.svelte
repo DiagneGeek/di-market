@@ -24,10 +24,10 @@
 		>
 			<button
 				onclick={() => toggle(index)}
-				class="w-full flex items-center justify-between p-5 sm:p-6 bg-white hover:bg-gray-50 transition-colors duration-200"
+				class="w-full flex items-center justify-between p-2 sm:p-6 bg-white hover:bg-gray-50 transition-colors duration-200"
 			>
 				<h3 class="text-left font-semibold text-gray-900 text-base sm:text-lg flex-1">
-					{item.question}
+					<span class="text-[13px]">{item.question}</span>
 				</h3>
 				<svg
 					class="w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform duration-300 {openedIndex ===
@@ -42,13 +42,30 @@
 				</svg>
 			</button>
 
-			{#if openedIndex === index}
+			
 				<div
-					class="border-t border-gray-200 bg-gray-50 p-5 sm:p-6 animate-fadeIn text-gray-700 text-sm sm:text-base leading-relaxed"
+					class="border-t border-gray-200 bg-gray-50 transition-height duration-300 {openedIndex === index ? 'h-auto animate-fadeIn p-5' : 'h-0 p-0'} text-gray-700 text-sm sm:text-base leading-relaxed"
 				>
 					{item.answer}
 				</div>
-			{/if}
+			
 		</div>
 	{/each}
 </div>
+
+<style>
+	.animate-fadeIn {
+		animation: fadeIn 0.3s ease-in-out;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

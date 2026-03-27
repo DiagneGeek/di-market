@@ -15,7 +15,7 @@
   --color-back-main: rgba(255, 250, 250, 1);
   --color-back-dark: #1f1f15;
   --color-input: rgb(248,244,244);
-  --color-card: rgb(245, 240, 235);
+  --color-card: rgb(240, 240, 240);
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
   --font-fraunces: "Fraunces", var(--font-sans);
   --font-sans: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -110,6 +110,10 @@ h2 {
      outline: none;
      /* subtle focus ring using color-mix where available */
      box-shadow: 0 0 0 6px color-mix(in oklch, var(--color-primary) 12%, transparent);
+  }
+
+  .border-content {
+    box-sizing: content-box !important;
   }
 
   input[disabled],
