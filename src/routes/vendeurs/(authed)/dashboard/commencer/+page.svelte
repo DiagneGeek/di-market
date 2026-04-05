@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import Input from '$lib/components/Input.svelte';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { useToast } from '$lib/composables/useToast';
 	import { confetti } from '@neoconfetti/svelte';
@@ -37,12 +38,74 @@
 	let prevProductCount = $state(0);
 	let confettiContainer: HTMLDivElement | null = $state(null);
 
+	// Collection setup form state
+	let collectionName = $state(data.user?.name || '');
+	let password = $state('');
+	let confirmPassword = $state('');
+	let isSubmittingSetup = $state(false);
+	let setupError = $state('');
+	let setupSuccess = $state(false);
+
 	function addProduct() {
 		isRedirecting = true;
 		goto('/vendeurs/dashboard/produits/ajouter?setup=true');
 	}
 
-	// Detect milestone achievements and trigger celebrations
+	async function handleCollectionSetup() {
+		try {
+			isSubmittingSetup = true;
+			setupError = '';
+			setupSuccess = false;
+
+			// Validation
+			if (!collectionName || collectionName.trim().length < 3) {
+				setupError = 'Le nom doit contenir au moins 3 caractères';
+				return;
+			}
+
+			if (!password || password.length < 6) {
+				setupError = 'Le mot de passe doit contenir au least 6 caractères';
+				return;
+			}
+
+			if (password !== confirmPassword) {
+				setupError = 'Les mots de passe ne correspondent pas';
+				return;
+			}
+
+			// Call API to save collection name and password
+			const response = await fetch('/api/auth/setup-collection', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					name: collectionName,
+					password: password
+				})
+			});
+
+			const result = await response.json();
+
+			if (!response.ok) {
+				setupError = result.error || 'Une erreur est survenue';
+				return;
+			}
+
+			setupSuccess = true;
+			toast.show('Votre collection est configurée avec succès!', 'success', 3000);
+			
+			// Redirect after success
+			setTimeout(() => {
+				goto('/vendeurs/dashboard');
+			}, 1500);
+		} catch (error) {
+			console.error('Setup error:', error);
+			setupError = 'Une erreur est survenue. Veuillez réessayer.';
+		} finally {
+			isSubmittingSetup = false;
+		}
+	}
 	$effect(() => {
 		// First product added!
 		if (productCount === 1 && prevProductCount === 0) {
@@ -83,9 +146,8 @@
 		}
 		// All 3 products added!
 		else if (productCount === 3 && prevProductCount === 2) {
-			milestoneMessage = '🎉 Collection complète ! Vous avez terminé !';
+			milestoneMessage = '🎉 Produits ajoutés ! Prochaine étape → Sécuriser votre compte';
 			showMilestonePopup = true;
-			showCelebration = true;
 			setTimeout(() => {
 				if (confettiContainer) {
 					try {
@@ -95,7 +157,7 @@
 					}
 				}
 			}, 100);
-			toast.show('🎊 Votre boutique est au maximum de visibilité !', 'success', 5000);
+			toast.show('🎊 Excellent ! Maintenant sécurisez votre compte', 'success', 5000);
 			setTimeout(() => {
 				showMilestonePopup = false;
 			}, 4000);
@@ -142,12 +204,14 @@
 		<!-- Hero Section -->
 		<div class="text-center mb-16 animate-fade-in">
 			<h1 class="text-5xl sm:text-6xl font-bold mb-4" style="color: var(--color-heading);">
-				{productCount === 0 ? 'Démarrez votre collection' : 'Vous progressez bien !'}
+				{productCount === 0 ? 'Démarrez votre collection' : productCount === 3 ? 'Presque fini ! ✨' : 'Vous progressez bien !'}
 			</h1>
 			<p class="text-lg" style="color: var(--color-gray);">
 				{productCount === 0
 					? 'Ajoutez vos premiers produits et laissez les acheteurs vous découvrir'
-					: `${3 - productCount} produit${3 - productCount > 1 ? 's' : ''} restant${3 - productCount > 1 ? 's' : ''}`}
+					: productCount === 3 
+						? 'Sécurisez votre compte avec un nom et un mot de passe'
+						: `${3 - productCount} produit${3 - productCount > 1 ? 's' : ''} restant${3 - productCount > 1 ? 's' : ''}`}
 			</p>
 		</div>
 
@@ -174,10 +238,11 @@
 			<!-- Progress Steps Visual -->
 			<div class="flex justify-between mt-6">
 				{#each [
-					{ num: 1, label: '0%', done: productCount >= 0 },
-					{ num: 2, label: '30%', done: productCount >= 1 },
-					{ num: 3, label: '55%', done: productCount >= 2 },
-					{ num: 4, label: '100%', done: productCount >= 3 }
+					{ num: 1, label: 'Début', done: productCount >= 0 },
+					{ num: 2, label: 'Produit 1', done: productCount >= 1 },
+					{ num: 3, label: 'Produit 2', done: productCount >= 2 },
+					{ num: 4, label: 'Produit 3', done: productCount >= 3 },
+					{ num: 5, label: 'Sécurisé', done: data.user.name && data.user.password }
 				] as step (step.num)}
 					<div class="flex flex-col items-center animate-fade-in" style="animation-delay: {step.num * 50}ms;">
 						<div
@@ -227,19 +292,91 @@
 				</p>
 			</div>
 		{:else if productCount === 3}
-			<div class="rounded-2xl p-8 mb-12 animate-fade-in border-2 animate-pulse-glow" style="background-color: var(--color-secondary); border-color: var(--color-secondary); animation-delay: 200ms;">
-				<h3 class="text-2xl font-bold mb-3" style="color: white;">✨ Collection complète !</h3>
-				<p class="mb-4" style="color: white;">
-					Votre boutique a maintenant 3 produits qualifiés. Vous êtes à pleine visibilité et prêt à accueillir les acheteurs.
-				</p>
-				<button 
-					onclick={() => goto('/vendeurs/dashboard/produits')}
-					class="px-6 py-2 rounded-lg font-semibold text-white transition-all hover:scale-105 active:scale-95"
-					style="background-color: rgba(0, 0, 0, 0.2);"
-				>
-					Voir tous vos produits
-				</button>
-			</div>
+			<!-- Show setup form for collection name and password -->
+			{#if !setupSuccess}
+				<div class="rounded-2xl p-8 mb-12 animate-fade-in border-2" style="background-color: var(--color-secondary); border-color: var(--color-secondary); animation-delay: 200ms;">
+					<h3 class="text-2xl font-bold mb-3" style="color: white;">✨ Collection complète !</h3>
+					<p class="mb-6" style="color: white;">
+						Votre boutique a 3 produits 🎉 Maintenant, sécurisez votre compte avec un nom et un mot de passe.
+					</p>
+
+					<div class="space-y-4">
+						<!-- Collection Name Input -->
+						<div>
+							<Input
+								type="text"
+								minlength="3"
+								placeholder="Ex: Boutique Amina, Vêtements Chic..."
+								label="Nom de votre Collection"
+								bind:value={collectionName}
+								class="w-full"
+								required
+							/>
+							<p class="text-xs mt-2" style="color: rgba(255,255,255,0.8);">
+								💡 Utilisez un nom que vos clients reconnaîtront
+							</p>
+						</div>
+
+						<!-- Password Input -->
+						<div>
+							<Input
+								type="password"
+								placeholder="Minimum 6 caractères"
+								minlength="6"
+								maxlength="20"
+								label="Mot de passe"
+								bind:value={password}
+								class="w-full"
+								required
+							/>
+							<p class="text-xs mt-2" style="color: rgba(255,255,255,0.8);">
+								🔒 Gardez-le secret et compliqué
+							</p>
+						</div>
+
+						<!-- Confirm Password Input -->
+						<div>
+							<Input
+								type="password"
+								placeholder="Confirmez votre mot de passe"
+								minlength="6"
+								maxlength="20"
+								label="Confirmez le mot de passe"
+								bind:value={confirmPassword}
+								class="w-full"
+								required
+							/>
+						</div>
+
+						<!-- Error Message -->
+						{#if setupError}
+							<p class="text-red-200 text-sm font-medium bg-red-900/30 px-4 py-3 rounded-lg w-full text-center">
+								❌ {setupError}
+							</p>
+						{/if}
+
+						<!-- Submit Button -->
+						<Button
+							onclick={handleCollectionSetup}
+							disabled={isSubmittingSetup}
+							class="w-full text-white font-semibold py-3 rounded-lg transition-all hover:scale-105 active:scale-95"
+							style="
+								background-color: rgba(0, 0, 0, 0.2);
+								opacity: {isSubmittingSetup ? 0.7 : 1};
+							"
+							label={isSubmittingSetup ? 'Configuration en cours...' : 'Sécuriser mon compte'}
+						/>
+					</div>
+				</div>
+			{:else}
+				<!-- Success Message -->
+				<div class="rounded-2xl p-8 mb-12 animate-fade-in border-2" style="background-color: var(--color-secondary); border-color: var(--color-secondary);">
+					<h3 class="text-2xl font-bold mb-3" style="color: white;">✅ Accès sécurisé !</h3>
+					<p style="color: white;">
+						Votre collection est configurée et prête à l'emploi. Redirection en cours...
+					</p>
+				</div>
+			{/if}
 		{/if}
 
 		<!-- Action Button -->

@@ -5,17 +5,19 @@ import type { Buyer, User } from "../types"
 export const getUser = async (cookies: Cookies) => {
   const sessionToken = cookies.get("session_id")
 
+  // If no session, return null
   if (!sessionToken) {
     return {user: null, error: null}
   }
 
+  // Get user by session ID - user can exist with just a phone number
+  // No password required yet (they'll set it in /commencer/setup)
   const {data: user, error } : {
     data: User | null,
     error: any
   } = await selectTable("Sellers", "*")
     .eq("id", sessionToken)
     .single()
-
 
   return {user, error}
 }

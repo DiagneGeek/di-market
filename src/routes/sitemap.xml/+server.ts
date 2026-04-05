@@ -21,9 +21,13 @@ export async function GET() {
     "/vendeurs/connection",
     "/vendeurs/inscription",
     "/collections",
+    "/vendeurs/commencer",
     "/products",
     "/partenaires",
-    "/ressources"
+    "/ressources",
+    "/ressources/blog",
+    "/ressources/tutoriels", 
+    "/ressources/guides"
   ]
 
   // Generate URL entries

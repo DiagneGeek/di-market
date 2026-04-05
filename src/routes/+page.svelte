@@ -123,12 +123,45 @@
 		}
 	];
 
+	let isLoading = $state(false);
+	let errorMessage = $state('');
+
 	const handlePhoneSubmit = async (e: Event) => {
-		// In a real app, you'd send this to a backend
-		console.log('Phone submitted:', phoneInput);
-		showPhoneModal = false;
-		phoneInput = '';
-		return 'success';
+		try {
+			isLoading = true;
+			errorMessage = '';
+
+			// Validate phone
+			if (!phoneInput || phoneInput.trim().length < 7) {
+				errorMessage = 'Veuillez entrer un numéro valide';
+				return;
+			}
+
+			const response = await fetch('/api/auth/register-phone', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ phone: phoneInput })
+			});
+
+			const result = await response.json();
+
+			if (!response.ok) {
+				errorMessage = result.error || 'Une erreur est survenue';
+				return;
+			}
+
+			showPhoneModal = false;
+			phoneInput = '';
+
+			// Redirect to commencer page
+			window.location.href = '/commencer';
+		} catch (error) {
+			errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
+		} finally {
+			isLoading = false;
+		}
 	};
 </script>
 
@@ -180,6 +213,14 @@
 				<p class="text-xs text-gray-500 mt-2">
 				Commencez gratuitement en quelques minutes
 				</p>
+			
+	       	 <a class="text-sm my-4 hover:underline" href="vendeurs/connection">
+			   <Button 
+			     variant="underline"
+				 label="J'ai dejà un compte"
+				 />
+			 </a>
+
 			</div>
 
 			<!-- Trust Badges -->
@@ -301,13 +342,13 @@
 				<div class="grid grid-colss-1 gap-12">
 					{#each steps as step, index}
 					<ScrollHighlight once>
-					<div class="flex bg-card p-4 rounded-2xl border-content flex-col-reverse md:flex-row gap-2 w-full max-w-[700px] mx-[-16px]">
+					<div class="flex border-2 border-card p-4 rounded-2xl border-content flex-col-reverse md:flex-row gap-2 w-full max-w-[700px] mx-[-16px]">
 					  <img
 					    src="/landing/{step.img}.jpg"
 						alt="{step.title} étape illustration"
 						class="saturate-100 rounded-2xl w-full w-1/3 md:w-1/3 object-cover shadow shadow-gray-300 "
 					/>
-                      <div class="mx-auto shadow shadow-secondary bg-card p-4 rounded-2xl relative w-full max-w-[400px]">
+                      <div class="mx-auto shadow shadow-secondary bg-card/20 p-4 rounded-2xl relative w-full max-w-[400px]">
 						<span class="inline-block p-0 text-[6rem] font-fraunces font-bold z-[0] text-gray/20 absolute top-[0px] right-[8px]">0{index + 1}</span>
 						<span class="block text-3xl mb-4">{step.icon}</span>
 						<h3>{step.title}</h3>
@@ -587,7 +628,7 @@
 	open={showPhoneModal}
 	close={() => (showPhoneModal = false)}
 	onSubmit={handlePhoneSubmit}
-	btnLabel="Commencer"
+	btnLabel={isLoading ? 'Chargement...' : 'Commencer'}
 >
 	<div class="text-center">
 		<h3 class="text-xl font-bold text-gray-900 mb-2">Commencez gratuitement</h3>
@@ -597,7 +638,11 @@
 			type="tel"
 			placeholder="77 123 45 67"
 			label="Numéro de téléphone"
+			disabled={isLoading}
 		/>
+		{#if errorMessage}
+			<p class="text-red-600 text-sm mt-4 bg-red-50 p-2 rounded">{errorMessage}</p>
+		{/if}
 	</div>
 </Modal>
 

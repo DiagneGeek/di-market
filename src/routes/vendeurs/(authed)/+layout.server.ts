@@ -20,7 +20,16 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
   }
 
   if (!user) {
-    redirect(307, "/vendeurs/connection")
+    redirect(307, "/")
+  }
+
+  // Check if user needs to complete onboarding (name + password)
+  // But don't redirect if already on the commencer page
+  const isOnCommencerPage = url.pathname.includes("/vendeurs/dashboard/commencer")
+  const needsOnboarding = !user.name || !user.password
+
+  if (needsOnboarding && !isOnCommencerPage) {
+    redirect(307, "/vendeurs/dashboard/commencer")
   }
   
   const isPremium = await _isPremium(user)

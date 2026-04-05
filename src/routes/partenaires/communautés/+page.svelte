@@ -1,225 +1,373 @@
 <script lang="ts">
-  import PartnerHero from "$lib/components/PartnerHero.svelte";
-  import InfoSection from "$lib/components/InfoSection.svelte";
-  import BenefitsSection from "$lib/components/BenefitsSection.svelte";
+  import Hero from "$lib/components/Hero.svelte";
+  import Section from "$lib/components/Section.svelte";
+  import Button from "$lib/components/Button.svelte";
   import GainBar from "$lib/components/GainBar.svelte";
   import PartnerCTA from "$lib/components/PartnerCTA.svelte";
-  import Button from "$lib/components/Button.svelte";
+  import ScrollHighlight from "$lib/components/ScrollHighlight.svelte";
 
   const benefits = [
     {
       icon: "🎯",
       title: "Alignement Naturel",
-      description: "DiMarket s'aligne parfaitement avec les valeurs de votre communauté : support local, commerce éthique, et empowerment économique."
+      description: "DiMarket s'aligne avec vos valeurs : support local, commerce éthique, et empowerment économique."
     },
     {
       icon: "📱",
-      title: "Ressources Prêtes à L'Emploi",
-      description: "Nous fournissons tous les matériaux : templates WhatsApp, images, vidéos explicatives, et guides complets pour promouvoir auprès de votre communauté."
+      title: "Ressources Prêtes",
+      description: "Templates WhatsApp, images, vidéos et guides. Vous partagez juste le lien."
     },
     {
       icon: "💬",
-      title: "Network Effect",
-      description: "Lorsqu'une personne de votre communauté rejoint, elle amène souvent ses amis. Les gains augmentent exponentiellement."
+      title: "Effet Réseau",
+      description: "Vos membres qui réussissent amènent leurs amis. La croissance s'accélère."
     },
     {
       icon: "🏆",
-      title: "Programme VIP Communautés",
-      description: "Les communautés qui réfèrent 50+ vendeurs/mois accèdent à des bonis spéciaux, des reconnaissances publiques, et des avantages exclusifs."
+      title: "Programme VIP",
+      description: "50+ vendeurs/mois = bonis spéciaux, reconnaissances, et avantages exclusifs."
     }
   ];
+
+  let memberCount = $state(50);
+  const conversionRate = 0.25; // 25% conversion
+  const activeAfterTrial = 0.70; // 70% stay active
+  const monthlyVendors = () => Math.floor(memberCount * conversionRate);
+  const activeVendors = () => Math.floor(monthlyVendors() * activeAfterTrial);
+  const monthlyEarnings = () => activeVendors() * 5000;
+  const yearlyEarnings = () => monthlyEarnings() * 12;
 </script>
 
 <svelte:head>
   <title>Partenaires Communautés - DiMarket</title>
-  <meta name="description" content="Programme d'affiliation pour les communautés et groupes. Gagnez 10 000 FCFA par vendeur référé." />
+  <meta name="description" content="Programme d'affiliation pour les communautés. Aider vos membres à réussir ET générez du revenu." />
 </svelte:head>
 
 <div class="min-h-screen bg-white">
-  <!-- Hero Section -->
-  <PartnerHero
-    title="🌍 Devenez Partenaire Communauté"
-    subtitle="Votre groupe, votre réseau, c'est une ressource précieuse. Transformez votre communauté en source de revenus et d'opportunités en partageant DiMarket."
-    ctaLabel="Commencer Maintenant"
-    ctaHref="https://wa.me/781878234?text=Salut%20DiMarket%2C%20je%20dirige%20une%20communauté%20et%20suis%20intéressé%20par%20le%20partenariat%20communautés."
-  />
+  <!-- HERO SECTION -->
+  <Hero>
+    <p class="mx-auto text-xs text-center h-full mb-4 border border-card bg-primary/50 py-2 rounded-full">
+      <span class="scale-[2] h-full mr-2 animate-pulse inline-block">●</span>Pour les leaders de communautés
+    </p>
 
-  <!-- What is This Program Section -->
-  <InfoSection
-    title="Programme de Partenariat Communautés"
-    content="Vous avez un groupe WhatsApp actif, une association, une page Facebook engagée ? C'est l'opportunité parfaite. Présentez DiMarket à votre communauté et gagnez 10 000 FCFA par personne que vous référez et qui devient un vendeur actif.<br><br><strong>Aucun effort compliqué</strong>. Vous partagez les ressources que nous fournissons, et nous gérons le reste. C'est aussi simple que ça."
-  />
+    <h1 class="mb-6 leading-tight">
+      Aidez votre communauté à réussir<br />
+      <span class="font-fraunces bg-secondary">Et gagnez ensemble</span>
+    </h1>
 
-  <!-- Benefits Section -->
-  <BenefitsSection
-    title="Avantages du Partenariat Communautés"
-    benefits={benefits}
-  />
+    <p class="leading-relaxed mx-auto">
+      Vous animez un groupe WhatsApp, une communauté Telegram, ou un réseau d'entrepreneurs ? Aidez-les à vendre en ligne avec DiMarket, et gagnez 5 000 FCFA chaque fois qu'un de vos membres devient un vendeur actif.
+    </p>
 
-  <!-- Gain Calculator -->
-  <GainBar />
-
-  <!-- How It Works Section -->
-  <section class="my-16 sm:my-20">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
-        Comment Ça Marche ?
-      </h2>
-      
-      <div class="space-y-6">
-        <div class="flex gap-6">
-          <div class="flex-shrink-0">
-            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-yellow-300 text-gray-900 font-bold text-lg">
-              1
-            </div>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Créez Votre Lien Unique</h3>
-            <p class="text-gray-700">Vous recevez un lien de parrain unique que vous partagez avec votre communauté. Chaque personne qui s'inscrit via ce lien est enregistrée comme votre référencement.</p>
-          </div>
-        </div>
-
-        <div class="flex gap-6">
-          <div class="flex-shrink-0">
-            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-yellow-300 text-gray-900 font-bold text-lg">
-              2
-            </div>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Partagez les Ressources</h3>
-            <p class="text-gray-700">Utilisez nos templates préparés, images, vidéos et messages pour promouvoir DiMarket. Nous faisons le travail créatif, vous gérez juste la promotion.</p>
-          </div>
-        </div>
-
-        <div class="flex gap-6">
-          <div class="flex-shrink-0">
-            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-yellow-300 text-gray-900 font-bold text-lg">
-              3
-            </div>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Attendez la Fin de la Période de Essai</h3>
-            <p class="text-gray-700">Chaque vendeur a 1 mois gratuit. Après cette période, s'il continue, vous recevez votre commission de 10 000 FCFA.</p>
-          </div>
-        </div>
-
-        <div class="flex gap-6">
-          <div class="flex-shrink-0">
-            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-yellow-300 text-gray-900 font-bold text-lg">
-              4
-            </div>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Recevez Votre Paiement</h3>
-            <p class="text-gray-700">Les commissions sont versées mensuellement via Wave, directement sur votre compte. Pas de frais, pas de conditions cachées.</p>
-          </div>
-        </div>
+    <div class="bg-white rounded-2xl p-8 mb-12 max-w-md mx-auto">
+      <div class="flex gap-1 flex-col">
+        <Button
+          label="Rejoindre le Programme"
+          onclick={() => window.location.href = '/partenaires/commencer'}
+        />
       </div>
+      <p class="text-xs text-gray-500 mt-2">
+      Aucun frais. Commencez maintenant.
+      </p>
     </div>
-  </section>
 
-  <!-- Success Stories Section -->
-  <section class="my-16 sm:my-20 bg-gradient-to-r from-yellow-50 to-blue-50 rounded-2xl p-8 sm:p-12 border border-yellow-200">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
-        📈 Cas d'Usage : Communautés à Succès
-      </h2>
-      
-      <div class="bg-white rounded-lg p-6 sm:p-8 border border-yellow-200">
-        <div class="mb-4">
-          <span class="inline-block bg-yellow-300 text-gray-900 px-4 py-1 rounded-full text-sm font-bold mb-4">Exemple Réaliste</span>
+    <!-- Stats Pills -->
+    <div class="flex flex-wrap justify-center gap-8 text-center">
+      {#each [
+        { icon: '👥', text: '<strong class="font-fraunces text-lg">Pour les leaders</strong><br> De communautés' },
+        {
+          icon: '💰',
+          text: '<strong class="font-fraunces text-lg">5 000 FCFA</strong><br> Par membre'
+        },
+        { icon: '🚀', text: '<strong class="font-fraunces text-lg">Croissance exponentielle</strong><br> Effet réseau' }
+      ] as badge}
+        <div class="flex items-center flex-col gap-2">
+          <span class="">{badge.icon}</span>
+          <p class="text-sm sm:text-base text-gray-700">
+            {@html badge.text}
+          </p>
         </div>
-        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
-          Groupe WhatsApp de 2 000 Femmes Entrepreneures
-        </h3>
-        <p class="text-gray-700 mb-6">
-          <strong>Scénario :</strong> Vous animez un groupe WhatsApp avec 2 000 femmes entrepreneures. Vous présentez DiMarket et partagez le lien avec votre groupe.
+      {/each}
+    </div>
+  </Hero>
+
+  <!-- PROBLEM SECTION -->
+  <Section isForLanding={true} class="bg-gray-50 py-20">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
+      Vous animez une <span class="font-fraunces opacity-70">communauté de vendeurs</span>
+    </h2>
+    <p class="text-center text-gray-600 mb-12 text-lg">
+      Mais vous les aidez sans être rémunéré
+    </p>
+
+    <div class="max-w-2xl mx-auto space-y-4 px-4">
+      <ScrollHighlight once>
+        <p class="text-lg">
+          Votre communauté est votre fierté. Vous les aidez avec des conseils, du support, et du mentorat.
         </p>
-        
-        <div class="bg-yellow-50 rounded-lg p-4 sm:p-6 border border-yellow-200 mb-6">
-          <h4 class="font-bold text-gray-900 mb-4 text-lg">Mois 1 (Période d'Essai) :</h4>
-          <ul class="space-y-2 text-gray-700">
-            <li>✓ 30 femmes créent des comptes DiMarket</li>
-            <li>✓ Elles construisent leurs collections</li>
-            <li>✓ Elles testent la plateforme</li>
-            <li>✓ 0 FCFA de commission (période d'essai)</li>
-          </ul>
-        </div>
+      </ScrollHighlight>
 
-        <div class="bg-green-50 rounded-lg p-4 sm:p-6 border border-green-200">
-          <h4 class="font-bold text-gray-900 mb-4 text-lg">À Partir du Mois 2 :</h4>
-          <div class="space-y-3 text-gray-700">
-            <div class="flex justify-between items-center">
-              <span>20 femmes deviennent vendeurs payants</span>
-              <span class="font-bold">20 × 10 000 FCFA</span>
-            </div>
-            <div class="border-t-2 border-green-200 pt-3 flex justify-between items-center text-lg font-bold text-green-700">
-              <span>Vos gains mensuels</span>
-              <span>200 000 FCFA</span>
-            </div>
+      <ScrollHighlight once>
+        <p class="text-lg">
+          Mais à la fin du mois, vous avez aidé 50 membres à devenir plus fortunes… et vous, vous n'avez rien.
+        </p>
+      </ScrollHighlight>
+
+      <ScrollHighlight once>
+        <p class="text-lg">
+          Pendant ce temps, vos membres cherchent une solution pour organiser leurs ventes. Ils demandent "Comment je fais pour vendre en ligne ?"
+        </p>
+      </ScrollHighlight>
+
+      <ScrollHighlight once>
+        <p class="text-lg text-secondary font-semibold">
+          Et si c'était vous qui pouviez les donner la solution ? ET en être rémunéré ?
+        </p>
+      </ScrollHighlight>
+    </div>
+  </Section>
+
+  <!-- SOLUTION SECTION -->
+  <Section isForLanding={true} class="py-20">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
+      Comment Ça Marche Pour Vous
+    </h2>
+
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="bg-gradient-to-r from-yellow-50 to-blue-50 border-2 border-card rounded-2xl p-6 sm:p-8">
+        <div class="flex gap-4 items-start">
+          <span class="text-4xl flex-shrink-0">1️⃣</span>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Vous créez votre lien unique</h3>
+            <p class="text-gray-700">
+              Nous vous donnons un lien qui vous représente. Chaque personne qui s'inscrit via ce lien vous est associée.
+            </p>
           </div>
         </div>
+      </div>
 
-        <p class="text-gray-600 text-sm mt-6 italic">
-          💡 Avec une communauté engagée, vous pouvez facilement générer 200k → 500k FCFA/mois en promotion passive.
+      <div class="flex justify-center">
+        <svg class="w-8 h-8 text-gray-400 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+      </div>
+
+      <div class="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-card rounded-2xl p-6 sm:p-8">
+        <div class="flex gap-4 items-start">
+          <span class="text-4xl flex-shrink-0">2️⃣</span>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Vous partagez avec votre communauté</h3>
+            <p class="text-gray-700">
+              Présentez DiMarket à votre communauté. Partagez dans votre groupe WhatsApp, Telegram, ou lors de vos sessions. Nous fournissons les resources.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center">
+        <svg class="w-8 h-8 text-gray-400 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+      </div>
+
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-card rounded-2xl p-6 sm:p-8">
+        <div class="flex gap-4 items-start">
+          <span class="text-4xl flex-shrink-0">3️⃣</span>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Vos membres s'inscrivent et réussissent</h3>
+            <p class="text-gray-700">
+              Chaque membre crée une collection, reçoit des commandes, et peut vendre sans vous déranger. C'est gagner-gagner.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center">
+        <svg class="w-8 h-8 text-gray-400 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+      </div>
+
+      <div class="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-card rounded-2xl p-6 sm:p-8">
+        <div class="flex gap-4 items-start">
+          <span class="text-4xl flex-shrink-0">4️⃣</span>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Vous gagnez 5 000 FCFA par actif</h3>
+            <p class="text-gray-700">
+              Après la période d'essai, chaque membre actif vous rapporte 5 000 FCFA mensuels. Plus ils réussissent, plus vous gagnez.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- BENEFITS SECTION -->
+  <Section isForLanding={true} class="bg-gray-50 py-20">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
+      Avantages pour le Leader
+    </h2>
+    <p class="text-center text-gray-600 mb-12">
+      C'est plus que juste de l'argent
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      {#each benefits as benefit, index}
+        <div class="bg-white border-2 border-card rounded-2xl p-6 hover:shadow-lg transition-shadow duration-300">
+          <span class="text-4xl mb-4 block">{benefit.icon}</span>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">{benefit.title}</h3>
+          <p class="text-gray-700 text-sm">{benefit.description}</p>
+        </div>
+      {/each}
+    </div>
+  </Section>
+
+  <!-- CALCULATOR SECTION -->
+  <Section isForLanding={true} class="py-20">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
+      Calculez vos gains potentiels
+    </h2>
+    <p class="text-center text-gray-600 mb-12">
+      Basé sur la taille de votre communauté
+    </p>
+
+    <div class="max-w-2xl mx-auto bg-white border-2 border-card rounded-2xl p-8">
+      <div class="mb-8">
+        <label for="members" class="block text-sm font-semibold text-gray-700 mb-4">
+          Nombre de membres dans votre communauté :
+        </label>
+        <input
+          id="members"
+          type="range"
+          bind:value={memberCount}
+          min="10"
+          max="1000"
+          step="10"
+          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+        />
+        <div class="text-center mt-4">
+          <p class="text-2xl font-bold font-fraunces text-primary">{memberCount} membres</p>
+        </div>
+      </div>
+
+      <!-- Breakdown -->
+      <div class="space-y-3 mb-6 bg-gray-50 p-4 rounded-lg">
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-700">À ~25% conversion :</span>
+          <span class="font-bold">{monthlyVendors()} nouveaux/mois</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-700">À 70% rétention :</span>
+          <span class="font-bold">{activeVendors()} actifs</span>
+        </div>
+      </div>
+
+      <!-- Results Grid -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+          <p class="text-sm text-gray-600 mb-1">Par mois</p>
+          <p class="text-3xl font-bold text-yellow-700 font-fraunces">
+            {(monthlyEarnings() / 1000).toFixed(0)}k FCFA
+          </p>
+        </div>
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+          <p class="text-sm text-gray-600 mb-1">Par an</p>
+          <p class="text-3xl font-bold text-green-700 font-fraunces">
+            {(yearlyEarnings() / 1000000).toFixed(1)}M FCFA
+          </p>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 text-center">
+        *Estimations basées sur moyennes de l'industrie. Les résultats varient.
+      </p>
+    </div>
+  </Section>
+
+  <!-- USE CASE SECTION -->
+  <Section isForLanding={true} class="bg-primary/10 py-20 rounded-2xl">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
+      Cas Réels : Les Meilleures Communautés
+    </h2>
+
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="bg-white border-2 border-card rounded-2xl p-6 sm:p-8">
+        <div class="inline-block bg-yellow-300 text-gray-900 px-4 py-1 rounded-full text-sm font-bold mb-4">Exemple 1</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">👩‍💼 Groupe de Femmes Entrepreneures (2 000 membres)</h3>
+        <p class="text-gray-700 mb-4">
+          Vous présentez DiMarket aux femmes de votre groupe. Elles adorent. 30 d'entre elles deviennent des vendeurs actifs.
+        </p>
+        <div class="bg-green-50 border-l-4 border-green-500 p-4">
+          <p class="text-sm font-bold text-gray-900">À partir du mois 2 :</p>
+          <p class="text-2xl font-bold text-green-700">30 × 5 000 FCFA = <strong>150 000 FCFA/mois</strong></p>
+        </div>
+      </div>
+
+      <div class="bg-white border-2 border-card rounded-2xl p-6 sm:p-8">
+        <div class="inline-block bg-yellow-300 text-gray-900 px-4 py-1 rounded-full text-sm font-bold mb-4">Exemple 2</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">📱 Réseau Telegram de Créateurs de Contenu (500 membres)</h3>
+        <p class="text-gray-700 mb-4">
+          Les créateurs veulent monétiser leur audience. DiMarket leur permet de créer une store et vendre. 25 deviennent vendeurs.
+        </p>
+        <div class="bg-green-50 border-l-4 border-green-500 p-4">
+          <p class="text-sm font-bold text-gray-900">À partir du mois 2 :</p>
+          <p class="text-2xl font-bold text-green-700">25 × 5 000 FCFA = <strong>125 000 FCFA/mois</strong></p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- HOW TO SUCCEED SECTION -->
+  <Section isForLanding={true} class="bg-gray-50 py-20">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
+      💡 Comment Réussir Comme Leader Partenaire
+    </h2>
+    <p class="text-center text-gray-600 mb-12">
+      Quelques trucs qui fonctionnent vraiment
+    </p>
+
+    <div class="max-w-4xl mx-auto space-y-4">
+      <div class="bg-white border border-card rounded-lg p-6 hover:shadow-md transition-shadow">
+        <h3 class="font-bold text-gray-900 mb-2">1. Intégrez DiMarket dans Votre Offering</h3>
+        <p class="text-gray-700 text-sm">
+          Don't just mention DiMarket. Make it part of your training, your mentoring, your value. "Ici, nous utilisons DiMarket pour vendre" has way more impact.
+        </p>
+      </div>
+
+      <div class="bg-white border border-card rounded-lg p-6 hover:shadow-md transition-shadow">
+        <h3 class="font-bold text-gray-900 mb-2">2. Montrez les Succès</h3>
+        <p class="text-gray-700 text-sm">
+          Partagez régulièrement les histoires de vos membres qui réussissent. Créez des case studies. C'est la meilleure publicité.
+        </p>
+      </div>
+
+      <div class="bg-white border border-card rounded-lg p-6 hover:shadow-md transition-shadow">
+        <h3 class="font-bold text-gray-900 mb-2">3. Utilisez Nos Resources</h3>
+        <p class="text-gray-700 text-sm">
+          Nous fournissons templates, images, vidéos. Les utiliser économise du temps et augmente les conversions.
+        </p>
+      </div>
+
+      <div class="bg-white border border-card rounded-lg p-6 hover:shadow-md transition-shadow">
+        <h3 class="font-bold text-gray-900 mb-2">4. Support Vos Premiers Membres</h3>
+        <p class="text-gray-700 text-sm">
+          Les 5 premiers à rejoindre sont critiques. Aidez-les personnellement. Ils deviennent vos ambassadeurs.
         </p>
       </div>
     </div>
-  </section>
+  </Section>
 
-  <!-- Resources Section -->
-  <section class="my-16 sm:my-20">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
-        📦 Ressources Incluses
-      </h2>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div class="bg-gradient-to-br from-yellow-50 to-white border border-yellow-200 rounded-lg p-6">
-          <div class="text-3xl mb-4">📱</div>
-          <h3 class="font-bold text-gray-900 mb-2">Messages Prêts</h3>
-          <p class="text-gray-700 text-sm">Messages WhatsApp pre-rédigés, convaincants, prêts à copier-coller dans votre groupe.</p>
-        </div>
+  <!-- GAIN CALCULATOR -->
+  <div id="gain-calculator">
+    <GainBar />
+  </div>
 
-        <div class="bg-gradient-to-br from-yellow-50 to-white border border-yellow-200 rounded-lg p-6">
-          <div class="text-3xl mb-4">🎥</div>
-          <h3 class="font-bold text-gray-900 mb-2">Vidéos Explicatives</h3>
-          <p class="text-gray-700 text-sm">Vidéos courtes montrant comment fonctionne DiMarket et les avantages pour les vendeurs.</p>
-        </div>
-
-        <div class="bg-gradient-to-br from-yellow-50 to-white border border-yellow-200 rounded-lg p-6">
-          <div class="text-3xl mb-4">🖼️</div>
-          <h3 class="font-bold text-gray-900 mb-2">Banners & Images</h3>
-          <p class="text-gray-700 text-sm">Images attrayantes pour partager sur Facebook, Instagram, et autres réseaux sociaux.</p>
-        </div>
-
-        <div class="bg-gradient-to-br from-yellow-50 to-white border border-yellow-200 rounded-lg p-6">
-          <div class="text-3xl mb-4">📊</div>
-          <h3 class="font-bold text-gray-900 mb-2">Tableau de Bord</h3>
-          <p class="text-gray-700 text-sm">Suivez en temps réel vos référencements, gains, et statistiques de conversion.</p>
-        </div>
-
-        <div class="bg-gradient-to-br from-yellow-50 to-white border border-yellow-200 rounded-lg p-6">
-          <div class="text-3xl mb-4">🤝</div>
-          <h3 class="font-bold text-gray-900 mb-2">Support Dédié</h3>
-          <p class="text-gray-700 text-sm">Un gestionnaire vous aide à optimiser votre stratégie et répond à vos questions rapidement.</p>
-        </div>
-
-        <div class="bg-gradient-to-br from-yellow-50 to-white border border-yellow-200 rounded-lg p-6">
-          <div class="text-3xl mb-4">🎯</div>
-          <h3 class="font-bold text-gray-900 mb-2">Stratégies Éprouvées</h3>
-          <p class="text-gray-700 text-sm">Nous partageons les stratégies et tactiques qui ont fonctionné pour d'autres communautés.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
+  <!-- FINAL CTA -->
   <PartnerCTA
-    title="Transformez Votre Communauté en Revenu"
-    subtitle="Commencez dès maintenant avec zéro frais d'inscription"
-    message="Nous cherchons des leaders de communautés motivés prêts à faire une différence. Si vous avez un groupe actif et engagé, c'est l'opportunité parfaite."
+    title="Prêt à Aider Votre Communauté ?"
+    subtitle="Et à générer du revenu en le faisant"
+    message="Rejoignez notre programme de partenaires et commencez à monétiser votre leadership communautaire."
     ctaLabel="Rejoindre le Programme"
-    ctaHref="https://wa.me/781878234?text=Salut%20DiMarket%2C%20je%20dirige%20une%20communauté%20avec%20[nombre]%20membres%20et%20suis%20intéressé%20par%20le%20programme%20d%27affiliation%20communautés."
+    ctaHref="/partenaires/commencer"
   />
 </div>

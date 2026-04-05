@@ -18,20 +18,25 @@ export const load: PageServerLoad = async ({ cookies, url, parent }) => {
 
   const productCount = await getSellerProductCount(sellerId);
   const setupComplete = await isSetupComplete(user, products);
-  const productsNeeded = await getProductsNeededForSetup(sellerId);
 
-  // Calculate progress with bigger jumps per product to feel more rewarding
-  // 30% base, then larger increments for each product
-  let progress = 30;
-  if (productCount >= 1) progress = 55;   // +25% for product 1
-  if (productCount >= 2) progress = 80;   // +25% for product 2
-  if (productCount >= 3) progress = 100;  // +20% for product 3 (reaching 100%)
-  if (setupComplete) progress = 100;
+  // Check if user has completed the onboarding (3 products + name + password)
+  const onboardingComplete = productCount >= 3 && user.name && user.password;
 
-  // If already setup complete, redirect to dashboard
-  if (setupComplete) {
+  // Calculate progress for the onboarding journey
+  // 20% per product (3 products = 60%) + 40% for securing account
+  let progress = 0;
+  if (productCount >= 1) progress = 20;   // + 20% for product 1
+  if (productCount >= 2) progress = 40;   // + 20% for product 2
+  if (productCount >= 3) progress = 60;   // + 20% for product 3
+  if (onboardingComplete) progress = 100; // + 40% for secured account
+
+  // If already completed full onboarding, redirect to dashboard
+  if (onboardingComplete) {
+    console.log("ggg")
     redirect(307, '/vendeurs/dashboard');
   }
+
+  const productsNeeded = 3 - productCount;
 
   return {
     user,
@@ -39,6 +44,7 @@ export const load: PageServerLoad = async ({ cookies, url, parent }) => {
     setupComplete,
     productsNeeded,
     progress,
+    onboardingComplete,
     setupRequired: true
   };
 };
