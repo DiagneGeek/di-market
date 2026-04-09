@@ -2,8 +2,19 @@
 	import Button from "$lib/components/Button.svelte";
 	import Input from "$lib/components/Input.svelte";
 	import Hero from "$lib/components/Hero.svelte";
+  import { page } from '$app/stores';
+  import { browser } from '$app/environment';
 
+  if (browser) {
+    const ref = $page.url.searchParams.get('ref');
+    if (ref && !localStorage.getItem('referred_by')) localStorage.setItem('referred_by', ref);
+  }
    const {data, form} = $props()
+
+   let referer: null | string = null
+   $effect(() => {
+      referer = localStorage.getItem('referred_by') || null;
+   })
 </script>
 
 <svelte:head>
@@ -55,6 +66,7 @@
          {#if form?.error}
           <p class="text-red-500 text-sm font-medium bg-red-50 px-4 py-2 rounded-lg w-full text-center">{form?.error}</p>
         {/if}
+        <input type="hidden" name="referer" value={referer} />
         <Button class="w-full mt-4">Créer ma collection</Button>
     </form>
 

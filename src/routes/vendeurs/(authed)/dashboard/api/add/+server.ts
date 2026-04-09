@@ -2,7 +2,7 @@
 import {addArticle} from "$lib/server/articles"
 import type {Article, User} from "$lib/types"
 import {uploadImage, getPublicUrl} from "$lib/server/supabase"
-import {isPremium} from "$lib/server/getUser"
+import {isPremium} from "$lib/server/auth/getUser"
 import { error, json } from "@sveltejs/kit"
 import type { RequestHandler } from './$types'
 

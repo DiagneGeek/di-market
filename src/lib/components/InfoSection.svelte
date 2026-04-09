@@ -5,7 +5,7 @@
 
 
 <div class="relative max-w-4xl border-2 border-card rounded-xl overflow-hidden pt-2 ">
-  <p class="w-full {showAll ? "h-auto" : "h-28"} text-left overflow-hidden p-2">
+  <p class="w-full {showAll ? "h-auto" : "h-42"} text-left overflow-hidden p-2">
     {@render children()}
   </p>
   {#if !showAll}

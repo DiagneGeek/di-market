@@ -78,8 +78,8 @@
 
   <!-- Call to action for sellers -->
   <section class="my-16 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8 sm:p-12 text-center max-w-4xl mx-auto">
-    <h2 class="text-2xl sm:text-3xl font-bold mb-3">🏪 Vendez Votre Collection</h2>
-    <p class="text-gray-600 mb-8 text-lg">Rejoignez des centaines de vendeurs qui partagent leurs produits sénégalais sur DiMarket. C'est gratuit et facile !</p>
+    <h2 class="text-2xl sm:text-3xl font-bold mb-3">🏪 Créez Votre Collection</h2>
+    <p class="mb-8 mx-auto">Rejoignez des centaines de vendeurs qui partagent leurs produits sur DiMarket. C'est gratuit et facile !</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a href="/vendeurs/inscription">
         <Button size="md" variant="primary">Créer Ma Collection</Button>

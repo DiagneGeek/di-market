@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { getUser } from '$lib/server/getUser';
+import { getUser } from '$lib/server/auth/getUser';
 import { selectTable } from '$lib/server/supabase';
 import { error } from '@sveltejs/kit';
 import type { Article, Event } from '$lib/types';

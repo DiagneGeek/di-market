@@ -75,7 +75,7 @@
 {validity?.autohighlight?.()}
 <div class="flex flex-col justify-center gap-1">
 {#if label || inputType === "password"}
- <div class="flex items-center justify-between ">
+ <div class="flex items-end justify-between ">
     <span class="text-xs font-semi-bold text-gray">{label}</span>
     <div>
       {#if inputType === "password"}

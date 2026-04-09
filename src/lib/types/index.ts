@@ -23,7 +23,8 @@ export interface User {
   password?: string,
   plan: string,
   trial_ends_at: any,
-  setupping?: boolean
+  setupping?: boolean,
+  referred_by?: string | null
 }
 
 export interface Event {
@@ -58,4 +59,13 @@ export interface Order {
   seller_id: number | string,
   buyer_id: number | string,
   Order_Items?: OrderItem[]
+}
+
+export interface Partner {
+  id?: number,
+  created_at?: any,
+  session_id?: string,
+  phone: number,
+  password?: string,
+  partner_id: string 
 }

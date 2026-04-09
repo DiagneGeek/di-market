@@ -1,4 +1,4 @@
-import { getUser } from '$lib/server/getUser';
+import { getUser } from '$lib/server/auth/getUser';
 import { isSetupComplete, getSellerProductCount, getProductsNeededForSetup } from '$lib/server/setupCheck';
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';

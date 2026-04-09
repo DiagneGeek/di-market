@@ -2,7 +2,7 @@
   import Hero from "$lib/components/Hero.svelte";
   import Section from "$lib/components/Section.svelte";
   import Button from "$lib/components/Button.svelte";
-  import GainBar from "$lib/components/GainBar.svelte";
+  import InfoSection from "$lib/components/InfoSection.svelte";
   import PartnerCTA from "$lib/components/PartnerCTA.svelte";
   import ScrollHighlight from "$lib/components/ScrollHighlight.svelte";
 
@@ -10,12 +10,12 @@
     {
       icon: "🎯",
       title: "Alignement Naturel",
-      description: "DiMarket s'aligne avec vos valeurs : support local, commerce éthique, et empowerment économique."
+      description: "DiMarket s'aligne avec vos valeurs : support local, commerce éthique, et être utile à votre communauté."
     },
     {
       icon: "📱",
       title: "Ressources Prêtes",
-      description: "Templates WhatsApp, images, vidéos et guides. Vous partagez juste le lien."
+      description: "Templates WhatsApp, images, vidéos et guides. Nous vous donnont tout pour vous voir réussir."
     },
     {
       icon: "💬",
@@ -24,8 +24,8 @@
     },
     {
       icon: "🏆",
-      title: "Programme VIP",
-      description: "50+ vendeurs/mois = bonis spéciaux, reconnaissances, et avantages exclusifs."
+      title: "Status et Reconnaissances",
+      description: "En aidant les vendeurs de votre communauté à gagner du temps et organiser leurs commandes, vous sortez de la case de simple admin et devenez un leader respecté et apprécié"
     }
   ];
 
@@ -34,7 +34,7 @@
   const activeAfterTrial = 0.70; // 70% stay active
   const monthlyVendors = () => Math.floor(memberCount * conversionRate);
   const activeVendors = () => Math.floor(monthlyVendors() * activeAfterTrial);
-  const monthlyEarnings = () => activeVendors() * 5000;
+  const monthlyEarnings = () => activeVendors() * 1000;
   const yearlyEarnings = () => monthlyEarnings() * 12;
 </script>
 
@@ -56,16 +56,15 @@
     </h1>
 
     <p class="leading-relaxed mx-auto">
-      Vous animez un groupe WhatsApp, une communauté Telegram, ou un réseau d'entrepreneurs ? Aidez-les à vendre en ligne avec DiMarket, et gagnez 5 000 FCFA chaque fois qu'un de vos membres devient un vendeur actif.
+      Vous animez un groupe WhatsApp, une communauté Telegram, ou un réseau d'entrepreneurs ? Aidez-les à vendre en ligne avec DiMarket, et gagnez 1 000 FCFA par mois pendant un an chaque fois qu'un de vos membres devient un vendeur actif.
     </p>
 
     <div class="bg-white rounded-2xl p-8 mb-12 max-w-md mx-auto">
-      <div class="flex gap-1 flex-col">
+      <a href="/partenaires/inscription" class="flex gap-1 flex-col">
         <Button
           label="Rejoindre le Programme"
-          onclick={() => window.location.href = '/partenaires/commencer'}
         />
-      </div>
+      </a>
       <p class="text-xs text-gray-500 mt-2">
       Aucun frais. Commencez maintenant.
       </p>
@@ -77,7 +76,7 @@
         { icon: '👥', text: '<strong class="font-fraunces text-lg">Pour les leaders</strong><br> De communautés' },
         {
           icon: '💰',
-          text: '<strong class="font-fraunces text-lg">5 000 FCFA</strong><br> Par membre'
+          text: '<strong class="font-fraunces text-lg">1 000 FCFA/mois</strong><br> Par membre'
         },
         { icon: '🚀', text: '<strong class="font-fraunces text-lg">Croissance exponentielle</strong><br> Effet réseau' }
       ] as badge}
@@ -91,6 +90,23 @@
     </div>
   </Hero>
 
+  <Section isForLanding={true}>
+    <h2 class="text-3xl mt-8">C'est quoi DiMarket ?</h2>
+    <InfoSection>
+      DiMarket aide les vendeurs en ligne africains à sortir du chaos des 
+      messages et des commandes mal gérées.<br><br>
+
+      Aujourd'hui, beaucoup passent leurs journées à répondre aux mêmes messages, à répéter les mêmes infos dans Whatsapp et essayer de gérer les commandes manuellement. 
+      Résultat : beaucoup de temps passé dans whatsapp, des ventes ratées et du stress inutile.<br><br>
+
+      Avec DiMarket, les vendeurs créent facilement leurs collections, les partagent avec leurs clients,
+       et reçoivent des commandes claires, structurées et prêtes à être traitées, 
+       sans discussions interminables.<br><br>
+
+      Pensé pour la réalité du commerce en Afrique, conçu au Sénégal, DiMarket transforme une activité confuse en un système simple, rapide et efficace.
+    </InfoSection>
+  </Section>
+
   <!-- PROBLEM SECTION -->
   <Section isForLanding={true} class="bg-gray-50 py-20">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
@@ -101,25 +117,25 @@
     </p>
 
     <div class="max-w-2xl mx-auto space-y-4 px-4">
-      <ScrollHighlight once>
+      <ScrollHighlight>
         <p class="text-lg">
-          Votre communauté est votre fierté. Vous les aidez avec des conseils, du support, et du mentorat.
+          Votre communauté est votre fierté. Vous adorez voir des personnes réussir grâce à vous.
         </p>
       </ScrollHighlight>
 
-      <ScrollHighlight once>
+      <ScrollHighlight>
         <p class="text-lg">
-          Mais à la fin du mois, vous avez aidé 50 membres à devenir plus fortunes… et vous, vous n'avez rien.
+          Mais à la fin du mois, vous avez aidé des dizaines de membres à devenir plus fortunés… et vous, vous n'avez rien.
         </p>
       </ScrollHighlight>
 
-      <ScrollHighlight once>
+      <ScrollHighlight>
         <p class="text-lg">
-          Pendant ce temps, vos membres cherchent une solution pour organiser leurs ventes. Ils demandent "Comment je fais pour vendre en ligne ?"
+          Pendant ce temps, vos membres cherchent une solution pour organiser leurs ventes. Ils demandent "Comment je fais pour vendre en ligne plus simplement?"
         </p>
       </ScrollHighlight>
 
-      <ScrollHighlight once>
+      <ScrollHighlight>
         <p class="text-lg text-secondary font-semibold">
           Et si c'était vous qui pouviez les donner la solution ? ET en être rémunéré ?
         </p>
@@ -147,7 +163,7 @@
       </div>
 
       <div class="flex justify-center">
-        <svg class="w-8 h-8 text-gray-400 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
         </svg>
       </div>
@@ -158,14 +174,14 @@
           <div>
             <h3 class="text-xl font-bold text-gray-900 mb-2">Vous partagez avec votre communauté</h3>
             <p class="text-gray-700">
-              Présentez DiMarket à votre communauté. Partagez dans votre groupe WhatsApp, Telegram, ou lors de vos sessions. Nous fournissons les resources.
+              Présentez DiMarket à votre communauté. Partagez dans votre groupe Facebook, WhatsApp, Telegram, ou lors de vos sessions. Nous fournissons les resources.
             </p>
           </div>
         </div>
       </div>
 
       <div class="flex justify-center">
-        <svg class="w-8 h-8 text-gray-400 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
         </svg>
       </div>
@@ -176,14 +192,14 @@
           <div>
             <h3 class="text-xl font-bold text-gray-900 mb-2">Vos membres s'inscrivent et réussissent</h3>
             <p class="text-gray-700">
-              Chaque membre crée une collection, reçoit des commandes, et peut vendre sans vous déranger. C'est gagner-gagner.
+              Chaque membre crée une collection, reçoit des commandes, et va ainsi gagner du temps et de l'argent.
             </p>
           </div>
         </div>
       </div>
 
       <div class="flex justify-center">
-        <svg class="w-8 h-8 text-gray-400 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
         </svg>
       </div>
@@ -192,9 +208,9 @@
         <div class="flex gap-4 items-start">
           <span class="text-4xl flex-shrink-0">4️⃣</span>
           <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Vous gagnez 5 000 FCFA par actif</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Vous gagnez 1 000 FCFA par mois par vendeur actif</h3>
             <p class="text-gray-700">
-              Après la période d'essai, chaque membre actif vous rapporte 5 000 FCFA mensuels. Plus ils réussissent, plus vous gagnez.
+              Après la période d'essai, chaque membre actif vous rapporte 1 000 FCFA mensuels pendant un an. Plus ils réussissent, plus vous gagnez.
             </p>
           </div>
         </div>
@@ -299,7 +315,7 @@
         </p>
         <div class="bg-green-50 border-l-4 border-green-500 p-4">
           <p class="text-sm font-bold text-gray-900">À partir du mois 2 :</p>
-          <p class="text-2xl font-bold text-green-700">30 × 5 000 FCFA = <strong>150 000 FCFA/mois</strong></p>
+          <p class="text-xl font-bold text-green-700">30 × 1 000 FCFA = <strong>30 000 FCFA</strong></p>
         </div>
       </div>
 
@@ -311,56 +327,11 @@
         </p>
         <div class="bg-green-50 border-l-4 border-green-500 p-4">
           <p class="text-sm font-bold text-gray-900">À partir du mois 2 :</p>
-          <p class="text-2xl font-bold text-green-700">25 × 5 000 FCFA = <strong>125 000 FCFA/mois</strong></p>
+          <p class="text-xl font-bold text-green-700">25 × 1 000 FCFA = <strong>25 000 FCFA/mois</strong></p>
         </div>
       </div>
     </div>
   </Section>
-
-  <!-- HOW TO SUCCEED SECTION -->
-  <Section isForLanding={true} class="bg-gray-50 py-20">
-    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
-      💡 Comment Réussir Comme Leader Partenaire
-    </h2>
-    <p class="text-center text-gray-600 mb-12">
-      Quelques trucs qui fonctionnent vraiment
-    </p>
-
-    <div class="max-w-4xl mx-auto space-y-4">
-      <div class="bg-white border border-card rounded-lg p-6 hover:shadow-md transition-shadow">
-        <h3 class="font-bold text-gray-900 mb-2">1. Intégrez DiMarket dans Votre Offering</h3>
-        <p class="text-gray-700 text-sm">
-          Don't just mention DiMarket. Make it part of your training, your mentoring, your value. "Ici, nous utilisons DiMarket pour vendre" has way more impact.
-        </p>
-      </div>
-
-      <div class="bg-white border border-card rounded-lg p-6 hover:shadow-md transition-shadow">
-        <h3 class="font-bold text-gray-900 mb-2">2. Montrez les Succès</h3>
-        <p class="text-gray-700 text-sm">
-          Partagez régulièrement les histoires de vos membres qui réussissent. Créez des case studies. C'est la meilleure publicité.
-        </p>
-      </div>
-
-      <div class="bg-white border border-card rounded-lg p-6 hover:shadow-md transition-shadow">
-        <h3 class="font-bold text-gray-900 mb-2">3. Utilisez Nos Resources</h3>
-        <p class="text-gray-700 text-sm">
-          Nous fournissons templates, images, vidéos. Les utiliser économise du temps et augmente les conversions.
-        </p>
-      </div>
-
-      <div class="bg-white border border-card rounded-lg p-6 hover:shadow-md transition-shadow">
-        <h3 class="font-bold text-gray-900 mb-2">4. Support Vos Premiers Membres</h3>
-        <p class="text-gray-700 text-sm">
-          Les 5 premiers à rejoindre sont critiques. Aidez-les personnellement. Ils deviennent vos ambassadeurs.
-        </p>
-      </div>
-    </div>
-  </Section>
-
-  <!-- GAIN CALCULATOR -->
-  <div id="gain-calculator">
-    <GainBar />
-  </div>
 
   <!-- FINAL CTA -->
   <PartnerCTA

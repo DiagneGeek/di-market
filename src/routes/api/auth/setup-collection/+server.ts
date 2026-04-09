@@ -1,4 +1,4 @@
-import { getUser } from "$lib/server/getUser";
+import { getUser } from "$lib/server/auth/getUser";
 import { updateRow } from "$lib/server/supabase";
 import { json, type RequestHandler } from "@sveltejs/kit";
 

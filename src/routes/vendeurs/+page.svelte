@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from "$lib/components/Button.svelte";
 	import { fade, fly, slide } from 'svelte/transition';
+	import { page } from "$app/stores"
     import posthog from 'posthog-js'
     import { browser } from '$app/environment';
 
@@ -26,6 +27,11 @@
 
     const addEvent = (name: string, details: object) => {
       posthog.capture(name, details)
+	}
+
+	const referer = $page.url.searchParams.get("ref") as string
+    if (referer && browser) {
+      localStorage.setItem("referred_by", referer)
 	}
 </script>
 

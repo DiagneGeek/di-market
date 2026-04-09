@@ -1,4 +1,4 @@
-import { getUser } from "$lib/server/getUser";
+import { getUser } from "$lib/server/auth/getUser";
 import { insertIn, selectTable } from "$lib/server/supabase";
 import { error, fail, redirect, type Actions } from "@sveltejs/kit";
 import type { User } from "$lib/types"

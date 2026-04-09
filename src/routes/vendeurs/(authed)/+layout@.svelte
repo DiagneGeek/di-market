@@ -39,7 +39,7 @@ import { browser } from '$app/environment';
 
 <div>
 <NavBar>
-  <a target="_blank" href="https://wa.me?text={message}">
+  <a target="_blank" href="/vendeurs/dashboard/affliation">
     <Button size="sm" variant="neutral">Affliation</Button>
   </a>
   <a href="/vendeurs/profile">
@@ -59,6 +59,7 @@ import { browser } from '$app/environment';
   <a href="/vendeurs/dashboard/produits" class={tabIs("produits") ? activeStyle : ""}>Produits</a>
   <a href="/vendeurs/dashboard/commandes" class={tabIs("commandes") ? activeStyle : ""}>Commandes</a>
   <a href="/vendeurs/dashboard/suggestions" class={tabIs("suggestions") ? activeStyle : ""}>Suggestions</a>
+  <a href="/vendeurs/dashboard/affliation" class={tabIs("affliation") ? activeStyle : ""}>Affliation</a>
 </nav>
 {/if}
 

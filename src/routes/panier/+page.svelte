@@ -69,7 +69,7 @@
     </div>
   {:else}
     <p>Votre panier est vide pour le moment. Ajoutez des produits pour pouvoir commander</p>
-    <a href="/">
+    <a href="/products">
       <Button class="mt-4">
          Voir les produits 
       </Button>

@@ -8,8 +8,8 @@
 
 <div class="app">
 	<NavBar>
-	{#if !["/vendeurs/connection", "/vendeurs/inscription"].includes($page.url.pathname)}
-	  {#if $page.url.pathname !== "/vendeurs"}	  
+	{#if !["/vendeurs/connection", "/vendeurs/inscription", "/partenaires/connexion", "/partenaires/inscription"].includes($page.url.pathname)}
+	  {#if $page.url.pathname !== "/"}	  
 	  <a href="/panier">Panier</a>
       <a href="/collections">Collections</a>
 	  <a href="/products">Produits</a>
@@ -28,11 +28,36 @@
 		{@render children()}
 	</main>
 
-	<footer class="bg-gray-50 border-t border-gray-200 mt-16">
+	<footer class="bg-gray-50 border-t w-full flex justify-center border-gray-200 mt-16">
 		<div class="max-w-7xl mx-auto px-6 py-8">
 			<div class="text-center text-gray-600">
-				<p>&copy; 2026 DiMarket. Tous droits réservés.</p>
-				<p class="text-sm mt-2">La plateforme qui réunit vos collections préférées</p>
+				<p>&copy; 2026 DiMarket. Tous droits réservés</p>
+				<p class="mt-2">
+					<a href="/terms" class="text-secondary hover:underline">Conditions d'utilisation</a>
+					<span class="mx-2">|</span>
+					<a href="/privacy" class="text-secondary hover:underline">Politique de confidentialité</a>
+				</p>
+				<div class="my-4 flex justify-center gap-8">
+					<div>
+						<h4>Liens utiles</h4>
+						<ul class="mt-2 space-y-1 text-left">
+							<li><a href="/vendeurs/connection" class="hover:underline">Connexion Vendeurs</a></li>
+							<li><a href="/partenaires" class="hover:underline">Espace Partenaires</a></li>
+							<li><a href="/collections" class="hover:underline">Collections</a></li>
+							<li><a href="/products" class="hover:underline">Produits</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h4>Ressources</h4>
+						<ul class="mt-2 space-y-1 text-left">
+							<li><a href="/ressources" class="hover:underline">Toutes nos ressources</a></li>
+							<li><a href="/ressources/blog" class="hover:underline">Blog</a></li>
+							<li><a href="/ressources/guides" class="hover:underline">Guides</a></li>
+							<li><a href="/ressources/tutoriels" class="hover:underline">Tutoriels</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</footer>

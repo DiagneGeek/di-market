@@ -390,9 +390,8 @@
 						? 'Choisissez votre meilleur produit pour faire une excellente première impression'
 						: 'Un peu plus et vous aurez une belle collection'}
 				</p>
-				<Button 
-					onclick={addProduct}
-					disabled={isRedirecting}
+				<a href="/vendeurs/dashboard/produits/ajouter?setup=true">	
+				<Button
 					class="w-full transition-all duration-200 transform hover:scale-105 active:scale-95"
 					style="
 						background-color: var(--color-secondary);
@@ -403,6 +402,7 @@
 				>
 					{isRedirecting ? 'Redirection...' : '+ Ajouter un produit'}
 				</Button>
+				</a>
 			</div>
 		{/if}
 

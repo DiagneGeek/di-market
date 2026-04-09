@@ -34,13 +34,13 @@
   const activeAfterTrial = 0.80; // 80% stay active after trial
   const monthlyVendors = () => Math.floor(userCount * conversionRate);
   const activeVendors = () => Math.floor(monthlyVendors() * activeAfterTrial);
-  const monthlyEarnings = () => activeVendors() * 5000;
+  const monthlyEarnings = () => activeVendors() * 1000;
   const yearlyEarnings = () => monthlyEarnings() * 12;
 </script>
 
 <svelte:head>
   <title>Partenaires Développeurs & API - DiMarket</title>
-  <meta name="description" content="API DiMarket pour développeurs. Intégrez une marketplace complète en quelques heures. Gagnez 5 000 FCFA par vendeur référé." />
+  <meta name="description" content="API DiMarket pour développeurs. Intégrez une marketplace complète en quelques heures. Gagnez 1 000 FCFA par mois pendant un an par vendeur référé." />
 </svelte:head>
 
 <div class="min-h-screen bg-white">
@@ -56,7 +56,7 @@
     </h1>
 
     <p class="leading-relaxed mx-auto">
-      Vous construisez un outil SaaS ? Une app ? Un service pour entrepreneurs ? Intégrez DiMarket comme marketplace complète. Gagnez 5 000 FCFA par utilisateur qui devient un vendeur actif.
+      Vous construisez un outil SaaS ? Une app ? Un service pour entrepreneurs ? Intégrez DiMarket comme marketplace complète. Gagnez 1 000 FCFA par mois pendant un an par utilisateur qui devient un vendeur actif.
     </p>
 
     <div class="bg-white rounded-2xl p-8 mb-12 max-w-md mx-auto">
@@ -77,7 +77,7 @@
         { icon: '🧑‍💻', text: '<strong class="font-fraunces text-lg">Pour les Dev</strong><br> Et startups' },
         {
           icon: '💰',
-          text: '<strong class="font-fraunces text-lg">5 000 FCFA</strong><br> Par utilisateur'
+          text: '<strong class="font-fraunces text-lg">1 000 FCFA/mois</strong><br> Par utilisateur'
         },
         { icon: '🔌', text: '<strong class="font-fraunces text-lg">API Complète</strong><br> REST + Webhooks' }
       ] as badge}
@@ -183,7 +183,7 @@
           <div>
             <h3 class="text-xl font-bold text-gray-900 mb-2">Vos Utilisateurs Vendent</h3>
             <p class="text-gray-700">
-              Vos utilisateurs obtiennent une vraie marketplace. Ils vendent. Vous gagnez 5 000 FCFA par utilisateur actif, chaque mois.
+              Vos utilisateurs obtiennent une vraie marketplace. Ils vendent. Vous gagnez 1 000 FCFA par utilisateur actif, chaque mois pendant un an.
             </p>
           </div>
         </div>

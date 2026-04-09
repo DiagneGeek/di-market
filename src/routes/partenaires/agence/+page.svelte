@@ -10,7 +10,7 @@
     {
       icon: "💼",
       title: "Revenu Récurrent",
-      description: "5 000 FCFA par client vendeur actif, chaque mois. Pour chaque client que vous aidez."
+      description: "1 000 FCFA par mois pendant un an par client vendeur actif, chaque mois. Pour chaque client que vous aidez."
     },
     {
       icon: "📈",
@@ -34,13 +34,13 @@
   const activeAfterTrial = 0.85; // 85% stay active after trial
   const monthlyVendors = () => Math.floor(clientCount * conversionRate);
   const activeVendors = () => Math.floor(monthlyVendors() * activeAfterTrial);
-  const monthlyEarnings = () => activeVendors() * 5000;
+  const monthlyEarnings = () => activeVendors() * 1000;
   const yearlyEarnings = () => monthlyEarnings() * 12;
 </script>
 
 <svelte:head>
   <title>Partenaires Agences - DiMarket</title>
-  <meta name="description" content="Programme pour les agences digitales. Gagnez 5 000 FCFA par client vendeur référé. Intégration simple ou white-label." />
+  <meta name="description" content="Programme pour les agences digitales. Gagnez 1 000 FCFA par mois pendant un an par client vendeur référé. Intégration simple ou white-label." />
 </svelte:head>
 
 <div class="min-h-screen bg-white">
@@ -56,7 +56,7 @@
     </h1>
 
     <p class="leading-relaxed mx-auto">
-      Vous avez des clients web ? Proposez-leur DiMarket comme solution de vente en ligne. Gagnez 5 000 FCFA par client qui devient un vendeur actif, chaque mois.
+      Vous avez des clients web ? Proposez-leur DiMarket comme solution de vente en ligne. Gagnez 1 000 FCFA par mois pendant un an par client qui devient un vendeur actif, chaque mois.
     </p>
 
     <div class="bg-white rounded-2xl p-8 mb-12 max-w-md mx-auto">
@@ -77,7 +77,7 @@
         { icon: '🏢', text: '<strong class="font-fraunces text-lg">Pour les agences</strong><br> Et prestataires' },
         {
           icon: '💰',
-          text: '<strong class="font-fraunces text-lg">5 000 FCFA</strong><br> Par client actif'
+          text: '<strong class="font-fraunces text-lg">1 000 FCFA/mois</strong><br> Par client actif'
         },
         { icon: '🚀', text: '<strong class="font-fraunces text-lg">Revenu Récurrent</strong><br> Chaque mois' }
       ] as badge}
@@ -183,7 +183,7 @@
           <div>
             <h3 class="text-xl font-bold text-gray-900 mb-2">Ils vendent. Vous gagnez. Chaque mois.</h3>
             <p class="text-gray-700">
-              Après la période d'essai, chaque client actif vous rapporte 5 000 FCFA mensuels. Revenus récurrents, zéro effort additionnel.
+              Après la période d'essai, chaque client actif vous rapporte 1 000 FCFA mensuels pendant un an. Revenus récurrents, zéro effort additionnel.
             </p>
           </div>
         </div>
@@ -356,8 +356,8 @@
           <p class="text-sm text-gray-600 font-bold mb-2">RÉSULTAT (MOIS 2+)</p>
           <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
             <p class="text-sm text-gray-600 mb-2">12 de vos 20 clients deviennent vendeurs actifs</p>
-            <p class="text-3xl font-bold text-green-700">12 × 5 000 FCFA = <strong>60 000 FCFA/mois</strong></p>
-            <p class="text-sm text-gray-600 mt-3">720 000 FCFA/an. Sur les mêmes clients.</p>
+            <p class="text-3xl font-bold text-green-700">12 × 1 000 FCFA = <strong>12 000 FCFA/mois</strong></p>
+            <p class="text-sm text-gray-600 mt-3">144 000 FCFA/an. Sur les mêmes clients.</p>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { getUser, isPremium as _isPremium} from "$lib/server/getUser"
+import { getUser, isPremium as _isPremium} from "$lib/server/auth/getUser"
 import { selectTable } from "$lib/server/supabase"
 import { isSetupComplete } from "$lib/server/setupCheck"
 import { error, redirect } from "@sveltejs/kit"
@@ -27,12 +27,18 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
   // But don't redirect if already on the commencer page
   const isOnCommencerPage = url.pathname.includes("/vendeurs/dashboard/commencer")
   const needsOnboarding = !user.name || !user.password
-
+  const search = url.search
   if (needsOnboarding && !isOnCommencerPage) {
-    redirect(307, "/vendeurs/dashboard/commencer")
+    redirect(307, "/vendeurs/dashboard/commencer"+search)
   }
   
   const isPremium = await _isPremium(user)
+
+  // Redirect to upgrade page only if not premium and not already on that page
+  const isOnUpgradePage = url.pathname.includes("/vendeurs/continuer-avec-nous")
+  if (!isPremium && !isOnUpgradePage && url.pathname.includes("/vendeurs/dashboard")) {
+    redirect(307, "/vendeurs/continuer-avec-nous")
+  }
 
   delete user.password
   delete user.created_at

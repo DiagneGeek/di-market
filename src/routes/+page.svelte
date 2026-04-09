@@ -6,9 +6,15 @@
 	import ScrollHighlight from '$lib/components/ScrollHighlight.svelte';
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
 	import FAQ from '$lib/components/FAQ.svelte';
-	import DeliveryIllustration from '$lib/components/DeliveryIllustration.svelte';
 	import Modal from '$lib/components/Modal.svelte';
     import Hero from "$lib/components/Hero.svelte"
+	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
+
+   if (browser) {
+	  const ref = $page.url.searchParams.get('ref');
+	  if (ref && !localStorage.getItem('referred_by')) localStorage.setItem('referred_by', ref);
+   }
 	// State
 	let phoneInput = $state('');
 	let customerPerDay = $state(10);
@@ -165,6 +171,11 @@
 	};
 </script>
 
+<svelte:head>
+	<title>DiMarket - Ne perdez plus de temps à gérer vos commandes</title>
+	<meta name="description" content="DiMarket est une plateforme conçue pour aider les vendeurs africains à gérer leurs commandes, répondre aux questions fréquentes et augmenter leurs ventes sans stress." />
+</svelte:head>
+
 <section class="w-full min-h-screen bg-gradient-to-b from-white to-gray-50">
 	<!-- HERO SECTION -->
 	{#snippet heroSection()}
@@ -195,7 +206,7 @@
 			</p>
 
 			<!-- CTA Section -->
-			<div class="bg-white rounded-2xl p-8 mb-12 max-w-md mx-auto">
+			<div class="bg-white rounded-2xl flex flex-col gap-2 p-8 mb-12 max-w-md mx-auto">
 				<div class="flex gap-1 flex-col">
 					<Input
 						bind:value={phoneInput}
@@ -210,15 +221,16 @@
 						onclick={() => (showPhoneModal = true)}
 					/>
 				</div>
-				<p class="text-xs text-gray-500 mt-2">
-				Commencez gratuitement en quelques minutes
-				</p>
 			
 	       	 <a class="text-sm my-4 hover:underline" href="vendeurs/connection">
 			   <Button 
-			     variant="underline"
-				 label="J'ai dejà un compte"
-				 />
+			     variant="outlineBorder"
+				 class="flex gap-2 justify-center items-center w-full"
+			   >	
+				
+				 J'ai dejà un compte
+				 <img class="w-4 h-4" src="/icons/arrow-right.svg" alt="Arrow right">
+			   </Button>
 			 </a>
 
 			</div>
@@ -593,7 +605,7 @@
 					<span class="font-fraunces bg-primary">comme les meilleurs</span>.
 				</h2>
 
-				<p class="text-gray mb-8 leading-relaxed">
+				<p class="text-gray mx-auto mb-8 leading-relaxed">
 					La vraie question n'est pas si ça marche. C'est :
 					<strong
 						>êtes-vous quelqu'un qui copie sans réfléchir… ou quelqu'un qui cherche la manière la plus
@@ -632,7 +644,6 @@
 >
 	<div class="text-center">
 		<h3 class="text-xl font-bold text-gray-900 mb-2">Commencez gratuitement</h3>
-		<p class="text-gray-600 mb-4">Nous vous enverrons un lien pour démarrer</p>
 		<Input
 			bind:value={phoneInput}
 			type="tel"
@@ -651,7 +662,7 @@
 		scroll-behavior: smooth;
 	}
 	
-	h1, h2, h3, h4 {
+	h1, h2, h3 {
 		font-weight: 800;
 	}
 </style>

@@ -47,9 +47,9 @@
 		</dl>
 
 		<div class="actions">
-			<a href="/">
+			<a href="/products">
               <Button>
-                Retour au magasin
+                Retour aux produits
               </Button>
             </a>
 			<a href="/collections/{sellerId}">

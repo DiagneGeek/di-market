@@ -118,6 +118,7 @@
     <Input
      type="search"
      label="Address"
+     onchange={findAddresses}
      placeholder="Recherchez votre localité"
      oninput={({target} : {target: HTMLInputElement}) => {query = target.value;}}
     />

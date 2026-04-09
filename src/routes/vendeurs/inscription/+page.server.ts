@@ -1,4 +1,4 @@
-import { getUser } from "$lib/server/getUser";
+import { getUser } from "$lib/server/auth/getUser";
 import { insertIn, selectTable } from "$lib/server/supabase";
 import type { User } from "$lib/types/index.js";
 import { error, fail, redirect, type Actions } from "@sveltejs/kit";
@@ -45,6 +45,8 @@ export const actions = {
       const name = data.get("name") as string
       const phone = data.get("phone") as string
       const password = data.get("password") as string
+      let referer: string | null = data.get("referer") as string
+      if (referer === "null") referer = null
 
       const plan = "PREMIUM"
       const TRIAL_DAYS = 30
@@ -58,7 +60,8 @@ export const actions = {
         phone,
         password,
         plan,
-        trial_ends_at
+        trial_ends_at,
+        referred_by: referer
       }
       if (name.trim().length  < 3) {
         return fail(400, {error: "Le nom de votre collections doit contenir au moins 3 lettres", name, phone, password})

@@ -2,21 +2,26 @@
   import Hero from "$lib/components/Hero.svelte";
   import Section from "$lib/components/Section.svelte";
   import Button from "$lib/components/Button.svelte"
-  import GainBar from "$lib/components/GainBar.svelte";
+  import InfoSection from "$lib/components/InfoSection.svelte";
   import PartnerCard from "$lib/components/PartnerCard.svelte";
   import PartnerCTA from "$lib/components/PartnerCTA.svelte";
   import ScrollHighlight from "$lib/components/ScrollHighlight.svelte";
 
   const benefits = [
     {
+      icon: "❤️",
+      title: "Aidez votre audience",
+      description: "Offrez à vos vendeurs une solution pour mieux gérer leurs ventes et libérer du temps"
+    },
+    {
       icon: "💰",
       title: "Gains Immédiats",
-      description: "5 000 FCFA par vendeur référé. Pas de délai, pas de conditions cachées. Paiements mensuels via Wave."
+      description: "1 000 FCFA par mois pendant un an par vendeur payant référé. Pas de délai, pas de conditions cachées. Paiements quand vous voulez via Wave."
     },
     {
       icon: "🚀",
-      title: "Scalable Sans Limite",
-      description: "Plus vous référez, plus vous gagnez. Transformez votre audience en revenu passif durable."
+      title: "Continuez Sans Limite",
+      description: "Plus vous référez, plus vous gagnez, aucune limite. Transformez votre audience en revenu passif durable."
     },
     {
       icon: "🛠️",
@@ -25,8 +30,8 @@
     },
     {
       icon: "📊",
-      title: "Dashboard Transparent",
-      description: "Suivez vos gains et vos gains en temps réel. Aucun mystère, clarté garantie."
+      title: "Tableau de bord Transparent",
+      description: "Suivez vos gains, le nombre d'essais en cours et autres informations en temps réel. Et demander votre paiement quand vous voulez"
     }
   ];
 
@@ -70,13 +75,13 @@
   ];
 
   let monthlyTargetVendors = $state(10);
-  const calculateMonthlyEarnings = () => monthlyTargetVendors * 5000;
+  const calculateMonthlyEarnings = () => monthlyTargetVendors * 1000;
   const calculateYearlyEarnings = () => calculateMonthlyEarnings() * 12;
 </script>
 
 <svelte:head>
-  <title>Partenaires DiMarket - Gagnez 5 000 FCFA par Vendeur</title>
-  <meta name="description" content="Rejoignez notre programme d'affiliation et gagnez 5 000 FCFA par vendeur référé. Transparent, scalable, rémunérateur." />
+  <title>Partenaires DiMarket - Gagnez 1 000 FCFA par mois par Vendeur</title>
+  <meta name="description" content="Rejoignez notre programme d'affiliation et gagnez 1 000 FCFA par mois pendant un an par vendeur référé. Transparent, scalable, rémunérateur." />
   <link rel="canonical" href="https://dimarket.biz/partenaires">
 </svelte:head>
 
@@ -88,21 +93,20 @@
     </p>
 
     <h1 class="mb-6 leading-tight">
-      Aidez les vendeurs<br />
-      <span class="font-fraunces bg-secondary">Et vous, gagnez</span>
+      <p class="text-3xl">Vous connaissez des vendeurs en ligne ? <br>
+      <span class="font-fraunces bg-secondary">Aidez-les</span> à mieux gérer leur business.</p>
     </h1>
 
     <p class="leading-relaxed mx-auto">
-      Vous avez une audience de vendeurs, entrepreneurs ou petits business ? Chaque vendeur que vous aidez à rejoindre DiMarket vous rapporte <strong>5 000 FCFA</strong>. C'est aussi simple que ça.
+      Aidez des vendeurs à gagner du temps et de l'argent en recommandant DiMarket et gagner <strong>1 000 FCFA par mois</strong> pendant un an pour chaque vendeur référé.
     </p>
 
     <div class="bg-white rounded-2xl p-8 mb-12 max-w-md mx-auto">
-      <div class="flex gap-1 flex-col">
+      <a href="/partenaires/inscription" class="flex gap-1 flex-col">
         <Button
           label="Rejoindre le Programme"
-          onclick={() => window.location.href = '/partenaires/commencer'}
         />
-      </div>
+      </a>
       <p class="text-xs text-gray-500 mt-2">
       Aucun frais. Commencez maintenant.
       </p>
@@ -114,7 +118,7 @@
         { icon: '🌍', text: '<strong class="font-fraunces text-lg">Fait en Afrique</strong><br> Pour l\'Afrique' },
         {
           icon: '💸',
-          text: '<strong class="font-fraunces text-lg">5 000 FCFA</strong><br> Par vendeur'
+          text: '<strong class="font-fraunces text-lg">1 000 FCFA/mois</strong><br> Par vendeur'
         },
         { icon: '🚀', text: '<strong class="font-fraunces text-lg">Scalable</strong><br> Sans limite' }
       ] as badge}
@@ -128,6 +132,23 @@
     </div>
   </Hero>
 
+  <Section isForLanding={true}>
+    <h2 class="text-3xl mt-8">C'est quoi DiMarket ?</h2>
+    <InfoSection>
+      DiMarket aide les vendeurs en ligne africains à sortir du chaos des 
+      messages et des commandes mal gérées.<br><br>
+
+      Aujourd’hui, beaucoup passent leurs journées à répondre aux même messages, à répéter les mêmes infos dans Whatsapp et essayer de gérer les commandes manuellement. 
+      Résultat : beaucoup de temps passé dans whatsapp, des ventes ratées et du stress inutile.<br><br>
+
+      Avec DiMarket, les vendeurs créent facilement leurs collections, les partagent avec leurs clients,
+       et reçoivent des commandes claires, structurées et prêtes à être traitées, 
+       sans discussions interminables.<br><br>
+
+      Pensé pour la réalité du commerce en Afrique, conçu au Sénégal, DiMarket transforme une activité confuse en un système simple, rapide et efficace.
+    </InfoSection>
+  </Section>
+
   <!-- PROBLEM SECTION -->
   <Section isForLanding={true} class="bg-gray-50 py-20">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
@@ -140,19 +161,19 @@
     <div class="max-w-2xl mx-auto space-y-4 px-4">
       <ScrollHighlight once>
         <p class="text-lg">
-          Vous avez un groupe WhatsApp de vendeurs, une communauté d'entrepreneurs, ou une audience sur les réseaux.
+          Vous avez un groupe WhatsApp ou Facebook de vendeurs, une communauté d'entrepreneurs, ou une audience sur les réseaux.
         </p>
       </ScrollHighlight>
 
       <ScrollHighlight once>
         <p class="text-lg">
-          Vous les aidez régulièrement avec des conseils ou du support.
+          Vous les aidez régulièrement avec des conseils ou du support ou tout simplement une place pour vendre.
         </p>
       </ScrollHighlight>
 
       <ScrollHighlight once>
         <p class="text-lg">
-          Mais votre aide reste gratuite, alors que vos vendeurs gagnent grâce à votre conseil.
+          Mais votre aide peut être encore plus précieuse si vous leur permettez de gagner des heures chaque jours
         </p>
       </ScrollHighlight>
 
@@ -166,7 +187,7 @@
 
   <!-- SOLUTION SECTION -->
   <Section isForLanding={true} class="py-20">
-    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center pb-12 text-gray-900">
       Le Programme de Partenariat DiMarket
     </h2>
 
@@ -177,14 +198,14 @@
           <div>
             <h3 class="text-xl font-bold text-gray-900 mb-2">Vous partagez votre lien unique</h3>
             <p class="text-gray-700">
-              Vous recevez un lien de parrain que vous partagez avec votre audience via WhatsApp, email, ou réseaux sociaux. Aucune vente à faire.
+              Vous recevez un lien partenaire que vous partagez avec votre audience via WhatsApp, Facebook, email, réseaux sociaux peu importe. Aucune vente à faire.
             </p>
           </div>
         </div>
       </div>
 
       <div class="flex justify-center">
-        <svg class="w-8 h-8 text-gray-400 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
         </svg>
       </div>
@@ -202,7 +223,7 @@
       </div>
 
       <div class="flex justify-center">
-        <svg class="w-8 h-8 text-gray-400 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
         </svg>
       </div>
@@ -211,9 +232,9 @@
         <div class="flex gap-4 items-start">
           <span class="text-4xl flex-shrink-0">3️⃣</span>
           <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Vous gagnez 5 000 FCFA</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Vous gagnez 1 000 FCFA par mois</h3>
             <p class="text-gray-700">
-              Après la période d'essai, si votre vendeur continue (et ils continuent généralement), vous recevez 5 000 FCFA directement sur votre compte Wave chaque mois.
+              Après la période d'essai, si votre vendeur continue (paiement), vous gagnez 1 000 FCFA par mois pendant un an que vous pouvez récupérer via Wave
             </p>
           </div>
         </div>
@@ -286,7 +307,7 @@
       </div>
 
       <p class="text-xs text-gray-500 text-center mt-6">
-        *Basé sur 5 000 FCFA par vendeur actif après la période d'essai
+        *Basé sur 1 000 FCFA par mois pendant un an par vendeur actif après la période d'essai
       </p>
     </div>
   </Section>
@@ -294,9 +315,12 @@
   <!-- PARTNER TYPES SECTION -->
   <Section isForLanding={true} class="py-20">
     <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
-      Choisissez Votre Type de Partenariat
+      Fonctionne pour tous les types d'activités
     </h2>
-    
+    <p class="text-center text-gray-600 mb-12">
+      Quel que soit votre domaine d'activité (lié à la vente), DiMarket vous aide à générer des revenus passifs.
+      Voici quelques exemples de partenaires:
+    </p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
       {#each partnerTypes as partner (partner.title)}
         <PartnerCard

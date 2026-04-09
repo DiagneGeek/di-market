@@ -24,11 +24,11 @@
       {title}
     </h2>
     {#if subtitle}
-      <p class="text-lg sm:text-xl text-gray-700 mb-6 sm:mb-8">
+      <p class="text-lg mx-auto sm:text-xl text-gray-700 mb-6 sm:mb-8">
         {subtitle}
       </p>
     {/if}
-    <p class="text-gray-700 text-base sm:text-lg mb-8 sm:mb-10 leading-relaxed">
+    <p class="mx-auto mb-8 sm:mb-10 leading-relaxed">
       {message}
     </p>
     <a href={ctaHref}>

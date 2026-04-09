@@ -15,7 +15,7 @@
         sober: "bg-gray-800 text-gray-200 hover:bg-gray-700 transition-all duration-200 hover:shadow-lg active:scale-95",
         neutral: "bg-gray-100 text-gray-900 hover:bg-gray-200 transition-all duration-200 border border-gray-200 active:scale-95",
         outline: "bg-transparent text-[13px] text-t-main hover:bg-primary/5 scale-90 transition-all duration-200 active:scale-85",
-        outlineSecondary: "border-2 bg-transparent text-[13px] text-t-main hover:bg-secondary/5 transition-all duration-200 active:scale-95",
+        outlineBorder: "border-2 bg-transparent text-[13px] text-t-main hover:bg-secondary/5 transition-all duration-200 active:scale-95",
         danger: "bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 transition-all duration-200 hover:shadow-lg active:scale-95",
         dangerOutline: "text-red-600 hover:bg-red-50 transition-all duration-200 scale-90 active:scale-85"
     }[variant]

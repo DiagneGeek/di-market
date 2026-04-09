@@ -5,7 +5,8 @@
   const {title, seller, price, slug, img: imgSrc, id = null, description = null} = $props()
 </script>
 
-<article
+{#snippet card()}
+  <article
   class="flex flex-col justify-between p-4 md:p-5 rounded-2xl bg-card gap-3 w-full sm:w-[280px] h-auto sm:h-[350px] card-shadow border border-gray-100/50 animate-fadeIn"
 >
  <div class="flex flex-col gap-3 flex-1">
@@ -28,3 +29,12 @@
       </a>
     </div>
   </article>
+{/snippet}
+
+{#if id}
+    {@render card()}
+{:else}
+  <a href={`/products/${slug}`}>
+    {@render card()}
+  </a>
+{/if}

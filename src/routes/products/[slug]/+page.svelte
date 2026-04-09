@@ -97,13 +97,14 @@ const share = async (e: Event) => {
      class="rounded-2xl mx-auto border-2 border-card my-4 w-full max-w-[400px] min-h-[150px]"
   />
 
-  <div class="w-full flex items-center justify-between gap-2 m-2 rounded-lg border border-card p-2">
+  <div class="w-full max-w-[800px] mx-auto flex items-center justify-between gap-2 m-2 rounded-lg border border-card p-2">
       <p class="text-gray text-[12px]">Vendue par <a href="/collections/{product.Sellers?.id}" class="font-bold underline">{product.Sellers?.name}</a></p>
       {#if product.Sellers.plan === "PREMIUM"}
         <span title="Vendeur certifié" class="text-amber-500 font-bold flex items-center gap-1">{@html checkBadge} Certifié</span>
       {/if}
   </div>
 
+<div class="w-full max-w-[700px] mx-auto"><!-- container -->
   <h1>{product.title}</h1>
   <p>Categorie: {product.category}</p>
       
@@ -185,8 +186,11 @@ const share = async (e: Event) => {
     {#if showButton}
       <a href="/panier"> 
         <Button 
+          variant="neutral"
           class="my-4">Voir mon panier</Button>
        </a>
     {/if}
   </form>
+   
+  </div>
 {/if}
