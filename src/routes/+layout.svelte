@@ -33,9 +33,9 @@
 			<div class="text-center text-gray-600">
 				<p>&copy; 2026 DiMarket. Tous droits réservés</p>
 				<p class="mt-2">
-					<a href="/terms" class="text-secondary hover:underline">Conditions d'utilisation</a>
+					<a href="#" class="text-secondary hover:underline">Conditions d'utilisation</a>
 					<span class="mx-2">|</span>
-					<a href="/privacy" class="text-secondary hover:underline">Politique de confidentialité</a>
+					<a href="#" class="text-secondary hover:underline">Politique de confidentialité</a>
 				</p>
 				<div class="my-4 flex justify-center gap-8">
 					<div>
