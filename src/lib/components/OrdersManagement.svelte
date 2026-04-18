@@ -113,9 +113,9 @@
 </div>
 
 <!-- Mobile View -->
-<div class="md:hidden space-y-3">
+<div class="md:hidden space-y-12">
   {#each orders as order (order.id)}
-    <div class="bg-card border border-gray-200 rounded-lg overflow-hidden">
+    <div class="bg-car border border-gray-200 rounded-2xl overflow-hidden">
       <!-- Header Section -->
       <div class="bg-back-main border-b border-gray-200 px-4 py-3 flex items-center justify-between">
         <a href="/vendeurs/dashboard/commandes/{order.id}" class="font-bold text-primary hover:underline">

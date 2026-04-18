@@ -39,9 +39,6 @@ import { browser } from '$app/environment';
 
 <div>
 <NavBar>
-  <a target="_blank" href="/vendeurs/dashboard/affliation">
-    <Button size="sm" variant="neutral">Affliation</Button>
-  </a>
   <a href="/vendeurs/profile">
     <Button variant="neutral" size="sm">
       Profile 

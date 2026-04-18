@@ -5,6 +5,7 @@
   import InfoSection from "$lib/components/InfoSection.svelte";
   import PartnerCTA from "$lib/components/PartnerCTA.svelte";
   import ScrollHighlight from "$lib/components/ScrollHighlight.svelte";
+  import { formatAmount } from "$lib/composables/formatAmount"
 
   const benefits = [
     {
@@ -29,13 +30,13 @@
     }
   ];
 
-  let memberCount = $state(50);
+  let memberCount = $state(500);
   const conversionRate = 0.25; // 25% conversion
   const activeAfterTrial = 0.70; // 70% stay active
   const monthlyVendors = () => Math.floor(memberCount * conversionRate);
   const activeVendors = () => Math.floor(monthlyVendors() * activeAfterTrial);
-  const monthlyEarnings = () => activeVendors() * 1000;
-  const yearlyEarnings = () => monthlyEarnings() * 12;
+  const monthlyEarnings = () => formatAmount(activeVendors() * 1000);
+  const yearlyEarnings = () => formatAmount((activeVendors() * 1000 ) * 12);
 </script>
 
 <svelte:head>
@@ -56,7 +57,7 @@
     </h1>
 
     <p class="leading-relaxed mx-auto">
-      Vous animez un groupe WhatsApp, une communauté Telegram, ou un réseau d'entrepreneurs ? Aidez-les à vendre en ligne avec DiMarket, et gagnez 1 000 FCFA par mois pendant un an chaque fois qu'un de vos membres devient un vendeur actif.
+      Vous animez un groupe WhatsApp, une communauté Telegram, ou un réseau d'entrepreneurs ? Aidez-les à vendre en ligne avec DiMarket, et gagnez entre 20.000 et 500.000+ FCFA en commission selon le nombre de personnes que vous amenez.
     </p>
 
     <div class="bg-white rounded-2xl p-8 mb-12 max-w-md mx-auto">
@@ -257,7 +258,7 @@
           type="range"
           bind:value={memberCount}
           min="10"
-          max="1000"
+          max="10000"
           step="10"
           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
         />
@@ -282,14 +283,14 @@
       <div class="grid grid-cols-2 gap-4 mb-6">
         <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
           <p class="text-sm text-gray-600 mb-1">Par mois</p>
-          <p class="text-3xl font-bold text-yellow-700 font-fraunces">
-            {(monthlyEarnings() / 1000).toFixed(0)}k FCFA
+          <p class="text-xl font-bold text-yellow-600 font-fraunces">
+            {monthlyEarnings()}
           </p>
         </div>
         <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
           <p class="text-sm text-gray-600 mb-1">Par an</p>
-          <p class="text-3xl font-bold text-green-700 font-fraunces">
-            {(yearlyEarnings() / 1000000).toFixed(1)}M FCFA
+          <p class="text-xl font-bold text-green-700 font-fraunces">
+            {yearlyEarnings()}
           </p>
         </div>
       </div>
@@ -321,13 +322,13 @@
 
       <div class="bg-white border-2 border-card rounded-2xl p-6 sm:p-8">
         <div class="inline-block bg-yellow-300 text-gray-900 px-4 py-1 rounded-full text-sm font-bold mb-4">Exemple 2</div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">📱 Réseau Telegram de Créateurs de Contenu (500 membres)</h3>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">📱 Groupe facebook de vendeurs (1400 membres)</h3>
         <p class="text-gray-700 mb-4">
-          Les créateurs veulent monétiser leur audience. DiMarket leur permet de créer une store et vendre. 25 deviennent vendeurs.
+          Les vendeurs on besoin d'un moyen plus simple pour gérer les commandes et gagner du temps. 
         </p>
         <div class="bg-green-50 border-l-4 border-green-500 p-4">
           <p class="text-sm font-bold text-gray-900">À partir du mois 2 :</p>
-          <p class="text-xl font-bold text-green-700">25 × 1 000 FCFA = <strong>25 000 FCFA/mois</strong></p>
+          <p class="text-xl font-bold text-green-700">162 × 1 000 FCFA = <strong>162 000 FCFA/mois</strong></p>
         </div>
       </div>
     </div>
@@ -336,9 +337,9 @@
   <!-- FINAL CTA -->
   <PartnerCTA
     title="Prêt à Aider Votre Communauté ?"
-    subtitle="Et à générer du revenu en le faisant"
-    message="Rejoignez notre programme de partenaires et commencez à monétiser votre leadership communautaire."
+    subtitle="Et à générer du revenu en le faisant ?"
+    message="Rejoignez notre programme de partenaires et commencez vous aussi à monétiser votre leadership communautaire."
     ctaLabel="Rejoindre le Programme"
-    ctaHref="/partenaires/commencer"
+    ctaHref="/partenaires/inscription"
   />
 </div>

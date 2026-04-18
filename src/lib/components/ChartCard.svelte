@@ -97,6 +97,9 @@
     if (chart) {
       chart.destroy();
     }
+    const randomValue = () => {
+      return Math.round(Math.random() * 255)
+    }
     const chartData = getChartData(events, period, denominatorEvents);
     chart = new Chart(canvas, {
       type: "line",
@@ -105,8 +108,8 @@
         datasets: [{
           label: title,
           data: chartData.data,
-          borderColor: "#AA6373",
-          backgroundColor: "oklch(87.9% 0.169 91.605)",
+          borderColor: `rgb(${randomValue()}, ${randomValue()}, ${randomValue()})`,
+          backgroundColor: "white",
           tension: 0.6,
           fill: false,
         }]
@@ -123,7 +126,7 @@
   let increase = $derived(overallRate - previousOverallRate);
 </script>
 
-<div class="bg-card p-4 rounded-xl h-[300px] flex flex-col gap-2">
+<div class="bg-card p-8 rounded-2xl h-[300px] flex flex-col gap-2">
   <h3 class="text-center text-xl">{title}</h3>
   {#if type === "rate"}
     <p class="text-xs text-gray mt-[-8px]">

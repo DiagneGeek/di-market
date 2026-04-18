@@ -6,7 +6,7 @@
 @theme {
   --color-primary: oklch(87.9% 0.169 91.605);
   --color-primary-hover: oklch(82.8% 0.189 84.429);
-  --color-secondary: oklch(84.1% 0.238 128.85);
+  --color-secondary: oklch(78% 0.06 160);
   --color-secondary-hover: oklch(84.1% 0.238 128.85);
   --color-t-main: rgba(60, 63, 60, 1);
   --color-gray: rgb(70, 75, 75);
@@ -15,7 +15,7 @@
   --color-back-main: rgba(255, 250, 250, 1);
   --color-back-dark: #1f1f15;
   --color-input: rgb(248,244,244);
-  --color-card: rgb(240, 240, 240);
+  --color-card: rgb(248, 244, 244);
   --transition: 160ms cubic-bezier(.2,.8,.2,1);
   --font-fraunces: "Fraunces", var(--font-sans);
   --font-sans: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;

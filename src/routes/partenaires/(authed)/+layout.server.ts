@@ -1,7 +1,7 @@
 import { error, redirect } from "@sveltejs/kit"
 import { getPartner } from "$lib/server/auth/getUser"
 import type { Partner } from "$lib/types"
-import { selectTable } from "$lib/server/supabase"
+import { selectTable, client } from "$lib/server/supabase"
 
 export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
   const {partner, error: userError}  = await getPartner(cookies)
@@ -26,7 +26,7 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
     console.error("Error fetching referred sellers: ", sellersError)
   }
   const paidSellers = sellers?.filter((seller: any) => seller.plan === "PREMIUM" && seller.last_payment) || []
-  const date = url.searchParams.get("date") || "thisweek"
+  const date = url.searchParams.get("date") || "toute_les_périodes"
   const newRefferals = sellers?.filter((seller: any) => {
     const createdAt = new Date(seller.created_at)
     const now = new Date()

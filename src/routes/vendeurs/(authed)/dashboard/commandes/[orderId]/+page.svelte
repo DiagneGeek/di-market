@@ -89,7 +89,7 @@
   }
 </script>
 
-<div class="max-w-6xl mx-auto p-4">
+<div class="max-w-6xl mx-auto py-4">
   <!-- Header Section -->
   <div class="mb-8">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
@@ -144,7 +144,7 @@
             <Button 
               onclick={() => isEditingStatus = true} 
               size="sm" 
-              variant="secondary">
+              variant="neutral">
               Modifier
             </Button>
           </div>
@@ -155,12 +155,10 @@
   </div>
 
   <!-- Main Grid Layout -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-    
-    <!-- Left Column: Customer & Address -->
-    <div class="lg:col-span-1 space-y-6">
+  <div class="w-full gap-6 mb-6">
+    <section class="my-8 flex flex-col md:flex-row md:justify-center gap-6 md:w-full">
       <!-- Customer Info Card -->
-      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100 shadow-sm hover:shadow-md transition-shadow">
+      <div class="bg-gradient-to-br from-secondary/50 to-secondary/20 rounded-2xl p-6 hover:shadow-md transition-shadow">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
@@ -177,17 +175,21 @@
           <div>
             <p class="text-xs uppercase tracking-wide text-gray-600 font-semibold mb-2">Contact</p>
             <div class="flex gap-2">
-              <a href="tel:{order.Buyers?.phone}" class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-primary hover:text-white text-primary border border-primary rounded-lg py-2 transition-colors text-sm font-medium">
+              <a href="tel:{order.Buyers?.phone}">
+               <Button variant="sober" class="flex gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                   <path d="M15.863 13.29c-1.165-1.165-3.633-1.133-4.634-.132l-.707.707c-.195.195-.512.195-.707 0l-4.243-4.243c-.195-.195-.195-.512 0-.707l.707-.707c1.001-1.001.968-3.469-.132-4.634-1.165-1.165-3.633-1.133-4.634.132l-1.414 1.414C-1.005 5.887.019 9.477 3.172 12.63l8.485 8.485c3.153 3.153 6.743 4.177 9.192 1.728l1.414-1.414c1.265-1.265 1.297-3.633.132-4.634zm-1.414 1.414l-.707.707c-1.001 1.001.132 3.633 1.297 4.798 1.165 1.165 3.797.298 4.798-.703l.707-.707c1.001-1.001-1.132-3.633-2.297-4.798-1.165-1.165-3.797.298-4.798.703z"/>
                 </svg>
-                Appel
+                Appeler
+                </Button>
               </a>
-              <a href="https://wa.me/{order.Buyers?.phone}" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-green-50 hover:bg-green-600 hover:text-white text-green-600 border border-green-600 rounded-lg py-2 transition-colors text-sm font-medium">
+              <a href="https://wa.me/{order.Buyers?.phone}" target="_blank">
+               <Button variant="outlineBorder" class="flex gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.006a9.87 9.87 0 00-5.031 1.378c-.355.228-.69.539-.897.910-.095.15-.147.315-.147.485 0 .819.487 1.53 1.243 1.91.192.099.384.159.58.159.424 0 .834-.159 1.172-.472.208-.192.402-.478.555-.822.12-.279.233-.543.29-.716.168-.525.401-.935.69-1.27.29-.336.666-.577 1.08-.687.415-.11.836-.11 1.237 0 .4.11.773.35 1.063.686.29.336.523.746.691 1.271.057.173.17.437.29.716.153.344.347.63.555.822.338.313.748.472 1.172.472.196 0 .388-.06.58-.159.756-.38 1.243-1.091 1.243-1.91 0-.17-.052-.335-.147-.485-.206-.371-.542-.682-.897-.91a9.87 9.87 0 00-5.031-1.378Z"/>
                 </svg>
                 WhatsApp
+                </Button>
               </a>
             </div>
           </div>
@@ -195,7 +197,7 @@
       </div>
 
       <!-- Address Info Card -->
-      <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
+      <div class="bg-card rounded-2xl p-6 hover:shadow-sm transition-shadow">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
@@ -221,7 +223,7 @@
           {/if}
         </div>
       </div>
-    </div>
+  </section>
 
     <!-- Right Column: Products & Total -->
     <div class="lg:col-span-2">

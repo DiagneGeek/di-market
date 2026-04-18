@@ -67,5 +67,6 @@ export interface Partner {
   session_id?: string,
   phone: number,
   password?: string,
-  partner_id: string 
+  partner_id: string,
+  commissions: number
 }

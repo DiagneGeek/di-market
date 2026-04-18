@@ -10,7 +10,7 @@
   let { products, productViews }: Props = $props();
 </script>
 
-<div class="bg-card p-4 rounded-xl h-[300px] flex flex-col gap-2">
+<div class="bg-card p-8 rounded-2xl h-[300px] flex flex-col gap-2">
   <h3 class="text-center">Top Produits</h3>
   <div class="flex-1 overflow-y-auto">
     <ul class="space-y-2">
@@ -20,10 +20,10 @@
           <span class="text-sm text-gray-500">{product.id && productViews[product?.id] || 0} vues</span>
         </li>
        {:else}
-         <div class="w-full h-[150px] flex justify-center items-center flex-col items-center gap-4">
+         <div class="w-full h-[150px] flex justify-center  flex-col items-center gap-4">
           <p class="text-gray">Aucun produit pour le moment :(</p>
           <a href="/vendeurs/dashboard/produits">
-            <Button variant="neutral">
+            <Button variant="sober">
                Ajouter un produit
             </Button>
           </a>

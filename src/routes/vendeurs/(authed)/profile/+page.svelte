@@ -26,7 +26,7 @@
     <p>{data.user.name}</p>
   </div>
   <div class="flex w-full max-w-xl justify-between flex-wrap items-center p-2 px-4 rounded-3xl bg-card my-4">
-    <p>Numero de telehone:</p>
+    <p>Numero de telephone:</p>
     <p>{data.user.phone}</p>
   </div>
 </Section>

@@ -415,6 +415,6 @@
     subtitle="Transformez-les en source de revenus récurrents"
     message="Rejoignez notre programme de partenaires agences. Nous vous fournissons tous les outils et support dont vous avez besoin."
     ctaLabel="Rejoindre le Programme"
-    ctaHref="/partenaires/commencer"
+    ctaHref="/partenaires/inscription"
   />
 </div>

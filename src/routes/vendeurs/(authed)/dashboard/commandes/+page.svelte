@@ -56,7 +56,7 @@
 <h1>Commandes</h1>
 
 {#if data.isPremium}
-<div class="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<div class="my-8 mb-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
   <div class="bg-card p-4 rounded-lg border border-gray-200">
     <p class="text-xs text-gray-600 font-semibold">TOTAL</p>
     <p class="text-2xl font-bold text-primary mt-1">{stats.total}</p>
@@ -91,7 +91,7 @@
       bind:value={searchTerm}
       type="text"
       placeholder="ID, client, téléphone ou adresse..."
-      class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
+      class="w-full border border-gray-300 rounded-xl px-4 py-3 bg-white"
     />
   </div>
   

@@ -21,7 +21,7 @@
 </script>
 
 <div 
-  class="bg-gradient-to-br from-primary/10 to-secondary/10 border-2 border-primary rounded-xl p-6 {compact ? 'md:col-span-2' : ''}"
+  class="bg-gradient-to-tr from-secondary/10 to-secondary/50 border-primary rounded-2xl p-6 {compact ? 'md:col-span-2' : ''}"
 >
   <div class="flex flex-col gap-4">
     <div>
@@ -35,7 +35,7 @@
     </div>
 
     <!-- Copy URL Section -->
-    <div class="bg-gray-50 rounded-lg p-3 border border-gray-200 flex gap-2 items-center">
+    <div class="bg-gray-50 justify-between rounded-2xl p-3 border border-gray-200 flex gap-2 items-center my-4">
       <p class="text-xs text-gray-600 font-medium flex-1 truncate">{collectionUrl}</p>
       <Button 
         size="sm"
@@ -48,14 +48,14 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex gap-3 flex-col sm:flex-row">
-      <a href={collectionUrl} class="flex-1">
-        <Button variant="neutral" class="w-full">
+    <div class="flex gap-3 justify-center">
+      <a href={collectionUrl}>
+        <Button variant="neutral" size="sm">
           👁️ Voir ma Collection
         </Button>
       </a>
-      <a href="/ressources" class="flex-1">
-        <Button variant="neutral" class="w-full">
+      <a href="/ressources">
+        <Button variant="sober" size="sm">
           Comment ça marche ?
         </Button>
       </a>
