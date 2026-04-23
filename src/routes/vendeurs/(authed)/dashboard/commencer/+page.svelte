@@ -17,6 +17,7 @@
 	let { data }: { data: PageData } = $props();
 
 	const productCount = data.productCount;
+	const products = data.products
 	const progress = data.progress;
 	const productsNeeded = data.productsNeeded;
 	const toast = useToast();
@@ -68,11 +69,6 @@
 				return;
 			}
 
-			if (password !== confirmPassword) {
-				setupError = 'Les mots de passe ne correspondent pas';
-				return;
-			}
-
 			// Call API to save collection name and password
 			const response = await fetch('/api/auth/setup-collection', {
 				method: 'POST',
@@ -81,7 +77,8 @@
 				},
 				body: JSON.stringify({
 					name: collectionName,
-					password: password
+					password: password,
+					products
 				})
 			});
 
@@ -97,7 +94,7 @@
 			
 			// Redirect after success
 			setTimeout(() => {
-				goto('/vendeurs/dashboard');
+				goto('/vendeurs/dashboard?isnew=true');
 			}, 1500);
 		} catch (error) {
 			console.error('Setup error:', error);
@@ -124,7 +121,7 @@
 			toast.show('Bravo ! Votre boutique est maintenant visible', 'success', 4000);
 			setTimeout(() => {
 				showMilestonePopup = false;
-			}, 3500);
+			}, 4500);
 		}
 		// Second product added!
 		else if (productCount === 2 && prevProductCount === 1) {
@@ -144,24 +141,7 @@
 				showMilestonePopup = false;
 			}, 3500);
 		}
-		// All 3 products added!
-		else if (productCount === 3 && prevProductCount === 2) {
-			milestoneMessage = '🎉 Produits ajoutés ! Prochaine étape → Sécuriser votre compte';
-			showMilestonePopup = true;
-			setTimeout(() => {
-				if (confettiContainer) {
-					try {
-						confetti(confettiContainer);
-					} catch (e) {
-						console.log('Confetti animation skipped');
-					}
-				}
-			}, 100);
-			toast.show('🎊 Excellent ! Maintenant sécurisez votre compte', 'success', 5000);
-			setTimeout(() => {
-				showMilestonePopup = false;
-			}, 4000);
-		}
+		
 
 		prevProductCount = productCount;
 	});
@@ -294,13 +274,13 @@
 		{:else if productCount === 3}
 			<!-- Show setup form for collection name and password -->
 			{#if !setupSuccess}
-				<div class="rounded-2xl p-8 mb-12 animate-fade-in border-2" style="background-color: var(--color-secondary); border-color: var(--color-secondary); animation-delay: 200ms;">
-					<h3 class="text-2xl font-bold mb-3" style="color: white;">✨ Collection complète !</h3>
-					<p class="mb-6" style="color: white;">
-						Votre boutique a 3 produits 🎉 Maintenant, sécurisez votre compte avec un nom et un mot de passe.
+				<div class="rounded-2xl p-8 mb-12 animate-fade-in border-2" style="animation-delay: 200ms;">
+					<h3 class="text-2xl font-bold mb-3">✨ Publiez votre Collection !</h3>
+					<p class="mb-6 text-gray">
+						Ils est désormais temps de rendre publique votre Collection et enfin en finir avec les messages répétitifs 
 					</p>
 
-					<div class="space-y-4">
+					<div class="space-y-4 flex flex-col items-center">
 						<!-- Collection Name Input -->
 						<div>
 							<Input
@@ -312,7 +292,7 @@
 								class="w-full"
 								required
 							/>
-							<p class="text-xs mt-2" style="color: rgba(255,255,255,0.8);">
+							<p class="text-xs mt-2">
 								💡 Utilisez un nom que vos clients reconnaîtront
 							</p>
 						</div>
@@ -321,31 +301,17 @@
 						<div>
 							<Input
 								type="password"
-								placeholder="Minimum 6 caractères"
+								placeholder="Doit contenir 6 caractères au minimum"
 								minlength="6"
 								maxlength="20"
 								label="Mot de passe"
 								bind:value={password}
-								class="w-full"
+								class="w-[250px] flex-1"
 								required
 							/>
-							<p class="text-xs mt-2" style="color: rgba(255,255,255,0.8);">
+							<p class="text-xs">
 								🔒 Gardez-le secret et compliqué
 							</p>
-						</div>
-
-						<!-- Confirm Password Input -->
-						<div>
-							<Input
-								type="password"
-								placeholder="Confirmez votre mot de passe"
-								minlength="6"
-								maxlength="20"
-								label="Confirmez le mot de passe"
-								bind:value={confirmPassword}
-								class="w-full"
-								required
-							/>
 						</div>
 
 						<!-- Error Message -->
@@ -354,16 +320,14 @@
 								❌ {setupError}
 							</p>
 						{/if}
-
+                         <br>
 						<!-- Submit Button -->
 						<Button
 							onclick={handleCollectionSetup}
 							disabled={isSubmittingSetup}
-							class="w-full text-white font-semibold py-3 rounded-lg transition-all hover:scale-105 active:scale-95"
-							style="
-								background-color: rgba(0, 0, 0, 0.2);
-								opacity: {isSubmittingSetup ? 0.7 : 1};
-							"
+							class="mx-auto"
+							size="lg"
+							variant="sober"
 							label={isSubmittingSetup ? 'Configuration en cours...' : 'Sécuriser mon compte'}
 						/>
 					</div>

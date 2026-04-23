@@ -24,7 +24,7 @@
 	 {/if}
 	</NavBar>
 
-	<main class="mb-12 {$page.url.pathname !== "/vendeurs" ? "mt-24 sm:mt-28 px-4" : "mt-12"} max-w-7xl mx-auto w-full min-h-[60vh]">
+	<main class="mb-12 {!$page.url.pathname.startsWith("/ressources/") ? "mt-24 sm:mt-28 px-4" : "mt-12 px-4"} max-w-7xl mx-auto w-full min-h-[60vh]">
 		{@render children()}
 	</main>
 

@@ -1,10 +1,10 @@
 import { getUser } from "$lib/server/auth/getUser";
-import { updateRow } from "$lib/server/supabase";
+import { updateRow, insertIn } from "$lib/server/supabase";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
   try {
-    const { name, password } = await request.json();
+    const { name, password, products } = await request.json();
 
     // Get current user from session
     const { user, error: userError } = await getUser(cookies);
@@ -39,6 +39,25 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
         password
       }
     });
+    const {data: fakeOrder } = await insertIn("Orders", [{
+     address: "",
+     address_info: "",
+     status: "En attente",
+     seller_id: user.id,
+     buyer_id: 10
+    }]).select().single()
+    await insertIn("Order_Items", [{
+      product_id: products[0].id,
+      price_at_the_time: products[0].price,
+      order_id: fakeOrder.id,
+      quantity: 2
+    }, {
+      product_id: products[2].id,
+      price_at_the_time: products[2].price,
+      order_id: fakeOrder.id,
+      quantity: 1
+    }])
+
 
     if (error) {
       console.error("Update error:", error);

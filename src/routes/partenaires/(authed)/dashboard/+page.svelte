@@ -73,11 +73,11 @@
       <input
        type="text"
        readonly
-       value={`https://dimarket.biz/partenaires/inscription?ref=${partner.partner_id}`}
+       value={`https://dimarket.biz/?ref=${partner.partner_id}`}
        class="flex-1 p-2 rounded-xl bg-input border border-gray-300 opacity-70"
       />
       <Button
-       onclick={async () => await copy(`https://dimarket.biz/partenaires/inscription?ref=${partner.partner_id}`)}
+       onclick={async () => await copy(`https://dimarket.biz/?ref=${partner.partner_id}`)}
        variant="sober"
       >
         {copyText}

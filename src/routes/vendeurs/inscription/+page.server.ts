@@ -77,7 +77,7 @@ export const actions = {
       if (error) {
         return fail(400, {error: error.message, ...row})
       }
-      cookies.set("session_id", user[0].id.toString(), {path: "/"})
+      cookies.set("session_id", user[0].id.toString(), {path: "/", httpOnly: true, secure: true, maxAge: 60 * 60 * 24 * 30})
       if(!error) {
         redirect(301, `/vendeurs/dashboard?identified=true&collection=${user[0].name}&phone=${user[0].phone}`)
       }

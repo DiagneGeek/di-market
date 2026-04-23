@@ -21,11 +21,11 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
     redirect(307, "/partenaires/connexion")
   }
 
-  const {data: sellers, error: sellersError} = await selectTable("Sellers").eq("referred_by", partner_id)as any
+  const {data: sellers, error: sellersError} = await selectTable("Sellers", "*, Orders (id)").eq("referred_by", partner_id)as any
   if (sellersError) {
     console.error("Error fetching referred sellers: ", sellersError)
   }
-  const paidSellers = sellers?.filter((seller: any) => seller.plan === "PREMIUM" && seller.last_payment) || []
+  const paidSellers = sellers?.filter((seller: any) => seller.plan === "PREMIUM" && seller.last_payment !== null) || []
   const date = url.searchParams.get("date") || "toute_les_périodes"
   const newRefferals = sellers?.filter((seller: any) => {
     const createdAt = new Date(seller.created_at)
@@ -44,7 +44,7 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
     }
     return true
   }) || []
-  const newPaidRefferals = newRefferals.filter((seller: any) => seller.plan === "PREMIUM" && seller.last_payment) || []
-  
+  const newPaidRefferals = newRefferals.filter((seller: any) => seller.plan === "PREMIUM" && seller.last_payment !== null) || []
+  console.log(newPaidRefferals)
   return {partner, referredSellers: sellers || [], paidSellers, newRefferals, newPaidRefferals}
 }

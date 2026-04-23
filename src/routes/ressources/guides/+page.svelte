@@ -32,6 +32,8 @@
         image={guide.image}
         slug={guide.slug}
         type="guides"
+        tags={guide?.tags || ""}
+        description={guide.description}
       />
     {/each}
   </div>

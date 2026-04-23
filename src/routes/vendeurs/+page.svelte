@@ -30,7 +30,7 @@
 	}
 
 	const referer = $page.url.searchParams.get("ref") as string
-    if (referer && browser) {
+    if (referer && browser && !localStorage.getItem("referred_by")) {
       localStorage.setItem("referred_by", referer)
 	}
 </script>

@@ -155,7 +155,7 @@
     }
 </script>
 <h1 class="text-center">{isSetup ? "Ajoutez vos premiers produits" : "Ajoutez un produit !"} </h1>
-<p class="text-center text-gray-500">{isSetup ? "Conseil : Commencez par vos meilleurs produits" : "Ajoutez un produit à votre boutique"}</p>
+<p class="text-center text-gray-500">{isSetup ? "Conseil : Commencez par vos derniers produits en vente" : "Ajoutez un produit à votre Collection"}</p>
 <form 
  onsubmit={handleSubmit}
  class="my-8 flex flex-col gap-5 max-w-[500px] mx-auto bg-card p-4 rounded-3xl"

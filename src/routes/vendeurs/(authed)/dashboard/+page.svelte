@@ -6,13 +6,23 @@
     import OrdersTable from "$lib/components/OrdersTable.svelte"
     import ShareCollectionCard from "$lib/components/ShareCollectionCard.svelte"
     import { useAnalytics } from "$lib/composables/useAnalytics.svelte"
-import { useToast } from "$lib/composables/useToast.js";
+    import { useToast } from "$lib/composables/useToast.js";
+    import { page } from "$app/state"
+    import { goto } from "$app/navigation"
+    import Modal from "$lib/components/Modal.svelte"
 
     const {data} = $props()
 
     let period: "oneDayAgo" | "sevenDaysAgo" | "thirtyDaysAgo" | "oneYearAgo" = $state("oneDayAgo")
     
     const analytics = $derived(useAnalytics(data.events, data.products, period, (data.orders || []) as any))
+    const isnew = page.url.searchParams.get("isnew") === "true"
+    let demoOrderModalOpen = $state(false)
+    if (isnew) {
+      setTimeout(() => {
+        demoOrderModalOpen = true
+      }, 2000)
+    }
 </script>
 
 <h1>Accueil</h1>
@@ -70,3 +80,13 @@ import { useToast } from "$lib/composables/useToast.js";
     </a>
   </div>
 {/if}
+
+<Modal 
+  open={demoOrderModalOpen}
+  close={() => demoOrderModalOpen = false}
+  btnLabel="Voir la commande"
+  onSubmit={() => goto("/vendeurs/dashboard/commandes")}
+ >
+ <p class="text-center my-2 text-xl">🔔 Amadou vient de commander (Démonstration) 👀</p>
+ <p>Découvrez comment vos futurs commandes seront organisées avec DiMarket</p>
+</Modal>

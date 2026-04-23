@@ -33,6 +33,8 @@ const modules = import.meta.glob('/src/content/blog/*.md', { eager: true })
         date={post.date}
         image={post.image}
         slug={post.slug}
+        tags={post?.tags || ""}
+        description={post.description}
       />
     {/each}
   </div>

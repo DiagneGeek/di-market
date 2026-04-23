@@ -2,6 +2,8 @@
 title: Guide Complet du Dropshipping en 2026
 image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcyWW-ExgY8CcQWM6lkP838t9kfaQjP8sH6_85_PxkWQ&s=10
 date: 2026-03-06
+tags: test, fake, demo
+description: Découvrez comment le dropshopping fonctionne et commencrz a gagner de la thune avec sans devoir gérer votre propre store
 ---
 
 <script>

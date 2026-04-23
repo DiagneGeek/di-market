@@ -125,7 +125,7 @@
             <Button 
               type="submit" 
               size="sm"
-              variant="secondary">
+              variant="neutral">
               Enregistrer
             </Button>
             <Button 
@@ -144,7 +144,7 @@
             <Button 
               onclick={() => isEditingStatus = true} 
               size="sm" 
-              variant="neutral">
+              variant="sober">
               Modifier
             </Button>
           </div>
@@ -255,12 +255,12 @@
                   <p class="text-sm text-gray-600 mt-1">Article #{item.product_id}</p>
                 </div>
                 <div class="flex flex-col md:flex-row items-center justify-between">
-                  <p class="text-primary font-bold text-lg">
+                  <p class="text-secondary font-bold text-lg">
                     {formatPrice((item.price_at_the_time / item.quantity).toString() || '0')} FCFA 
-                    <span class="text-xs text-gray">{item.price_at_the_time < item.product.price * item.quantity ? "(reduction)" : ""}</span>
+                    <span class="text-xs text-gray">{item.price_at_the_time * item.quantity < item.product.price * item.quantity ? "(reduction)" : ""}</span>
                   </p>
                   <br>
-                  <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">Quantité: {item.quantity}</span>
+                  <span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-xs font-semibold">Quantité: {item.quantity}</span>
                 </div>
               </div>
             </div>

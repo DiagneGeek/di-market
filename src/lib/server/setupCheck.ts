@@ -8,7 +8,7 @@ const SETUP_PRODUCT_REQUIREMENT = 3;
  * Returns true if seller has >= 3 products, false otherwise
  */
 export const isSetupComplete = async (seller: User, products: Article[]): Promise<boolean> => {
-  const setup_complete = products.length >= SETUP_PRODUCT_REQUIREMENT || seller.setupping === false;
+  const setup_complete = (products.length >= SETUP_PRODUCT_REQUIREMENT && seller.name && seller.password) || seller.setupping == false
   if (setup_complete && seller.setupping) {
     await updateRow("Sellers", {
      where: ["id", seller.id],

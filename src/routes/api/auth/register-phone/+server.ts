@@ -4,7 +4,7 @@ import { json, type RequestHandler } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
   try {
-    const { phone } = await request.json();
+    const { phone, referer } = await request.json();
 
     // Validate phone
     if (!phone || phone.trim().length < 7) {
@@ -15,13 +15,18 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     }
 
     // Check if phone already exists
-    const { data: existingUser } = await selectTable("Sellers")
+    const { data: existingUser } : {
+      data: User | null
+    } = await selectTable("Sellers")
       .eq("phone", phone)
       .single();
 
-    if (existingUser) {
+    if (existingUser && existingUser != undefined) {
+      if (!existingUser.id) return json({
+        error: "Will never happen"
+      })
       // Return existing seller - they're a returning user
-      cookies.set("session_id", existingUser.id.toString(), { path: "/" });
+      cookies.set("session_id", existingUser?.id.toString(), { path: "/" });
       return json({ user: existingUser, isNew: false });
     }
 
@@ -33,6 +38,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 
     const newSeller: User = {
       phone,
+      referred_by: referer,
       plan: "PREMIUM",
       trial_ends_at,
       name: "",
@@ -49,7 +55,13 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     }
 
     // Set session cookie
-    cookies.set("session_id", inserted[0].id.toString(), { path: "/" });
+    cookies.set("session_id", inserted[0].id.toString(), 
+      { 
+        path: "/" 
+        httpOnly: true,
+        secure: true,
+        maxAge: 60 * 60 * 24 * 30
+      });
 
     return json({ user: inserted[0], isNew: true });
   } catch (error) {

@@ -32,6 +32,8 @@
         image={tutorial.image}
         slug={tutorial.slug}
         type="tutoriels"
+        tags={tutorial?.tags || ""}
+        description={tutorial.description}
       />
     {/each}
   </div>

@@ -32,7 +32,6 @@ export const load: PageServerLoad = async ({ cookies, url, parent }) => {
 
   // If already completed full onboarding, redirect to dashboard
   if (onboardingComplete) {
-    console.log("ggg")
     redirect(307, '/vendeurs/dashboard');
   }
 
@@ -41,6 +40,7 @@ export const load: PageServerLoad = async ({ cookies, url, parent }) => {
   return {
     user,
     productCount,
+    products,
     setupComplete,
     productsNeeded,
     progress,

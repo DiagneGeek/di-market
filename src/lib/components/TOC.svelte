@@ -57,15 +57,16 @@
   }
 </script>
 
-<nav class=" top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
-  <div class="bg-gradient-to-b from-white via-white to-transparent rounded-2xl p-5 border border-gray-100/60 shadow-lg backdrop-blur-sm">
+<nav class=" top-8 max-h-[calc(100vh-4rem)] overflow-y-auto max-w-2xl">
+  <div class="bg-card rounded-2xl p-5 border border-gray-100/60 shadow-lg backdrop-blur-sm">
     <div class="flex items-center gap-2 mb-6">
       <div class="w-1 h-6 bg-gradient-to-b from-primary to-primary/60 rounded-full" />
       <h3 class="text-lg font-bold text-gray-900">Contenu</h3>
     </div>
 
     {#if headings.length > 0}
-      <ul class="space-y-1">
+    <!-- svelte-ignore unknown-prop -->
+      <ul class="space-y-2" nobullet="true">
         {#each headings as heading (heading.id)}
           <li>
             <button
@@ -80,8 +81,8 @@
             >
               {#if activeId === heading.id}
                 <div
-                  class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-primary/60 rounded-r-full"
-                />
+                  class="absolute py-2 left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-primary/60 rounded-r-full"
+                ></div>
               {/if}
               <div class="flex items-center gap-2">
                 <span class="text-xs opacity-50">

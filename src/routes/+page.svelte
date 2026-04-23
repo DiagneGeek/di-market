@@ -142,13 +142,14 @@
 				errorMessage = 'Veuillez entrer un numéro valide';
 				return;
 			}
+			const referer = localStorage.getItem("referred_by") || null
 
 			const response = await fetch('/api/auth/register-phone', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ phone: phoneInput })
+				body: JSON.stringify({ phone: phoneInput, referer })
 			});
 
 			const result = await response.json();

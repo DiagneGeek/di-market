@@ -10,8 +10,6 @@
   image={data.metadata.image}
 />
 
-<div class="max-w-4xl mx-auto px-4 py-12">
-  <article class="prose prose-lg max-w-none">
+<div class="max-w-3xl mx-auto px-4 py-12">
     <data.post.default />
-  </article>
 </div>

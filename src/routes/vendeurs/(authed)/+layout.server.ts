@@ -20,7 +20,7 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
   }
 
   if (!user) {
-    redirect(307, "/")
+    redirect(307, "/vendeurs/connection")
   }
 
   // Check if user needs to complete onboarding (name + password)
@@ -29,7 +29,7 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
   const needsOnboarding = !user.name || !user.password
   const search = url.search
   if (needsOnboarding && !isOnCommencerPage) {
-    redirect(307, "/vendeurs/dashboard/commencer"+search)
+    //redirect(307, "/vendeurs/dashboard/commencer"+search)
   }
   
   const isPremium = await _isPremium(user)
@@ -69,11 +69,15 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
   const setupComplete = await isSetupComplete(user, products)
   
   // Redirect to setup if not complete and not already on setup/add pages
-  const isOnSetupPage = url.pathname.includes('/commencer') || (url.pathname.includes('/produits/ajouter') && url.searchParams.get('setup') === 'true')
+  const isSetupMode = url.searchParams.get('setup') === 'true'
+  const isOnAjouterPage = url.pathname.includes('/produits/ajouter')
   const isOnProfile = url.pathname.includes('/profile')
   
-  if (!setupComplete && !isOnSetupPage && !isOnProfile && url.pathname.includes('/dashboard')) {
-    redirect(307, '/vendeurs/dashboard/commencer')
+  if (!setupComplete && !isOnCommencerPage && !isOnProfile && url.pathname.includes('/dashboard')) {
+    // Allow access to ajouter page only during setup mode with the setup=true parameter
+    if (!(isOnAjouterPage)) {
+      redirect(307, '/vendeurs/dashboard/commencer')
+    }
   }
   
   return {user, products, isPremium, events, orders, setupComplete}
