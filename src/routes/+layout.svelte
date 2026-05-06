@@ -53,7 +53,6 @@
 						<ul class="mt-2 space-y-1 text-left">
 							<li><a href="/ressources" class="hover:underline">Toutes nos ressources</a></li>
 							<li><a href="/ressources/blog" class="hover:underline">Blog</a></li>
-							<li><a href="/ressources/guides" class="hover:underline">Guides</a></li>
 							<li><a href="/ressources/tutoriels" class="hover:underline">Tutoriels</a></li>
 						</ul>
 					</div>
