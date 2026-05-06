@@ -15,9 +15,10 @@
      alt={title} 
      class="w-full h-[180px] md:h-[130px] rounded-xl object-cover transition-transform duration-300 hover:scale-105"
     />
-    <h2 class="text-base sm:text-lg font-semibold text-heading leading-tight line-clamp-2">{trimText(title, 35)}</h2>
+    <h2 
+      class="text-base sm:text-lg leading-tight font-semibold text-heading mt-1 line-clamp-2">{trimText(title, 35)}</h2>
     {#if description}
-      <p class="text-xs sm:text-sm text-gray-600 line-clamp-2 flex-grow">{description}</p>
+      <p class="text-xs sm:text-sm text-gray-600 flex-grow">{description}</p>
     {/if}
 </div>
     <div class="flex flex-col justify-end gap-3 w-full">

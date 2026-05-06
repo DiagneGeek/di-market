@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "context": "Quand le client demande 'prix ?'",
+    "content": "Oui, c'est [prix] 😊\nMais la plupart le prennent parce que ça règle [problème].\nTu veux que je t'explique comment ?",
+    "tags": ["Vendeurs", "Affliers", "Facebook"],
+    "effect": "Déplace l'attention du prix vers la valeur"
+  },
+  {
+    "id": 2,
+    "context": "Quand le client hésite après découvrir le prix",
+    "content": "Je comprends que c'est un investissement 💭\nMais regarde, ça te permet de [bénéfice principal].\nCombien tu économises si tu le fais pas ?",
+    "tags": ["Vendeurs", "Poste"],
+    "effect": "Crée un sentiment d'urgence en montrant le coût d'inaction"
+  },
+  {
+    "id": 3,
+    "context": "Pour initier une conversation avec un prospect froid",
+    "content": "Salut ! 👋\nJ'ai remarqué que [observation pertinente].\nOn aide beaucoup de gens dans ta situation à [résultat].\nT'as 2min pour qu'on en parle ?",
+    "tags": ["Affliers", "Facebook", "Poste"],
+    "effect": "Personnalise l'approche et démarre une conversation naturelle"
+  },
+  {
+    "id": 4,
+    "context": "Quand le client dit 'Je vais réfléchir'",
+    "content": "Pas de soucis ! 🤔\nJuste pour clarifier, c'est quoi exactement qui te fait hésiter ? Le prix ? Les bénéfices ? Ou peut-être tu veux plus d'infos ?",
+    "tags": ["Vendeurs", "Poste"],
+    "effect": "Identifie l'objection réelle au lieu de laisser partir le prospect"
+  },
+  {
+    "id": 5,
+    "context": "Pour conclure une vente avec un appel à l'action",
+    "content": "Parfait ! Donc on se met d'accord sur [détails]. Je vais te préparer tout ça et tu l'auras dans 24h max. Ça te va ? ✅",
+    "tags": ["Vendeurs", "Affliers"],
+    "effect": "Crée un sentiment de progression et de certitude"
+  },
+  {
+    "id": 6,
+    "context": "Pour relancer un prospect après 3 jours sans réponse",
+    "content": "Yo ! 👋\nJe me dis que peut-être mon msg s'est perdu 😅\nJuste pour te remettre en contexte : [avantage principal]. T'es intéressé ou pas vraiment ton truc ?",
+    "tags": ["Affliers", "Poste", "Facebook"],
+    "effect": "Ramène le prospect dans la conversation sans être lourd"
+  }
+]

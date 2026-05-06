@@ -23,6 +23,7 @@
     const padding = variant.includes("outline") ? (size == "lg" ? "py-3 px-5" : size === "sm" ? "p-2" : "p-1") : (size == "lg" ? "py-4 px-6" : size === "sm" ? "py-2 px-4" : "py-3 px-5")
 </script>
 
+
 {#if children}
 <button
   class="text-[14px] {padding} rounded-2xl font-semibold {type} {_class} disabled:opacity-50 disabled:cursor-not-allowed"

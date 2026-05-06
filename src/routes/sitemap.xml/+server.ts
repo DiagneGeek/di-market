@@ -11,7 +11,6 @@ export async function GET() {
   const { data: products = [] } = await getArticles()
   const { data: sellers = [] } = await selectTable("Sellers", "*")
   const posts = getPosts() || []
-  const guides = getGuides() || []
   const tutorials = getTutorials() || []
 
   // Static pages
@@ -27,7 +26,6 @@ export async function GET() {
     "/ressources",
     "/ressources/blog",
     "/ressources/tutoriels", 
-    "/ressources/guides"
   ]
 
   // Generate URL entries
@@ -67,21 +65,11 @@ export async function GET() {
       </url>
     `) : []),
     
-    // Guides
-    ...(guides?.length ? guides.map((g: any) => `
-      <url>
-        <loc>${baseUrl}/ressources/guides/${g.slug}</loc>
-        <lastmod>${g.updated_at || g.date}</lastmod>
-        <changefreq>monthly</changefreq>
-      </url>
-    `) : []),
-    
     // Tutorials
     ...(tutorials?.length ? tutorials.map((t: any) => `
       <url>
         <loc>${baseUrl}/ressources/tutoriels/${t.slug}</loc>
         <lastmod>${t.updated_at || t.date}</lastmod>
-        <changefreq>monthly</changefreq>
       </url>
     `) : [])
   ].join('')

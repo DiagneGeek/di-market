@@ -24,11 +24,11 @@
 		{
 			id: 3,
 			icon: "📖",
-			title: "Guides",
-			description: "Explorez nos guides complets pour comprendre chaque aspect de la vente et découvrir de nouvelles stratégies.",
+			title: "Armes de vente (templates)",
+			description: "Des messages optimisés pour convertir, t’aider à convaincre plus vite et vendre plus efficacement avec DiMarket.",
 			color: "from-green-100 to-green-50",
-			link: "/guides",
-			features: ["Démarrage rapide", "Gestion des produits", "Stratégies de vente"]
+			link: "/templates",
+			features: ["Copiez en un clic", "S'adapte à chaque situation", "Stratégies de vente"]
 		},
 	/*	{
 			id: 4,

@@ -33,7 +33,7 @@
     </a>
 
     <div class="flex flex-col gap-0 p-2 flex-1">
-      <h2 style="margin-top: 4px; margin-bottom: 0px !important;" class="group-hover:text-primary transition-colors duration-200">
+      <h2 style="margin-top: 4px; line-height: 0.3; margin-bottom: 0px !important;" class="group-hover:text-primary transition-colors duration-200">
         <span class="text-lg">{trimText(title, 50)}</span>
       </h2>
       <div class="-translate-y-0 text-[12px] text-gray-500 font-medium flex items-center gap-2">
