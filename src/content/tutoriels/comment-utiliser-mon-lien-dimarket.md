@@ -25,7 +25,7 @@ Dans ce tutoriel, on va vous montrer exactement comment obtenir ce lien et surto
 ## Étape 1 — Récupérez votre lien (30 secondes, pas plus)
 Connectez-vous à votre compte DiMarket. Votre lien de Collection est déjà là, sur votre tableau de bord, prêt à l'emploi. Copiez-le. C'est tout. DiMarket a pensé à tout pour vous faire gagner du temps dès le départ — même pour ça.
 
-![Screenshot_20260503_174356_Chrome.jpg](attachment:24c318d9-97f0-47da-ad6b-26eaf59354a7:Screenshot_20260503_174356_Chrome.jpg)
+![interface pour copier votre lien DiMarket](/contents/share-collection.jpg)
 
 
 
@@ -66,15 +66,19 @@ Oui, DiMarket transforme des heures passées à répondre aux mêmes messages en
 
 **Dans les groupes de vente**: Vous êtes dans des groupes locaux ? Je suis sûre que vous mettez votre numero de téléphone dans vos postes 🤨. Faire ça c'est comme dire “Vous pouvez me déranger quand vous voulez”. Mais avec DiMarket, plus besoin de vous auto-fatiguer. Mettez juste le lien de votre Collection et vous n'avez plus rien à faire, plus de messages, plus besoin de gérer les commandes manuellement, tout est affiché dans votre tableau de bord
 
+![Poste Facebook avec le lien de la collection DiMarket](/contents/facebook-post.jpg)
+
 
 PS: Vous pouvez aussi partager le lien d'un seul produit. Pour ça, vous pouvez juste aller dans un de vos produit et choisir la manière dont vous voulez le partager
+
+![Boutons de partages par produit](/contents/share-buttons-in-product-page.jpg)
 
 
 ## Étape 3: Recevez vos commandes (automatiquement)
 
 Une fois qu'un acheteur commande sur votre boutique, DiMarket enregistre automatiquement sa commande avec toutes les informations dont vous avez besoin pour livrer. Plus besoin de noter quoi que ce soit à la main, nous vous montrons tout, et vous, vous ne notez rien.
 
-![Screenshot_20260503_182153_Chrome.jpg](attachment:c9c9f8a7-6592-4b52-b1e1-0803a7e22773:Screenshot_20260503_182153_Chrome.jpg)
+![Page d'une commande avec DiMarket](/contents/order-page.jpg)
 
 ## 🚀 Votre mission dès aujourd'hui
 
