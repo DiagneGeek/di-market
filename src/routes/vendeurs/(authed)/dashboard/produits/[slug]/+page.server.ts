@@ -1,6 +1,6 @@
 import { selectTable } from "$lib/server/supabase"
 import { error } from "@sveltejs/kit"
-import type { Article, Event } from "$lib/types/index.js"
+import type { Product, Event } from "$lib/types/index.js"
 
 export const load = async ({ params, parent }: { params: any, parent: any }) => {
   const { slug } = params
@@ -8,7 +8,7 @@ export const load = async ({ params, parent }: { params: any, parent: any }) => 
   const { products, isPremium, events, orders } = parentData
 
   // Find the product by slug
-  const product = products.find((p: Article) => p.slug === slug)
+  const product = products.find((p: Product) => p.slug === slug)
   if (!product) {
     throw error(404, "Produit non trouvé")
   }

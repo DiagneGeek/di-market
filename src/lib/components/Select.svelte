@@ -1,5 +1,5 @@
 <script lang='ts'>
-    const {options, label, border = false, onchange = null, default: _default = ''} = $props()
+    const {options, label, border = true, onchange = null, default: _default = ''} = $props()
 </script>
 
 <div>

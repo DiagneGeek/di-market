@@ -34,11 +34,22 @@ export const load = async ({ params, parent }: { params: any; parent: any }) => 
     })
   )
 
+  // Fetch all seller's products for the add product dropdown
+  let sellerProducts = []
+  try {
+    const { data: products } = await selectTable("Products")
+      .eq("seller_id", order.seller_id)
+    sellerProducts = products || []
+  } catch (err) {
+    console.error("Error fetching seller products:", err)
+  }
+
   return {
     order: {
       ...order,
       Order_Items: orderItemsWithProducts
-    }
+    },
+    sellerProducts
   }
 }
 

@@ -1,10 +1,8 @@
 import type { PageServerLoad } from './$types';
-import { getUser } from '$lib/server/auth/getUser';
-import { selectTable } from '$lib/server/supabase';
 import { error } from '@sveltejs/kit';
-import type { Article, Event } from '$lib/types';
+import type { Product, Event } from '$lib/types';
 
-export const load: PageServerLoad = async ({ cookies, parent }) => {
+export const load: PageServerLoad = async ({ parent }) => {
   const { user, products, events, isPremium } = await parent();
 
   if (!user) {
@@ -18,7 +16,7 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
   if (!products || products.length === 0) {
     suggestions.push({
       title: 'Ajoutez vos premiers produits',
-      description: 'Votre collection semble vide. Commencez par ajouter des produits pour attirer des clients.',
+      description: 'Votre boutique est vide. Ajoutez des produits pour que les clients puissent commander.',
       type: 'urgent',
       cta: {
         text: 'Ajouter un produit',
@@ -28,11 +26,11 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
   }
 
   // Check products without images
-  const productsWithoutImages = products?.filter((p: Article) => !p.image || p.image.length === 0) || [];
+  const productsWithoutImages = products?.filter((p: Product) => !p.image || p.image.length === 0) || [];
   if (productsWithoutImages.length > 0) {
     suggestions.push({
       title: 'Améliorez vos photos de produits',
-      description: `${productsWithoutImages.length} de vos produits n'ont pas d'images. Des photos de qualité augmentent les ventes de 30%.`,
+      description: `${productsWithoutImages.length} produits n'ont pas d'image. Mettez des photos pour que les clients voient le produit.`,
       type: 'normal',
       cta: {
         text: 'Ajouter des images',
@@ -42,11 +40,11 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
   }
 
   // Check products without description
-  const productsWithoutDesc = products?.filter((p: Article) => !p.description || p.description.trim() === '') || [];
+  const productsWithoutDesc = products?.filter((p: Product) => !p.description || p.description.trim() === '') || [];
   if (productsWithoutDesc.length > 0) {
     suggestions.push({
       title: 'Ajoutez des descriptions détaillées',
-      description: `${productsWithoutDesc.length} produits manquent de description. Une bonne description convainc les acheteurs.`,
+      description: `${productsWithoutDesc.length} produits n'ont pas de description. Écrivez ce que c'est et ses caractéristiques simples.`,
       type: 'normal',
       cta: {
         text: 'Éditer les descriptions',
@@ -55,12 +53,12 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
     });
   }
 
-  // Check low views
+  // Check low interest / visibility (for wholesalers we track SKU impressions)
   const totalViews = events?.filter((e: Event) => e.type === 'product_view').length || 0;
-  if (totalViews < 100) {
+  if (totalViews < 200) {
     suggestions.push({
-      title: 'Augmentez la visibilité de vos produits',
-      description: 'Vos produits ont peu de vues. Optimisez vos titres et descriptions pour le SEO, partagez sur vos réseaux et faites des publicités si possible.',
+      title: 'Augmentez la visibilité de vos références',
+      description: 'Vos produits sont peu vus. Améliorez leurs fiches et indiquez clairement prix et délais pour que les clients commandent.',
       type: 'normal',
       cta: {
         text: 'Voir les statistiques',
@@ -69,16 +67,16 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
     });
   }
 
-  // Check conversion rate
-  const wsappOpens = events?.filter((e: Event) => e.type === 'wsapp_open').length || 0;
-  const conversionRate = totalViews > 0 ? (wsappOpens / totalViews) * 100 : 0;
-  if (conversionRate < 5) {
+  // Check B2B order conversion rate (clients place orders)
+  const orders = events?.filter((e: Event) => e.type === 'order').length || 0;
+  const conversionRate = totalViews > 0 ? (orders / totalViews) * 100 : 0;
+  if (conversionRate < 3) {
     suggestions.push({
-      title: 'Votre taux de conversion est faible',
-      description: `Seulement ${conversionRate.toFixed(1)}% de vos visiteurs contactent via WhatsApp. Améliorez vos descriptions et prix.`,
+      title: 'Peu de commandes B2B',
+      description: `Seulement ${conversionRate.toFixed(1)}% des visiteurs commandent. Indiquez le prix, la quantité minimale et le délai pour que les clients commandent plus.`,
       type: 'urgent',
       cta: {
-        text: 'Fixer le problème',
+        text: 'Améliorer les fiches produits',
         href: '/vendeurs/dashboard/produits'
       }
     });
@@ -88,7 +86,7 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
   if (isPremium && products && products.length >= 3) {
     suggestions.push({
       title: 'Partagez votre collection',
-      description: 'Vous avez une belle collection ! Partagez-la sur vos réseaux sociaux pour attirer plus de clients.',
+      description: 'Vous avez plusieurs produits. Partagez votre boutique pour que plus de clients voient et commandent.',
       type: 'positive',
       cta: {
         text: 'Voir ma collection',
@@ -102,7 +100,7 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
     suggestions.length = 0
     suggestions.push({
       title: 'Devenez Premium pour plus de fonctionnalités',
-      description: 'Accédez à des analyses avancées, plus de produits et une meilleure visibilité.',
+      description: "Passez Premium pour voir plus d'informations et avoir plus de visibilité afin d'obtenir plus de commandes.",
       type: 'normal',
       cta: {
         text: 'Devenir Premium',
@@ -111,14 +109,14 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
     });
   }
 
-  // If few products, suggest adding more
-  if (products && products.length < 10) {
+  // If few SKUs, suggest expanding assortment
+  if (products && products.length < 20) {
     suggestions.push({
-      title: 'Élargissez votre catalogue',
-      description: 'Plus vous avez de produits, plus vous avez de chances de vendre. Ajoutez-en plus.',
+      title: 'Élargissez votre assortiment B2B',
+      description: 'Ajoutez plus de produits et des options par lot. Plus de choix aide les clients à commander.',
       type: 'normal',
       cta: {
-        text: 'Ajouter des produits',
+        text: 'Ajouter des références',
         href: '/vendeurs/dashboard/produits'
       }
     });
@@ -130,15 +128,15 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
     for (const product of products) {
       const productEvents = events.filter((e: Event) => e.product_id === product.id);
       const views = productEvents.filter((e: Event) => e.type === 'product_view');
-      const opens = productEvents.filter((e: Event) => e.type === 'wsapp_open');
-      const conversionRate = views.length > 0 ? (opens.length / views.length) * 100 : 0;
+      const orders = productEvents.filter((e: Event) => e.type === 'order');
+      const conversionRate = views.length > 0 ? (orders.length / views.length) * 100 : 0;
 
       const productSugs = [];
 
-      if (conversionRate < 5) {
+      if (conversionRate < 3) {
         productSugs.push({
-          title: `Taux de conversion faible pour "${product.title}"`,
-          description: `Le taux de conversion de ce produit est de ${conversionRate.toFixed(1)}%. Améliorez la description ou les photos.`,
+          title: `Peu de commandes pour "${product.title}"`,
+          description: `Ce produit reçoit seulement ${conversionRate.toFixed(1)}% de commandes. Indiquez le prix, la quantité minimale et le délai pour aider le client à commander.`,
           type: 'urgent',
           cta: {
             text: 'Modifier le produit',
@@ -149,8 +147,8 @@ export const load: PageServerLoad = async ({ cookies, parent }) => {
 
       if (views.length < 10) {
         productSugs.push({
-          title: `Peu de vues pour "${product.title}"`,
-          description: `Ce produit n'a que ${views.length} vues. Promouvez-le davantage.`,
+          title: `Peu d'impressions pour "${product.title}"`,
+          description: `Ce produit n'a que ${views.length} vues. Mettez-le en avant pour que plus de clients le voient et commandent.`,
           type: 'normal',
           cta: {
             text: 'Partager le produit',

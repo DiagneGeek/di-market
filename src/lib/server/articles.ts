@@ -1,6 +1,6 @@
 
 import { insertIn, removeRow, selectTable, updateRow } from "./supabase";
-import type { Article } from "../types";
+import type { Product } from "../types";
 import type { restoreTextDirection } from "chart.js/helpers";
 
 export const getArticles = async ({ nameinclude = "", category = "", maxprice = "" } = {}) => {
@@ -21,7 +21,7 @@ export const getArticles = async ({ nameinclude = "", category = "", maxprice = 
   return query;
 };
 
-export const addArticle = async (article: Article) => {
+export const addArticle = async (article: Product) => {
     const {data, error: insertError} = await insertIn("Products", [article])
 
     if (insertError) {

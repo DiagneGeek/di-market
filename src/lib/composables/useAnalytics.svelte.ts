@@ -1,11 +1,11 @@
 import { getDates } from "./getDates"
-import type { Event, Article, Order } from "$lib/types"
+import type { Event, Product, Order } from "$lib/types"
 
 export interface AnalyticsData {
   views: Event[]
   addToCart: Event[]
   productViews: Record<string, number>
-  topProducts: Article[]
+  topProducts: Product[]
   previousViews: Event[]
   previousAddToCart: Event[]
   conversionRate: number
@@ -20,7 +20,7 @@ export interface AnalyticsData {
 
 export function useAnalytics(
   events: Event[],
-  products: Article[],
+  products: Product[],
   period: "oneDayAgo" | "sevenDaysAgo" | "thirtyDaysAgo" | "oneYearAgo",
   orders: Order[] = []
 ): AnalyticsData {
@@ -54,7 +54,7 @@ export function useAnalytics(
   }, {} as Record<string, number>)
 
   const topProducts = products?.sort(
-    (a: Article, b: Article) =>
+    (a: Product, b: Product) =>
       (productViews[b.id || 0] || 0) - (productViews[a.id || 0] || 0)
   ).slice(0, 5) || []
 

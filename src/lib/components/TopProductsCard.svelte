@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Article } from "$lib/types"
+  import type { Product } from "$lib/types"
   import Button from "$lib/components/Button.svelte"
 
   interface Props {
-    products: Article[];
+    products: Product[];
     productViews: Record<string, number>;
   }
 

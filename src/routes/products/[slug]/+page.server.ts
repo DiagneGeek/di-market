@@ -1,6 +1,6 @@
 import { getUser } from "$lib/server/auth/getUser"
 import {selectTable, insertIn, updateRow } from "$lib/server/supabase"
-import type { Article} from "$lib/types"
+import type { Product} from "$lib/types"
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
@@ -36,7 +36,7 @@ export const load = async ({params, url, cookies} : {params: any, url: any, cook
             error:  "Ce produit n'existe pas !"
         }
     }
-    const product: Article = data
+    const product: Product = data
 
     if (product.discount_end) {
         const now = new Date()
@@ -61,7 +61,7 @@ export const load = async ({params, url, cookies} : {params: any, url: any, cook
 export const actions = {
     add_to_cart_event: async ({request}) => {
         const form = await request.formData()
-        const product = JSON.parse(form.get("product") as string) as Article 
+        const product = JSON.parse(form.get("product") as string) as Product 
 
         await insertIn("Events", {
             type: "add_to_cart",

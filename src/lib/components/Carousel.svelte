@@ -16,6 +16,7 @@
 	let { slides, autoRotate = true, autoRotateInterval = 5000, format = "vertical" }: Props = $props();
 
 	let current = $state(0);
+	let pauseRotate = $state(false)
 	let autoplayTimer: ReturnType<typeof setInterval> | null = null;
 
 	const next = () => {
@@ -33,13 +34,23 @@
 
 	const resetAutoplay = () => {
 		if (autoplayTimer) clearInterval(autoplayTimer);
-		if (autoRotate) {
+		if (autoRotate && !pauseRotate) {
 			autoplayTimer = setInterval(next, autoRotateInterval);
 		}
 	};
 
+	const pauseAutoplay = () => {
+		pauseRotate = true;
+		if (autoplayTimer) clearInterval(autoplayTimer);
+	};
+
+	const resumeAutoplay = () => {
+		pauseRotate = false;
+		resetAutoplay();
+	};
+
 	onMount(() => {
-		if (autoRotate) {
+		if (autoRotate && !pauseRotate) {
 			autoplayTimer = setInterval(next, autoRotateInterval);
 		}
 		return () => {
@@ -48,7 +59,13 @@
 	});
 </script>
 
-<div class="relative {format === "vertical" ? "w-[300px] sm:w-[350px]" : "w-full max-w-2xl"} mx-auto">
+<div 
+	class="relative {format === "vertical" ? "w-[300px] sm:w-[350px]" : "w-full max-w-2xl"} mx-auto"
+	onmouseenter={pauseAutoplay}
+	onmouseleave={resumeAutoplay}
+	ontouchstart={pauseAutoplay}
+	ontouchend={resumeAutoplay}
+>
 	<!-- Slides Container -->
 	<div class="relative w-full h-[600px] sm:h-[600px] rounded-2xl overflow-hidden bg-gradient-to-b from-gray-50 to-gray-100">
 		{#each slides as slide, index}

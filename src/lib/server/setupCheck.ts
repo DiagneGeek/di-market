@@ -1,5 +1,5 @@
 import { selectTable, updateRow } from './supabase';
-import type { User, Article } from '../types';
+import type { User, Product } from '../types';
 
 const SETUP_PRODUCT_REQUIREMENT = 3;
 
@@ -7,8 +7,8 @@ const SETUP_PRODUCT_REQUIREMENT = 3;
  * Check if a seller has completed the setup process
  * Returns true if seller has >= 3 products, false otherwise
  */
-export const isSetupComplete = async (seller: User, products: Article[]): Promise<boolean> => {
-  const setup_complete = (products.length >= SETUP_PRODUCT_REQUIREMENT && seller.name && seller.password) || seller.setupping == false
+export const isSetupComplete = async (seller: User, products: Product[]): Promise<boolean> => {
+  const setup_complete = ( (products.length >= SETUP_PRODUCT_REQUIREMENT && seller.name && seller.password) || seller.setupping == false ) as boolean;
   if (setup_complete && seller.setupping) {
     await updateRow("Sellers", {
      where: ["id", seller.id],

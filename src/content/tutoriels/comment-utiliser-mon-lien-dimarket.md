@@ -4,6 +4,7 @@ date: "2026-04-05"
 image: "https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/151/posts/108321/image-upload/intro_How_to_Make_an_Instructional_Tutorial_Video_Complete_Guide_2024_.jpg"
 description: "Il existe un outil que les meilleurs vendeurs DiMarket utilisent tous les jours sans exception : le lien de leur  Collection. Un seul lien. Celui qui remplace des dizaines de messages, des captures d'écran floues envoyées à la chaîne, et des heures perdues à répondre aux mêmes questions. "
 tags: marketing, vendeurs
+subtitle: Un seul lien pour remplacer d'innombrables messages
 ---
 
 <script lang="ts">
@@ -13,7 +14,7 @@ tags: marketing, vendeurs
   import ContentCTA from "$lib/components/ContentCTA.svelte"
 </script>
 
-Vous avez fait le premier pas en rejoignant DiMarket. Et ce premier pas compte parce qu'il montre que vous ne vendez pas comme tout le monde. Vous cherchez mieux. Plus intelligent. Plus efficace.
+Vous avez peut être fait le premier pas en rejoignant DiMarket. Et ce premier pas compte parce qu'il montre que vous ne vendez pas comme tout le monde. Vous cherchez mieux. Plus intelligent. Plus efficace.
 
 Aujourd'hui, on passe à la vitesse supérieure.
 
@@ -78,7 +79,7 @@ PS: Vous pouvez aussi partager le lien d'un seul produit. Pour ça, vous pouvez 
 
 Une fois qu'un acheteur commande sur votre boutique, DiMarket enregistre automatiquement sa commande avec toutes les informations dont vous avez besoin pour livrer. Plus besoin de noter quoi que ce soit à la main, nous vous montrons tout, et vous, vous ne notez rien.
 
-![Page d'une commande avec DiMarket](/contents/order-page.jpg)
+![Page d'une commande avec DiMarket](/order-page.png)
 
 ## 🚀 Votre mission dès aujourd'hui
 

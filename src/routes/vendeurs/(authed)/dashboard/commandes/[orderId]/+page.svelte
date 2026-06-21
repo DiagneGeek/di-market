@@ -28,10 +28,44 @@
   }
 
   const { data } = $props()
-  const order = data.order
+  const order = $derived(data.order)
+  const sellerProducts = $derived(data.sellerProducts || [])
 
   let isEditingStatus = $state(false)
-  let editingStatus = $state(order.status)
+  let editingStatus = $state('')
+  
+  let isEditingPayment = $state(false)
+  let editingAmountPaid = $state(0)
+
+  let editingItemId: number | string | null = $state(null)
+  let editingItemValues: { quantity: number; price: number } = $state({ quantity: 0, price: 0 })
+  
+  let isAddingProduct = $state(false)
+  let newProductValues: { product_id: string; quantity: number; price: number } = $state({ product_id: '', quantity: 1, price: 0 })
+
+  // Initialize state when order changes
+  $effect(() => {
+    editingStatus = order.status
+    editingAmountPaid = order.amount_paid || 0
+  })
+
+  // Get available products (not already in the order)
+  const availableProducts = $derived.by(() => {
+    const addedProductIds = new Set((order.Order_Items || []).map((item: any) => String(item.product_id)))
+    return sellerProducts.filter((product: any) => !addedProductIds.has(String(product.id)))
+  })
+
+  // Handle product selection - auto-fill price
+  const handleProductSelect = (productId: string) => {
+    newProductValues.product_id = productId
+    const selectedProduct = sellerProducts.find((p: any) => String(p.id) === productId)
+    if (selectedProduct) {
+      newProductValues.product_id = productId
+      // Parse the price - remove dots used as thousand separators
+      const price = parseInt(String(selectedProduct.price).replace(/\./g, ''))
+      newProductValues.price = price
+    }
+  }
 
   const statuses = [
     "En attente",
@@ -68,6 +102,10 @@
       const price = item.price_at_the_time || 0
       return sum + price
     }, 0)
+  }
+
+  const calculateRemaining = () => {
+    return calculateTotal() - (order.amount_paid || 0)
   }
 
   const parseAddress = (address: string) => {
@@ -156,9 +194,9 @@
 
   <!-- Main Grid Layout -->
   <div class="w-full gap-6 mb-6">
-    <section class="my-8 flex flex-col md:flex-row md:justify-center gap-6 md:w-full">
+    <section class="my-8 flex flex-col md:flex-row md:justify-center gap-6 w-full">
       <!-- Customer Info Card -->
-      <div class="bg-gradient-to-br from-secondary/50 to-secondary/20 rounded-2xl p-6 hover:shadow-md transition-shadow">
+      <div class="bg-gradient-to-br from-secondary/50 to-secondary/20 rounded-2xl p-6 hover:shadow-md transition-shadow md:flex-1">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
@@ -197,7 +235,7 @@
       </div>
 
       <!-- Address Info Card -->
-      <div class="bg-card rounded-2xl p-6 hover:shadow-sm transition-shadow">
+      <div class="bg-card rounded-2xl p-6 hover:shadow-sm transition-shadow md:flex-1">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
@@ -223,6 +261,115 @@
           {/if}
         </div>
       </div>
+
+      <!-- Payment Info Card -->
+      <div class="bg-gradient-to-br from-blue-50 to-blue-20 rounded-2xl p-6 hover:shadow-md transition-shadow md:flex-1">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold text-heading">Paiements</h2>
+        </div>
+        
+        {#if isEditingPayment}
+          <form 
+            action="/vendeurs/dashboard/commandes?/updatePayment" 
+            method="POST" 
+            use:enhance={() => {
+              return ({ update }) => {
+                  isEditingPayment = false
+                  update()
+                  invalidateAll()
+                  order.amount_paid = editingAmountPaid
+              }
+            }}
+            class="space-y-4">
+            <input type="hidden" name="orderId" value={order.id} />
+            
+            <div>
+              <label for="amountPaidInput" class="text-xs uppercase tracking-wide text-gray-600 font-semibold block mb-2">Montant payé (FCFA)</label>
+              <input 
+                id="amountPaidInput"
+                type="number" 
+                bind:value={editingAmountPaid}
+                name="amountPaid"
+                min="0"
+                max={calculateTotal()}
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white text-sm font-medium"
+              />
+              <p class="text-xs text-gray-500 mt-1">Maximum: {formatPrice(calculateTotal().toString())} FCFA</p>
+            </div>
+
+            <div class="flex gap-2">
+              <Button 
+                type="submit" 
+                size="sm"
+                variant="neutral"
+                class="flex-1">
+                Enregistrer
+              </Button>
+              <Button 
+                 type="button" 
+                 variant="outline"
+                 onclick={() => {
+                   isEditingPayment = false
+                   editingAmountPaid = order.amount_paid || 0
+                 }} 
+                 size="sm"
+                 class="flex-1">
+                Annuler
+              </Button>
+            </div>
+          </form>
+        {:else}
+          <div class="space-y-3">
+            <div>
+              <p class="text-xs uppercase tracking-wide text-gray-600 font-semibold mb-1">Total</p>
+              <p class="text-2xl font-bold text-gray-900">{formatPrice(calculateTotal().toString())} FCFA</p>
+            </div>
+
+            <div class="h-px bg-gray-300"></div>
+
+            <div>
+              <p class="text-xs uppercase tracking-wide text-gray-600 font-semibold mb-1">Montant payé</p>
+              <p class="text-xl font-bold {(order.amount_paid || 0) > 0 ? 'text-green-600' : 'text-gray-500'}">
+                {formatPrice((order.amount_paid || 0).toString())} FCFA
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs uppercase tracking-wide text-gray-600 font-semibold mb-1">Restant à payer</p>
+              <p class="text-xl font-bold {calculateRemaining() > 0 ? 'text-orange-600' : 'text-green-600'}">
+                {formatPrice(calculateRemaining().toString())} FCFA
+              </p>
+            </div>
+
+            {#if order.amount_paid && order.amount_paid > 0}
+              <div class="mt-3 p-3 bg-white rounded-lg">
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    class="bg-green-500 h-2 rounded-full transition-all"
+                    style="width: {(((order.amount_paid || 0) / calculateTotal()) * 100).toFixed(0)}%"
+                  ></div>
+                </div>
+                <p class="text-xs text-gray-600 mt-2 text-center">
+                  {(((order.amount_paid || 0) / calculateTotal()) * 100).toFixed(0)}% payé
+                </p>
+              </div>
+            {/if}
+
+            <Button 
+              onclick={() => isEditingPayment = true} 
+              size="sm" 
+              variant="sober"
+              class="w-full mt-2">
+              Mettre à jour le paiement
+            </Button>
+          </div>
+        {/if}
+      </div>
   </section>
 
     <!-- Right Column: Products & Total -->
@@ -240,31 +387,233 @@
         </div>
         
         <div class="space-y-3 mb-6">
-          {#each order.Order_Items || [] as item}
-            <div class="flex gap-4 p-4 bg-gradient-to-r from-gray-50 to-white rounded-lg border border-gray-150 hover:border-gray-300 hover:shadow-sm transition-all">
-              {#if item.product?.image}
-                <img 
-                  src={item.product.image} 
-                  alt={item.product?.title}
-                  class="w-24 h-24 object-cover rounded-lg border border-gray-200"
-                />
-              {/if}
-              <div class="flex-1 flex flex-col flex-wrap justify-between">
-                <div>
-                  <p class="font-semibold text-gray-900 text-base">{item.product?.title}</p>
-                  <p class="text-sm text-gray-600 mt-1">Article #{item.product_id}</p>
+          {#each order.Order_Items || [] as item (item.id)}
+            {#if editingItemId === item.id}
+              <!-- Edit Mode -->
+              <form 
+                action="/vendeurs/dashboard/commandes?/updateOrderItem" 
+                method="POST" 
+                use:enhance={() => {
+                  return ({ update }) => {
+                    editingItemId = null
+                    update()
+                    invalidateAll()
+                  }
+                }}
+                class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <input type="hidden" name="orderId" value={order.id} />
+                <input type="hidden" name="itemId" value={item.id} />
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                  <div>
+                    <label for="edit-qty-{item.id}" class="text-xs font-semibold text-gray-600 block mb-1">Quantité</label>
+                    <input 
+                      id="edit-qty-{item.id}"
+                      type="number" 
+                      bind:value={editingItemValues.quantity}
+                      name="quantity"
+                      min="1"
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label for="edit-price-{item.id}" class="text-xs font-semibold text-gray-600 block mb-1">Prix unitaire (FCFA)</label>
+                    <input 
+                      id="edit-price-{item.id}"
+                      type="number" 
+                      bind:value={editingItemValues.price}
+                      name="price"
+                      min="0"
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                    />
+                  </div>
+                  <div class="flex items-end">
+                    <p class="text-sm text-gray-600">
+                      Sous-total: <strong>{formatPrice((editingItemValues.quantity * editingItemValues.price).toString())} FCFA</strong>
+                    </p>
+                  </div>
                 </div>
-                <div class="flex flex-col md:flex-row items-center justify-between">
-                  <p class="text-secondary font-bold text-lg">
-                    {formatPrice((item.price_at_the_time / item.quantity).toString() || '0')} FCFA 
-                    <span class="text-xs text-gray">{item.price_at_the_time * item.quantity < item.product.price * item.quantity ? "(reduction)" : ""}</span>
-                  </p>
-                  <br>
-                  <span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-xs font-semibold">Quantité: {item.quantity}</span>
+                
+                <div class="flex gap-2">
+                  <Button 
+                    type="submit" 
+                    size="sm"
+                    variant="neutral"
+                    class="flex-1">
+                    Enregistrer
+                  </Button>
+                  <Button 
+                    type="button" 
+                    variant="outline"
+                    onclick={() => editingItemId = null} 
+                    size="sm"
+                    class="flex-1">
+                    Annuler
+                  </Button>
+                </div>
+              </form>
+            {:else}
+              <!-- View Mode -->
+              <div class="flex gap-4 p-4 bg-gradient-to-r from-gray-50 to-white rounded-lg border border-gray-150 hover:border-gray-300 hover:shadow-sm transition-all">
+                {#if item.product?.image}
+                  <img 
+                    src={item.product.image} 
+                    alt={item.product?.title}
+                    class="w-24 h-24 object-cover rounded-lg border border-gray-200"
+                  />
+                {/if}
+                <div class="flex-1 flex flex-col justify-between">
+                  <div>
+                    <p class="font-semibold text-gray-900 text-base">{item.product?.title}</p>
+                    <p class="text-sm text-gray-600 mt-1">Article #{item.product_id}</p>
+                  </div>
+                  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                    <div>
+                      <p class="text-secondary font-bold text-lg">
+                        {formatPrice((item.price_at_the_time / item.quantity).toString() || '0')} FCFA 
+                        <span class="text-xs text-gray">{item.price_at_the_time * item.quantity < item.product.price * item.quantity ? "(réduction)" : ""}</span>
+                      </p>
+                      <span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-xs font-semibold">Quantité: {item.quantity}</span>
+                    </div>
+                    <div class="flex gap-2">
+                      <Button 
+                        type="button"
+                        size="sm" 
+                        variant="sober"
+                        onclick={() => {
+                          editingItemId = item.id
+                          editingItemValues = { 
+                            quantity: item.quantity || 1, 
+                            price: (item.price_at_the_time / item.quantity) || 0 
+                          }
+                        }}>
+                        Modifier
+                      </Button>
+                      <form 
+                        action="/vendeurs/dashboard/commandes?/deleteOrderItem" 
+                        method="POST" 
+                        use:enhance={() => {
+                          return ({ update }) => {
+                            update()
+                            invalidateAll()
+                          }
+                        }}>
+                        <input type="hidden" name="orderId" value={order.id} />
+                        <input type="hidden" name="itemId" value={item.id} />
+                        <Button 
+                          type="submit"
+                          size="sm" 
+                          variant="outline"
+                          onclick={(e: MouseEvent) => {
+                            if (!confirm('Êtes-vous sûr de vouloir supprimer cet article?')) {
+                              e.preventDefault()
+                            }
+                          }}>
+                          Supprimer
+                        </Button>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            {/if}
           {/each}
+
+          <!-- Add Product Section -->
+          {#if isAddingProduct}
+            <form 
+              action="/vendeurs/dashboard/commandes?/addOrderItem" 
+              method="POST" 
+              use:enhance={() => {
+                return ({ update }) => {
+                  isAddingProduct = false
+                  newProductValues = { product_id: '', quantity: 1, price: 0 }
+                  update()
+                  invalidateAll()
+                }
+              }}
+              class="p-4 bg-green-50 rounded-lg border border-green-200">
+              <input type="hidden" name="orderId" value={order.id} />
+              
+              <h3 class="font-semibold text-gray-900 mb-3">Ajouter un article</h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                <div>
+                  <label for="new-product-select" class="text-xs font-semibold text-gray-600 block mb-1">Produit</label>
+                  <select 
+                    id="new-product-select"
+                    onchange={(e) => handleProductSelect((e.target as HTMLSelectElement).value)}
+                    name="product_id"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white"
+                    required
+                  >
+                    <option value="">-- Sélectionner un produit --</option>
+                    {#each availableProducts as product}
+                      <option value={product.id}>
+                        {product.title} ({formatPrice(String(product.price))} FCFA)
+                      </option>
+                    {/each}
+                  </select>
+                  {#if availableProducts.length === 0}
+                    <p class="text-xs text-gray-500 mt-1">Tous les produits sont déjà dans la commande</p>
+                  {/if}
+                </div>
+                <div>
+                  <label for="new-qty" class="text-xs font-semibold text-gray-600 block mb-1">Quantité</label>
+                  <input 
+                    id="new-qty"
+                    type="number" 
+                    bind:value={newProductValues.quantity}
+                    name="quantity"
+                    min="1"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="new-price" class="text-xs font-semibold text-gray-600 block mb-1">Prix unitaire (FCFA)</label>
+                  <input 
+                    id="new-price"
+                    type="number" 
+                    bind:value={newProductValues.price}
+                    name="price"
+                    min="0"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div class="flex gap-2">
+                <Button 
+                  type="submit" 
+                  size="sm"
+                  variant="neutral"
+                  class="flex-1">
+                  Ajouter
+                </Button>
+                <Button 
+                  type="button" 
+                  variant="outline"
+                  onclick={() => {
+                    isAddingProduct = false
+                    newProductValues = { product_id: '', quantity: 1, price: 0 }
+                  }} 
+                  size="sm"
+                  class="flex-1">
+                  Annuler
+                </Button>
+              </div>
+            </form>
+          {:else}
+            <Button 
+              type="button"
+              onclick={() => isAddingProduct = true}
+              variant="sober"
+              class="w-full">
+              + Ajouter un article
+            </Button>
+          {/if}
         </div>
 
         <!-- Total Section -->

@@ -5,7 +5,7 @@
   import OrderCard from "$lib/components/OrderCard.svelte"
   import OrdersTable from "$lib/components/OrdersTable.svelte"
   import { useAnalytics } from "$lib/composables/useAnalytics.svelte"
-  import type { Event, Article } from "$lib/types"
+  import type { Event, Product } from "$lib/types"
   import SuggestionCard from "$lib/components/SuggestionCard.svelte"
 	import { goto } from "$app/navigation";
   import { useToast } from "$lib/composables/useToast"
@@ -13,7 +13,7 @@
   const { data } : {
     data: {
       productEvents: Event[],
-      product: Article,
+      product: Product,
       productOrders: any[],
       isPremium: boolean
     }

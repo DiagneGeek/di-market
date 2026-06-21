@@ -7,25 +7,28 @@
 
 {#snippet card()}
   <article
-  class="flex flex-col justify-between p-4 md:p-5 rounded-2xl bg-card gap-3 w-full sm:w-[280px] h-auto sm:h-[350px] card-shadow border border-gray-100/50 animate-fadeIn"
+  class="relative flex flex-col justify-between p-4 md:p-5 rounded-2xl bg-card gap-3 w-full sm:w-[280px] h-[410px] card-shadow border border-gray-100/50 animate-fadeIn"
 >
  <div class="flex flex-col gap-3 flex-1">
-   <img 
+    <div 
+      class="w-full min-w-[280px] md:min-w-full h-[180px] md:h-[130px] rounded-xl bg-gradient-to-t from-black/50 to-transparent">
+       <img 
      src={imgSrc} 
      alt={title} 
-     class="w-full h-[180px] md:h-[130px] rounded-xl object-cover transition-transform duration-300 hover:scale-105"
+     class="w-full min-w-[280px] md:min-w-full h-[180px] md:h-[130px] rounded-xl object-cover transition-transform duration-300 hover:scale-105"
     />
+    </div>
     <h2 
       class="text-base sm:text-lg leading-tight font-semibold text-heading mt-1 line-clamp-2">{trimText(title, 35)}</h2>
     {#if description}
-      <p class="text-xs sm:text-sm text-gray-600 flex-grow">{description}</p>
+      <p class="text-xs sm:text-sm text-gray-600 flex-grow">{trimText(description, 70)}</p>
     {/if}
 </div>
-    <div class="flex flex-col justify-end gap-3 w-full">
+    <div class="flex flex-col justify-end gap-3 w-full absolute bottom-4">
       <div class="flex justify-between items-center">
         <p class="text-xl sm:text-sm font-semibold text-primary">{Number(price).toLocaleString("fr-FR")} fcfa</p>
       </div>
-      <a href={`${id ? "/vendeurs/dashboard/produits" : "/products"}/${slug}`} class="w-full">
+      <a href={`${id ? "/vendeurs/dashboard/produits" : "/products"}/${slug}`} class="w-full max-w-[90%]">
         <Button variant="neutral" class="w-full">{id ? "Gérer" : "Voir plus"}</Button>
       </a>
     </div>

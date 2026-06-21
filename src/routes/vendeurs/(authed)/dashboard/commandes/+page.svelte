@@ -2,11 +2,14 @@
   import OrdersManagement from "$lib/components/OrdersManagement.svelte"
   import Select from "$lib/components/Select.svelte"
   import { enhance } from "$app/forms"
+  import Button from "$lib/components/Button.svelte"
+  import { useToast } from "$lib/composables/useToast"
 
   const { data } = $props()
 
   let searchTerm = $state("")
   let statusFilter = $state("Tous")
+  let localOrders = $derived(data.orders || [])
 
   const statuses = [
     "Tous",
@@ -18,7 +21,7 @@
   ]
 
   const filteredOrders = $derived.by(() => {
-    let filtered = data.orders || []
+    let filtered = localOrders || []
 
     // Filter by status
     if (statusFilter !== "Tous") {
@@ -40,7 +43,7 @@
   })
 
   const stats = $derived.by(() => {
-    const orders = data.orders || []
+    const orders = localOrders || []
     return {
       total: orders.length,
       pending: orders.filter((o: any) => o.status === "En attente").length,
@@ -61,6 +64,7 @@
     <p class="text-xs text-gray-600 font-semibold">TOTAL</p>
     <p class="text-2xl font-bold text-primary mt-1">{stats.total}</p>
   </div>
+
   <div class="bg-card p-4 rounded-lg border border-gray-200">
     <p class="text-xs text-yellow-600 font-semibold">EN ATTENTE</p>
     <p class="text-2xl font-bold text-yellow-800 mt-1">{stats.pending}</p>
@@ -82,6 +86,8 @@
     <p class="text-2xl font-bold text-red-800 mt-1">{stats.cancelled}</p>
   </div>
 </div>
+
+
 
 <div class="my-6 flex flex-col gap-4 md:flex-row md:items-end md:gap-4">
   <div class="flex-1">
@@ -107,6 +113,12 @@
       {/each}
     </select>
   </div>
+</div>
+
+<div class="my-4 flex items-center justify-end">
+  <a href="/vendeurs/dashboard/commandes/ajouter">
+    <Button>+ Ajouter une commande</Button> 
+  </a>
 </div>
 
 <div class="my-6">

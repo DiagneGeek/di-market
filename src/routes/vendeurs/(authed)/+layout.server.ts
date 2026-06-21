@@ -2,13 +2,13 @@ import { getUser, isPremium as _isPremium} from "$lib/server/auth/getUser"
 import { selectTable } from "$lib/server/supabase"
 import { isSetupComplete } from "$lib/server/setupCheck"
 import { error, redirect } from "@sveltejs/kit"
-import type { Article, Event } from "$lib/types/index.js"
+import type { Product, Event } from "$lib/types/index.js"
 import type { PostgrestError } from "@supabase/supabase-js"
 
 const throwError = error
 
 interface Data {
-  data: Article[] | null,
+  data: Product[] | null,
   error: PostgrestError | null
 }
 
@@ -37,7 +37,11 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
   // Redirect to upgrade page only if not premium and not already on that page
   const isOnUpgradePage = url.pathname.includes("/vendeurs/continuer-avec-nous")
   if (!isPremium && !isOnUpgradePage && url.pathname.includes("/vendeurs/dashboard")) {
-    redirect(307, "/vendeurs/continuer-avec-nous")
+    if (user.last_payment === null || user.last_payment === undefined) {
+      redirect(307, "/vendeurs/continuer-avec-nous")
+    } else if (!url.pathname.includes("/vendeurs/dashboard/renouveler")) {
+      redirect(307, "/vendeurs/dashboard/renouveler")
+    }
   }
 
   delete user.password
@@ -49,7 +53,7 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
 
 
   const {data: products, error: pErrors} : {
-    data: Article[] | any
+    data: Product[] | any
     error: PostgrestError | null
   } = await selectTable("Products", '*')
       .eq("seller_id", user.id)
@@ -79,6 +83,9 @@ export const load = async ({cookies, url}: {cookies: any, url: URL}) => {
       redirect(307, '/vendeurs/dashboard/commencer')
     }
   }
-  
-  return {user, products, isPremium, events, orders, setupComplete}
+
+  const access_ends_at =  new Date(user.access_ends_at || new Date()) 
+  const now = new Date()
+  const daysLeft = Math.ceil((access_ends_at.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+  return {user, daysLeft, products, isPremium, events, orders, setupComplete}
 }

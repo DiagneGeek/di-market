@@ -1,4 +1,4 @@
-import { selectTable, updateRow } from "$lib/server/supabase"
+import { selectTable, updateRow, removeRow, insertIn } from "$lib/server/supabase"
 import { error } from "@sveltejs/kit"
 import type { Actions } from './$types'
 
@@ -50,6 +50,109 @@ export const actions = {
     } catch (err) {
       console.error("Error updating order status:", err)
       return { success: false, error: "Failed to update order status" }
+    }
+  },
+
+  updatePayment: async ({ request }) => {
+    const formData = await request.formData()
+    const orderId = formData.get("orderId") as string
+    const amountPaid = formData.get("amountPaid") as string
+
+    if (!orderId || amountPaid === null || amountPaid === undefined) {
+      return { success: false, error: "Missing required fields" }
+    }
+
+    try {
+      const amount = parseInt(amountPaid)
+      await updateRow("Orders", {
+        where: ["id", orderId],
+        value: { 
+          amount_paid: amount,
+          paid: amount > 0
+        }
+      })
+
+      return { success: true }
+    } catch (err) {
+      console.error("Error updating order payment:", err)
+      return { success: false, error: "Failed to update payment" }
+    }
+  },
+
+  updateOrderItem: async ({ request }) => {
+    const formData = await request.formData()
+    const itemId = formData.get("itemId") as string
+    const quantity = formData.get("quantity") as string
+    const price = formData.get("price") as string
+
+    if (!itemId || !quantity || !price) {
+      return { success: false, error: "Missing required fields" }
+    }
+
+    try {
+      const qty = parseInt(quantity)
+      const pricePerUnit = parseInt(price)
+      const totalPrice = qty * pricePerUnit
+
+      await updateRow("Order_Items", {
+        where: ["id", itemId],
+        value: { 
+          quantity: qty,
+          price_at_the_time: totalPrice
+        }
+      })
+
+      return { success: true }
+    } catch (err) {
+      console.error("Error updating order item:", err)
+      return { success: false, error: "Failed to update order item" }
+    }
+  },
+
+  deleteOrderItem: async ({ request }) => {
+    const formData = await request.formData()
+    const itemId = formData.get("itemId") as string
+
+    if (!itemId) {
+      return { success: false, error: "Missing item ID" }
+    }
+
+    try {
+      await removeRow("Order_Items", ["id", itemId])
+      return { success: true }
+    } catch (err) {
+      console.error("Error deleting order item:", err)
+      return { success: false, error: "Failed to delete order item" }
+    }
+  },
+
+  addOrderItem: async ({ request }) => {
+    const formData = await request.formData()
+    const orderId = formData.get("orderId") as string
+    const productId = formData.get("product_id") as string
+    const quantity = formData.get("quantity") as string
+    const price = formData.get("price") as string
+
+    if (!orderId || !productId || !quantity || !price) {
+      return { success: false, error: "Missing required fields" }
+    }
+
+    try {
+      const qty = parseInt(quantity)
+      const pricePerUnit = parseInt(price)
+      const totalPrice = qty * pricePerUnit
+
+      await insertIn("Order_Items", {
+        order_id: orderId,
+        product_id: productId,
+        quantity: qty,
+        price_at_the_time: totalPrice
+      })
+
+      return { success: true }
+    } catch (err) {
+      console.error("Error adding order item:", err)
+      return { success: false, error: "Failed to add order item" }
     }
   }
 } satisfies Actions

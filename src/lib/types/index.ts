@@ -1,4 +1,4 @@
-export interface Article {
+export interface Product {
   id?: number | string,
   created_at?: any,
   title: string,
@@ -12,20 +12,26 @@ export interface Article {
   wsapp_open: number,
   discount: number | null,
   discount_type: string | null,
-  discount_end: any
+  discount_end: any,
+  details: string | object, // can be a json string or an object (json string if from DB and untouched)
 }
 
 export interface User {
-  id?: number,
+  id?: number | string,
   created_at?: any,
   name: string,
-  phone: string,
+  phone?: string | number,
   password?: string,
-  plan: string,
-  trial_ends_at: any,
+  plan?: string,
+  access_ends_at?: string,
   setupping?: boolean,
-  referred_by?: string | null
+  referred_by?: string | null,
+  last_payment?: any,
+  Products?: any[],
+  Orders?: any[]
 }
+
+
 
 export interface Event {
   seller_id: number | string
@@ -58,6 +64,8 @@ export interface Order {
   status: string,
   seller_id: number | string,
   buyer_id: number | string,
+  paid: boolean,
+  amount_paid: number,
   Order_Items?: OrderItem[]
 }
 

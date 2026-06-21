@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "context": "Quand le client demande 'prix ?'",
-    "content": "Oui, c'est [prix] 😊\nMais la plupart le prennent parce que ça règle [problème].\nTu veux que je t'explique comment ?",
-    "tags": ["Vendeurs", "Affliers", "Facebook"],
-    "effect": "Déplace l'attention du prix vers la valeur"
+    "context": "Lorsqu'un client veux acheter un produit (message du type 'combien les nike' ou du genre",
+    "content": "Bonjour 👋\n Merci pour votre intérêt.\n Pour rendre la commande plus simple et plus rapide, vous pouvez directement consulter tous nos produits et choisir exactement ce qui vous convient ici :\n \n 👉 [Lien DiMarket]\n \n Une fois votre choix effectué, nous serons automatiquement notifiés 👍",
+    "tags": ["Vendeurs", "Whatsapp", "Ventes"],
+    "effect": "Vous permet de rediriger le client vers votre Collection en le montrant que c'est plus simple et plus rapide que de discuter avec vous"
   },
   {
     "id": 2,
-    "context": "Quand le client hésite après découvrir le prix",
-    "content": "Je comprends que c'est un investissement 💭\nMais regarde, ça te permet de [bénéfice principal].\nCombien tu économises si tu le fais pas ?",
-    "tags": ["Vendeurs", "Poste"],
-    "effect": "Crée un sentiment d'urgence en montrant le coût d'inaction"
+    "context": "Quand vous savez que votre ami(e) à la problème que resoud DiMarket",
+    "content": "Salut 👋\n\nJ’ai découvert DiMarket et j’ai pensé à toi directement 😭\n\nÇa aide les vendeurs à éviter les longues discussions répétitives sur WhatsApp.\nLes clients peuvent voir tous tes produits et faire leur choix sans que tu doives tout réexpliquer à chaque fois 😅\n\nDu coup, tu perds moins de temps avec les \"prix ?\", \"disponible ?\", \"où ?\" toute la journée 👌\n\n👉 [Lien]",
+    "tags": ["Vendeurs", "Partenaires", "WhatsApp", "Instagram"],
+    "effect": "Montre à votre ami(e) qu'il peut avoir une meilleur manière de vendre, plus simple et plus rapide"
   },
   {
     "id": 3,

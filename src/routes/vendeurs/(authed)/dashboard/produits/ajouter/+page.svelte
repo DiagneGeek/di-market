@@ -74,15 +74,12 @@
             toast.show("Le prix doit être un nombre sans virgule supérieur à zéro", "error", 4000)
         }
         
-        if (!form.image) {
-            newErrors.image = "L'image du produit est requise"
-            toast.show("Veuillez ajouter une image pour votre produit", "error", 4000)
-        }
+        // Image is optional now
         
-        if (!isSetup && (!form.description || form.description.trim().length === 0)) {
+       /* if (!isSetup && (!form.description || form.description.trim().length === 0)) {
             newErrors.description = "La description du produit est requise"
             toast.show("Veuillez remplir une description valide", "error", 4000)
-        }
+        }*/
         
         errors = newErrors
         return Object.keys(newErrors).length === 0
@@ -105,7 +102,15 @@
             formData.append("price", form.price)
             formData.append("description", form.description || "")
             formData.append("category", form.category)
-            formData.append("image", form.image!)
+            if (form.image) {
+              formData.append("image", form.image)
+            }
+            
+            // Add details - filter out empty ones
+            const validDetails = details.filter(detail => detail.name.trim() && detail.value.trim())
+            if (validDetails.length > 0) {
+              formData.append("details", JSON.stringify(validDetails))
+            }
             
             // Get user and existing products from page data
             formData.append("user", JSON.stringify(data.user))
@@ -172,7 +177,7 @@
     oninput={(e: Event) => form.title = (e.target as HTMLInputElement).value }
   />
   
-  <input 
+    <input 
     onchange={(e: Event) => {
       const input = e.target as HTMLInputElement
       const file = input.files?.[0]
@@ -199,7 +204,7 @@
             el.click()
         }
       }}
-      label={fileAdded ? "Modifier" : "Ajouter une image (nécessaire)"}
+      label={fileAdded ? "Modifier" : "Ajouter une image (optionnel)"}
     />
     {#if errors.image}
       <p class="text-red-500 text-sm">{errors.image}</p>
@@ -220,7 +225,7 @@
   {#if !isSetup}
   <Textarea 
     name="description" 
-    label="Décrivez votre produit (nécessaire)"
+    label="Décrivez votre produit"
     placeholder="Description du produit"   
      oninput={(e: Event) => form.description = (e.target as HTMLInputElement).value }
     class="w-full h-[150px] resize-none"
@@ -246,13 +251,13 @@
   <div class="p-2 rounded-2xl shadow">
     <h3>Details (optionnels)</h3>
     <p class="text-gray-500 text-[13px]">
-       Vous pouvez ajouter des détails à votre produit (marque, etat, model, taille etc) pour répondre aux questions et augmenter vos chances de ventes
+       Vous pouvez ajouter des détails à votre produit (marque, etat, model, taille etc) pour répondre aux questions et donner plus d'informations à vos clients. Ces détails seront affichés dans la page de votre produit et peuvent aider à augmenter vos ventes!
     </p>
 
     {#each details as detail, index}
        <div class="flex gap-1 flex-wrap my-4 w-full max-w-[400px]">
          <Input 
-          placeholder="Nom du detail"
+          placeholder="ex: Model"
           name={`detail-${index}-name`}
           value={detail.name}
           oninput={(e: Event) => {
@@ -261,12 +266,20 @@
           />
   
           <Input
-            placeholder="Valeur du détail"
+            placeholder="ex: iPhone 14"
             name={`detail-${index}-value`}
             value={detail.value}
             oninput={(e: Event) => {
               details[index].value = (e.target as HTMLInputElement).value
             }}
+            />
+            <Button
+              type="button"
+              variant="danger"
+              onclick={() => {
+                details.splice(index, 1)
+              }}
+              label="Supprimer"
             />
        </div>
          <hr class="w-full border-gray-300 ">

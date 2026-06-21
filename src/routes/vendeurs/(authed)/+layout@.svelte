@@ -56,7 +56,11 @@ import { browser } from '$app/environment';
   <a href="/vendeurs/dashboard/produits" class={tabIs("produits") ? activeStyle : ""}>Produits</a>
   <a href="/vendeurs/dashboard/commandes" class={tabIs("commandes") ? activeStyle : ""}>Commandes</a>
   <a href="/vendeurs/dashboard/suggestions" class={tabIs("suggestions") ? activeStyle : ""}>Suggestions</a>
-  <a href="/vendeurs/dashboard/affliation" class={tabIs("affliation") ? activeStyle : ""}>Affliation</a>
+  {#if data.daysLeft !== null && data.daysLeft <= 5}
+    <a href="/vendeurs/dashboard/renouveler" class={tabIs("renouveler") ? activeStyle : ""}>Renouveler</a>
+  {/if}
+
+  <!-- <a href="/vendeurs/dashboard/affliation" class={tabIs("affliation") ? activeStyle : ""}>Affliation</a> -->
 </nav>
 {/if}
 

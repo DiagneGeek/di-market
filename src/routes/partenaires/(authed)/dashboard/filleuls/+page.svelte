@@ -91,7 +91,7 @@ $effect(() => {
 <div class="my-4 w-full flex justify-center items-center gap-4">
   {@render insight("Filleuls payants", newPaidRefferals.length)}
   {@render insight("Filleuls non payants", newRefferals.filter((r: any) => r.plan !== "PREMIUM" && r.last_payment === null).length )}
-  {@render insight("Filleuls en essaie gratuite", newRefferals.filter((r: any) => r.trial_ends_at != null).length )}
+  {@render insight("Filleuls en essaie gratuite", newRefferals.filter((r: any) => r.access_ends_at != null).length )}
 </div>
 
 <section class="w-full border-t-1 border-slate-100 my-6 py-2 grid gap-5 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

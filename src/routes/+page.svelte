@@ -10,6 +10,7 @@
     import Hero from "$lib/components/Hero.svelte"
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
 
    if (browser) {
 	  const ref = $page.url.searchParams.get('ref');
@@ -158,12 +159,15 @@
 				errorMessage = result.error || 'Une erreur est survenue';
 				return;
 			}
+			if (response.redirect) {
+				goto(response.redirect)
+			}
 
 			showPhoneModal = false;
 			phoneInput = '';
 
 			// Redirect to commencer page
-			window.location.href = '/commencer';
+			window.location.href = '/vendeurs/dashboard';
 		} catch (error) {
 			errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
 		} finally {
@@ -174,7 +178,7 @@
 
 <svelte:head>
 	<title>DiMarket - Ne perdez plus de temps à gérer vos commandes</title>
-	<meta name="description" content="DiMarket est une plateforme conçue pour aider les vendeurs africains à gérer leurs commandes, répondre aux questions fréquentes et augmenter leurs ventes sans stress." />
+	<meta name="description" content="DiMarket est une plateforme conçue pour aider les vendeurs en gros africains à gérer leurs commandes, répondre aux questions fréquentes et augmenter leurs ventes sans stress." />
 </svelte:head>
 
 <section class="w-full min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -218,7 +222,7 @@
 					/>
 					<Button
 						variant="sober"
-						label="Commencer"
+						label="Regagner mon temps"
 						onclick={() => (showPhoneModal = true)}
 					/>
 				</div>

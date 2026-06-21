@@ -3,7 +3,7 @@
   import { page } from '$app/stores';
   import { goto } from "$app/navigation"
   import { useCart } from "$lib/composables/useCart.svelte"
-  import type { Article } from "$lib/types"
+  import type { Product } from "$lib/types"
   import { enhance } from '$app/forms';
 
   const {data} = $props()
@@ -131,6 +131,25 @@ const share = async (e: Event) => {
   
   <p class="w-full max-w-[500px] my-2 mt-4 bg-card rounded-2xl text-left px-2 py-4">{product.description}</p>
   
+  {#if product.details}
+    {@const detailsArray = typeof product.details === 'string' ? JSON.parse(product.details) : product.details}
+    {#if Array.isArray(detailsArray) && detailsArray.length > 0}
+      <div class="w-full max-w-[500px] my-6 bg-card rounded-2xl p-4">
+        <h3 class="font-semibold text-heading mb-4">Détails du produit</h3>
+        <div class="space-y-3">
+          {#each detailsArray as detail}
+            {#if detail.name && detail.value}
+              <div class="flex justify-between items-start gap-4 pb-3 border-b border-gray-200 last:border-0">
+                <p class="text-gray-600 font-medium text-sm">{detail.name}:</p>
+                <p class="text-gray-900 font-semibold text-sm text-right">{detail.value}</p>
+              </div>
+            {/if}
+          {/each}
+        </div>
+      </div>
+    {/if}
+  {/if}
+  
    <br><br>
   <h2>Commander</h2>
    <div class="w-[200px] bg-card p-4 rounded-lg">
@@ -180,14 +199,14 @@ const share = async (e: Event) => {
       <input type="hidden" name="product" value={JSON.stringify(product)} />
       <Button
       class="my-4">
-      Ajouter au panier
+      Ajouter à ma liste
     </Button>
 
     {#if showButton}
       <a href="/panier"> 
         <Button 
           variant="neutral"
-          class="my-4">Voir mon panier</Button>
+          class="my-4">Voir ma liste</Button>
        </a>
     {/if}
   </form>

@@ -1,6 +1,6 @@
 import { insertIn, selectTable } from "$lib/server/supabase";
 import type { User } from "$lib/types";
-import { json, type RequestHandler } from "@sveltejs/kit";
+import { json, redirect, type RequestHandler } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
   try {
@@ -25,14 +25,12 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
       if (!existingUser.id) return json({
         error: "Will never happen"
       })
-      // Return existing seller - they're a returning user
-      cookies.set("session_id", existingUser?.id.toString(), { path: "/" });
-      return json({ user: existingUser, isNew: false });
+      return json({redirect: "/vendeurs/connection"})
     }
 
     // Create new seller with just phone
     const TRIAL_DAYS = 30;
-    const trial_ends_at = new Date(
+    const access_ends_at = new Date(
       Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000
     ).toISOString();
 
@@ -40,7 +38,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
       phone,
       referred_by: referer,
       plan: "PREMIUM",
-      trial_ends_at,
+      access_ends_at,
       name: "",
       password: ""
     };

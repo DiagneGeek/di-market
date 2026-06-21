@@ -76,9 +76,7 @@
     expandedMetric = expandedMetric === id ? null : id;
   }
 
-  const createCheckout = async () => {
-
-  }
+  const message = `Salut cheikh, mon essai gratuit vient d'expirer. Je souhaite continuer à vendre avec DiMarket. Merci de me dire comment procéder.`;
 </script>
 
 <svelte:head>
@@ -102,7 +100,7 @@
     </h1>
 
     <p class="leading-relaxed text-gray mx-auto mb-4">
-      Avant de décider de continuer avec nous, découvrez comment DiMarket vous a aidé pendant l'essai gratuit.
+      Il y'a 1 mois, vous avez decider de vendre plus simplement, et vous avez déjà fait de grands progrès. Vous avez gagné du temps, organisé vos commandes, et offert une meilleure expérience à vos clients. Mais ce n'est que le début de votre transformation.
     </p>
 
     <a href="#metrics-section">
@@ -169,6 +167,90 @@
     </div>
   </Section>
 
+   <!-- PRICING SECTION: The Ask -->
+  <Section isForLanding={true} id="pricing-section">
+    <div class="w-full">
+      <div class="text-center mb-12">
+        <p class="text-xs mx-auto text-center text-gray mb-4 uppercase tracking-widest font-semibold">
+          💳 Plan Simple et Transparent
+        </p>
+        <h2 class="text-3xl mb-4">Continuer votre croissance</h2>
+        <p class="text-gray mx-auto text-center">
+          Un seul plan. Pas de surprises. Tout ce dont vous avez besoin, à un prix honnête pensé pour notre Afrique.
+        </p>
+      </div>
+
+      <!-- Pricing Card -->
+      <div class="max-w-md mx-auto mb-8">
+        <div class="p-8 rounded-2xl bg-neutral-900 text-white border-2 border-secondary">
+          <div class="text-center mb-8">
+            <p class="text-sm uppercase tracking-widest text-secondary font-semibold mb-2">
+              Plan Professionnel
+            </p>
+            <div class="mb-2">
+              <span class="text-5xl font-fraunces font-bold">29 900 </span>
+              <span class="text-lg">FCFA</span>
+            </div>
+            <p class="text-sm text-white/70">/mois</p>
+          </div>
+
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <span class="text-secondary text-lg">✓</span>
+              <span class="text-sm">Accés à DiMarket</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary text-lg">✓</span>
+              <span class="text-sm">Produits illimités</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary text-lg">✓</span>
+              <span class="text-sm">Partage facile avec la famille et amis</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary text-lg">✓</span>
+              <span class="text-sm">Suivi des commandes en temps réel</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary text-lg">✓</span>
+              <span class="text-sm">Statistiques de vente détaillées</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary text-lg">✓</span>
+              <span class="text-sm">Support prioritaire</span>
+            </li>
+          </ul>
+
+          <a href="https://wa.me/221781878234?text={encodeURIComponent(message)}" target="_blank" rel="noopener noreferrer" class="block mb-4">
+            <Button variant="primary" class="w-full text-gray">
+              Continuer de vendre avec DiMarket &gt;
+            </Button>
+          </a>
+
+          <p class="text-xs text-white/60 text-center">
+            Annulez quand vous voulez. Pas d'engagement long terme.
+          </p>
+        </div>
+      </div>
+
+      <!-- Risk Reversal / Reassurance -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        {#each [
+          { icon: "🔐", title: "Paiement via wave ou OM", desc: "Pas besoin de carte bancaire, on s'adapte pour vous !" },
+          { icon: "⏱️", title: "Annulez quand vous voulez", desc: "Vous pouvez decider de ne plus utiliser nos services quand vous voulez" },
+          { icon: "💬", title: "Support rapide", desc: "Une question? Réponse en moins de 4h." }
+        ] as feature}
+          <div class="text-center p-4">
+            <p class="text-2xl mb-2">{feature.icon}</p>
+            <h4 class="font-fraunces font-bold text-heading mb-1">{feature.title}</h4>
+            <p class="text-sm text-gray">{feature.desc}</p>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </Section>
+
+
   <!-- FOMO SECTION: What You'll Lose -->
   <Section isForLanding={true} id="fomo-section">
     <div class="w-full">
@@ -208,89 +290,7 @@
     </div>
   </Section>
 
-  <!-- PRICING SECTION: The Ask -->
-  <Section isForLanding={true} id="pricing-section">
-    <div class="w-full">
-      <div class="text-center mb-12">
-        <p class="text-xs mx-auto text-center text-gray mb-4 uppercase tracking-widest font-semibold">
-          💳 Plan Simple et Transparent
-        </p>
-        <h2 class="text-3xl mb-4">Continuer votre croissance</h2>
-        <p class="text-gray mx-auto text-center">
-          Un seul plan. Pas de surprises. Tout ce dont vous avez besoin, à un prix honnête pensé pour notre Afrique.
-        </p>
-      </div>
-
-      <!-- Pricing Card -->
-      <div class="max-w-md mx-auto mb-8">
-        <div class="p-8 rounded-2xl bg-neutral-900 text-white border-2 border-secondary">
-          <div class="text-center mb-8">
-            <p class="text-sm uppercase tracking-widest text-secondary font-semibold mb-2">
-              Plan Professionnel
-            </p>
-            <div class="mb-2">
-              <span class="text-5xl font-fraunces font-bold">3 900 </span>
-              <span class="text-lg">FCFA</span>
-            </div>
-            <p class="text-sm text-white/70">/mois</p>
-          </div>
-
-          <ul class="space-y-3 mb-8">
-            <li class="flex items-start gap-3">
-              <span class="text-secondary text-lg">✓</span>
-              <span class="text-sm">Accés à DiMarket</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-secondary text-lg">✓</span>
-              <span class="text-sm">Produits illimités</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-secondary text-lg">✓</span>
-              <span class="text-sm">Partage facile avec la famille et amis</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-secondary text-lg">✓</span>
-              <span class="text-sm">Suivi des commandes en temps réel</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-secondary text-lg">✓</span>
-              <span class="text-sm">Statistiques de vente détaillées</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-secondary text-lg">✓</span>
-              <span class="text-sm">Support prioritaire</span>
-            </li>
-          </ul>
-
-          <a href="/vendeurs/dashboard" class="block mb-4">
-            <Button variant="sober" class="w-full text-white">
-              Continuer de vendre avec DiMarket &gt;
-            </Button>
-          </a>
-
-          <p class="text-xs text-white/60 text-center">
-            Annulez quand vous voulez. Pas d'engagement long terme.
-          </p>
-        </div>
-      </div>
-
-      <!-- Risk Reversal / Reassurance -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-        {#each [
-          { icon: "🔐", title: "Paiement via wave ou OM", desc: "Pas besoin de carte bancaire, on s'adapte pour vous !" },
-          { icon: "⏱️", title: "Annulez quand vous voulez", desc: "Vous pouvez decider de ne plus utiliser nos services quand vous voulez" },
-          { icon: "💬", title: "Support rapide", desc: "Une question? Réponse en moins de 4h." }
-        ] as feature}
-          <div class="text-center p-4">
-            <p class="text-2xl mb-2">{feature.icon}</p>
-            <h4 class="font-fraunces font-bold text-heading mb-1">{feature.title}</h4>
-            <p class="text-sm text-gray">{feature.desc}</p>
-          </div>
-        {/each}
-      </div>
-    </div>
-  </Section>
-
+ 
   <!-- CTA Footer -->
   <Section isForLanding={true}>
    <h2 class="text-2xl text-center">
@@ -302,8 +302,11 @@
         Mais <strong>personne ne vous force à vendre avec DiMarket</strong>. Vous êtes la
         seule et unique personne qui peut savoir si DiMarket apporte quelque chose pour votre business ou pas et c'est donc vous qui choisissez !
       </p>
-      <a href="/vendeurs/dashboard">
-        <Button label="Je choisis de continuer" class="px-8" />
+      <p class="text-xl text-gradient-to-r from-gray to-gray-600 font-fraunces font-bold mb-6">
+        Alors, est ce que DiMarket est inutile pour votre business ?
+      </p>
+      <a href="https://wa.me/221781878234?text={encodeURIComponent(message)}" target="_blank" rel="noopener noreferrer" class="block mb-4">
+        <Button label="Non, je continue" class="px-8" />
       </a>
     </div>
   </Section>

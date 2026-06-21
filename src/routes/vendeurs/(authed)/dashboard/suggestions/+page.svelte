@@ -42,9 +42,10 @@
   {/if}
 
   {#if data.productSuggestions && data.productSuggestions.length > 0}
+   <br><br>
     <h2 class="text-2xl font-bold mb-4 mt-8">Suggestions par produit</h2>
     {#each data.productSuggestions as productSug}
-      <div class="mb-6">
+      <div class="my-6 p-4 bg-card/50 rounded-lg ">
         <h3 class="text-xl font-semibold mb-2">{productSug.product}</h3>
         <div class="grid gap-4 md:grid-cols-2">
           {#each productSug.suggestions as suggestion}

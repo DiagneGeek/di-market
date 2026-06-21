@@ -51,7 +51,7 @@ export const actions = {
       const plan = "PREMIUM"
       const TRIAL_DAYS = 30
       // trial ends value is the current data plus 14 days
-      const trial_ends_at = new Date(
+      const access_ends_at = new Date(
             Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000
         ).toISOString()
 
@@ -60,7 +60,7 @@ export const actions = {
         phone,
         password,
         plan,
-        trial_ends_at,
+        access_ends_at,
         referred_by: referer
       }
       if (name.trim().length  < 3) {

@@ -23,16 +23,11 @@ export const getUser = async (cookies: Cookies) => {
 }
 
 export const isPremium = async (user: User) => {
-  if (user.plan === "PREMIUM" && 
-     user.trial_ends_at === null) {
-      return true
-  } else if (user.plan === "FREE") {
-    return false
-  }
-  const now = new Date()
-  const trialEndsAt = new Date(user.trial_ends_at)
-  const output = trialEndsAt > now
-  if (output === false) {
+   const now = new Date()
+   const accessEndsAt = new Date(user.access_ends_at)
+   const hasAccess = accessEndsAt > now
+
+   if (hasAccess === false) {
    await updateRow("Sellers", {
     where: ["id", user.id],
     value: {
@@ -40,7 +35,8 @@ export const isPremium = async (user: User) => {
     }
    })
   }
-  return output
+  
+  return hasAccess
 }
 
 

@@ -1,5 +1,8 @@
 <script lang="ts">
   import Hero from "$lib/components/Hero.svelte";
+  import Input from "$lib/components/Input.svelte"
+  import Button from "$lib/components/Button.svelte"
+
   const {data} = $props()
   const sellers = data.sellers || []
 </script>
@@ -36,6 +39,30 @@
     {/each}
   </div>
 </Hero>
+
+<!-- ======== Search Bar ========= -->
+ <div class="flex flex-col items-center gap-2 w-full mx-auto mb-2 max-w-[500px]">
+   <div class="flex items-center gap-2">
+      <Input 
+         type="search"
+         placeholder="Rechercher..."
+      />
+      <Button>
+         Rechercher
+      </Button>
+   </div>
+                                       
+  <div class="overflow-x-auto rounded-full flex items-center max-w-[90%] gap-2 py-2">
+    {#each ["Tout", "Affliers", "Vendeurs", "Poste", "Facebook"] as tag}
+       <Button
+         size="sm"
+         variant="neutral"
+        >
+         {tag}
+        </Button>
+     {/each}
+  </div>
+ </div>
 
 {#if data.error}
   <div class="bg-red-50 border border-red-200 rounded-lg p-4 my-6">

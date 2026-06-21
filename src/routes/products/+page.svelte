@@ -5,11 +5,11 @@
   import Input from "$lib/components/Input.svelte"
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
-  import type { Article} from "$lib/types"
+  import type { Product} from "$lib/types"
 
 
   const {data} = $props()
- const products: Article[] | any = data?.products?.sort((a: Article, b: Article) => parseInt(new Date(b.created_at).getTime().toString()) - parseInt(new Date(a.created_at).getTime().toString()));
+ const products: Product[] | any = data?.products?.sort((a: Product, b: Product) => parseInt(new Date(b.created_at).getTime().toString()) - parseInt(new Date(a.created_at).getTime().toString()));
 
    let isGoing = $state(false)
 

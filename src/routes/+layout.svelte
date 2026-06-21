@@ -9,18 +9,14 @@
 <div class="app">
 	<NavBar>
 	{#if !["/vendeurs/connection", "/vendeurs/inscription", "/partenaires/connexion", "/partenaires/inscription"].includes($page.url.pathname)}
-	  {#if $page.url.pathname !== "/"}	  
-	  <a href="/panier">Panier</a>
-      <a href="/collections">Collections</a>
-	  <a href="/products">Produits</a>
-	  <a href="/ressources">
-	    Ressources
-	 </a>
+	  {#if $page.url.pathname === "/"}
+	  <a href="/commencer">Commencer</a>
+
 	 {:else}
-	  <a href="/vendeurs/connection">
-	    <Button size="md">Se connecter</Button>
-	  </a>
-	 {/if}
+	   <a href="/products">Produits</a>
+	   <a href="/ressources">Ressources</a>
+	   <a href="/panier">Ma liste</a>
+		 {/if}
 	 {/if}
 	</NavBar>
 

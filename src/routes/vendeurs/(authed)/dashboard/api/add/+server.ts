@@ -1,6 +1,6 @@
 
 import {addArticle} from "$lib/server/articles"
-import type {Article, User} from "$lib/types"
+import type {Product, User} from "$lib/types"
 import {uploadImage, getPublicUrl} from "$lib/server/supabase"
 import {isPremium} from "$lib/server/auth/getUser"
 import { error, json } from "@sveltejs/kit"
@@ -26,18 +26,20 @@ function generateImageName(title: string) {
 export const POST: RequestHandler = async ({request}) => {
         const form = await request.formData()
         const image: any = form.get("image")
+        const detailsStr: any = form.get("details")
 
-        if (!image) {
-          error(400, "image innexistant")
+        const formEntries = Object.fromEntries(form)
+        const user = JSON.parse(formEntries.user as string) as User
+        const products = JSON.parse(formEntries.products as string) as Product[]
+        
+        const {user: _, products: __, ...rawData} = formEntries
+        
+        let data: any = rawData
+        
+        // Parse details if provided
+        if (detailsStr) {
+          data.details = JSON.parse(detailsStr)
         }
-
-        let {user, products, ...data} : {
-          user: User | string,
-          data: Article,
-          products: Article[] | string
-        } = Object.fromEntries(form)
-         user = JSON.parse(user as string)
-         products = JSON.parse(products as string) as Article[]
         
         data.seller_id = user.id
 
@@ -55,16 +57,20 @@ export const POST: RequestHandler = async ({request}) => {
 
         const imageName = generateImageName(data.title)
 
-        const {data: imageUploadData, error: errWhenUpload} = await uploadImage("product-images", imageName, image)
-        if (errWhenUpload) {
-          console.error(image.type)
-          error(400, JSON.stringify(errWhenUpload))
+        let publicUrl = ""
+        if (image && typeof image === 'object' && (image as any).size) {
+            const {data: imageUploadData, error: errWhenUpload} = await uploadImage("product-images", imageName, image)
+            if (errWhenUpload) {
+              console.error(errWhenUpload)
+              error(400, JSON.stringify(errWhenUpload))
+            }
+            const {data: {publicUrl: pu}} = getPublicUrl("product-images", imageName)
+            publicUrl = pu
         }
-        const {data: {publicUrl}} = getPublicUrl("product-images", imageName)
 
-        const newArticle: Article = {
+        const newArticle: Product = {
             ...data,
-            image: publicUrl,
+            image: publicUrl || "",
             slug
         }
 

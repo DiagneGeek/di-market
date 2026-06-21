@@ -54,7 +54,7 @@
           👁️ Voir ma Collection
         </Button>
       </a>
-      <a href="/ressources">
+      <a href="/ressources/tutoriels/comment-utiliser-mon-lien-dimarket">
         <Button variant="sober" size="sm">
           Comment ça marche ?
         </Button>

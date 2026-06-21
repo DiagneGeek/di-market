@@ -186,7 +186,7 @@
 			<h1 class="text-5xl sm:text-6xl font-bold mb-4" style="color: var(--color-heading);">
 				{productCount === 0 ? 'Démarrez votre collection' : productCount === 3 ? 'Presque fini ! ✨' : 'Vous progressez bien !'}
 			</h1>
-			<p class="text-lg" style="color: var(--color-gray);">
+			<p class="text-lg mx-auto" style="color: var(--color-gray);">
 				{productCount === 0
 					? 'Ajoutez vos premiers produits et laissez les acheteurs vous découvrir'
 					: productCount === 3 
@@ -246,9 +246,9 @@
 		<!-- Current Status Card -->
 		{#if productCount === 0}
 			<div class="rounded-2xl p-8 mb-12 animate-fade-in border-2" style="background-color: var(--color-card); border-color: var(--color-primary); animation-delay: 200ms;">
-				<h3 class="text-2xl font-bold mb-3" style="color: var(--color-heading);">Prêt à lancer ?</h3>
+				<h3 class="text-2xl font-bold mb-3" style="color: var(--color-heading);">Mettez en place votre collection en quelques minutes ?</h3>
 				<p class="mb-2" style="color: var(--color-gray);">
-					Votre boutique est prête à accueillir vos produits. Plus vous en ajoutez, plus vous serez visible.
+					Votre Collection est prête à accueillir vos produits. Plus vous en ajoutez, plus vos clients peuvent commander plus rapidement.
 				</p>
 				<p class="text-sm" style="color: var(--color-gray);">
 					💡 Conseil : Commencez avec vos 3 meilleurs produits pour faire une bonne première impression.
@@ -257,7 +257,7 @@
 		{:else if productCount === 1}
 			<div class="rounded-2xl p-8 mb-12 animate-fade-in border-2 animate-pulse-glow" style="background-color: var(--color-card); border-color: var(--color-secondary); animation-delay: 200ms;">
 				<h3 class="text-2xl font-bold mb-3" style="color: var(--color-secondary);">🔥 Vous êtes en ligne !</h3>
-				<p class="mb-4" style="color: var(--color-gray);">
+				<p class="mb-4 mx-auto" style="color: var(--color-gray);">
 					Votre premier produit est publié. Votre collection existe maintenant et les acheteurs peuvent vous trouver.
 				</p>
 				<a href="/collections/{data.user.id}">
@@ -349,7 +349,7 @@
 				<h3 class="text-xl font-bold mb-2" style="color: var(--color-heading);">
 					{productCount === 0 ? 'Ajouter le 1er produit' : `Ajouter le produit n°${productCount + 1}`}
 				</h3>
-				<p class="mb-6 text-sm" style="color: var(--color-gray);">
+				<p class="mb-6 mx-auto text-sm" style="color: var(--color-gray);">
 					{productCount === 0
 						? 'Choisissez votre meilleur produit pour faire une excellente première impression'
 						: 'Un peu plus et vous aurez une belle collection'}
