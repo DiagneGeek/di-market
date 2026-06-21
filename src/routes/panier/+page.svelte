@@ -62,8 +62,13 @@
       </p>
       
     <a href="/collections/{subCart.seller_id}/commander">
-     <Button class="w-full mt-2" variant="neutral">
+     <Button class="w-full mt-2" variant="sober">
         Commander pour ce vendeur
+     </Button>
+    </a>
+    <a href="/collections/{subCart.seller_id}">
+     <Button class="w-full mt-2" variant="neutral">
+        voir ce vendeur
      </Button>
     </a>
     </div>

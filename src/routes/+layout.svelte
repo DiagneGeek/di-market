@@ -1,31 +1,36 @@
 <script lang="ts">
-	import "../app.css"
-	import Button from "$lib/components/Button.svelte"
-	import NavBar from "../lib/components/NavBar.svelte";
-	import { page } from "$app/stores"
+	import '../app.css';
+	import Button from '$lib/components/Button.svelte';
+	import NavBar from '../lib/components/NavBar.svelte';
+	import { page } from '$app/stores';
 	let { children } = $props();
 </script>
 
 <div class="app">
 	<NavBar>
-	{#if !["/vendeurs/connection", "/vendeurs/inscription", "/partenaires/connexion", "/partenaires/inscription"].includes($page.url.pathname)}
-	  {#if $page.url.pathname === "/"}
-	  <a href="/commencer">Commencer</a>
-
-	 {:else}
-	   <a href="/products">Produits</a>
-	   <a href="/ressources">Ressources</a>
-	   <a href="/panier">Ma liste</a>
-		 {/if}
-	 {/if}
+		{#if !['/vendeurs/connection', '/vendeurs/inscription', '/partenaires/connexion', '/partenaires/inscription'].includes($page.url.pathname)}
+			{#if $page.url.pathname === '/'}
+				<a href="/commencer">Commencer</a>
+				<a href="/ressources">Ressources</a>
+			{:else if $page.url.pathname === '/commencer'}
+				<span></span>
+			{:else}
+				<a href="/ressources">Ressources</a>
+				<a href="/panier">Ma liste</a>
+			{/if}
+		{/if}
 	</NavBar>
 
-	<main class="mb-12 {!$page.url.pathname.startsWith("/ressources/") ? "mt-24 sm:mt-28 px-4" : "mt-12 px-2"} max-w-7xl mx-auto w-full min-h-[60vh]">
+	<main
+		class="mb-12 {!$page.url.pathname.startsWith('/ressources/')
+			? 'mt-24 px-4 sm:mt-28'
+			: 'mt-12 px-2'} mx-auto min-h-[60vh] w-full max-w-7xl"
+	>
 		{@render children()}
 	</main>
 
-	<footer class="bg-gray-50 border-t w-full flex justify-center border-gray-200 mt-16">
-		<div class="max-w-7xl mx-auto px-6 py-8">
+	<footer class="mt-16 flex w-full justify-center border-t border-gray-200 bg-gray-50">
+		<div class="mx-auto max-w-7xl px-6 py-8">
 			<div class="text-center text-gray-600">
 				<p>&copy; 2026 DiMarket. Tous droits réservés</p>
 				<p class="mt-2">

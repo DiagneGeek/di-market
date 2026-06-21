@@ -101,12 +101,12 @@
 			answer:
 				`Oui. Vous pouvez utiliser DiMarket gratuitement pendant 1 mois.
 				Testez toutes les fonctionnalités, recevez vos premières commandes et voyez si ça correspond à votre business.
-				Si DiMarket vous aide vraiment à gagner du temps et à vendre plus, vous pourrez ensuite débloquer un accès à vie avec un paiement unique, adapté aux réalités des vendeurs africains.`
+				Si DiMarket vous aide vraiment à simplifier votre processus de vente, vous pourrez ensuite decider de continuer de vendre avec nous.`
 		},
 		{
 			question: "C'est disponible dans mon pays ?",
 			answer:
-				"Oui ! DiMarket est disponible dans plus de 50 pays africains, y compris le Sénégal, la Côte d'Ivoire, le Cameroun, le Ghana et bien d'autres. Consultez notre liste complète de pays supportés sur notre page de tarification."
+				"DiMarket est disponible dans tous les pays de l'Afrique de l'Ouest francophone, y compris le Sénégal, la Côte d'Ivoire, le Mali et bien d'autres."
 		},
 		{
 			question: "Vous livrez vraiment partout ?",
@@ -116,7 +116,7 @@
 		{
 			question: "Combien de temps pour commencer ?",
 			answer:
-				"Vous pouvez créer votre première collection en moins de 5 minutes. Ajoutez vos produits, copiez le lien, partagez-le avec vos clients via Instagram, WhatsApp..., et les commandes commenceront à arriver organisées automatiquement."
+				"Vous pouvez créer une collection operationnelle en moins de 2 jours. Ajoutez vos produits, copiez le lien, partagez-le avec vos clients via Instagram, WhatsApp..., et les commandes commenceront à arriver organisées automatiquement."
 		},
 		{
 			question: "Faut-il abandonner WhatsApp ou Instagram ?",
@@ -401,13 +401,13 @@
 				</p>
 
 			<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto p-4">
-				{#each ['WhatsApp', 'Instagram', 'Facebook', 'etc.'] as platform}
+				{#each ['WhatsApp', 'Instagram', 'Facebook', 'Appel'] as platform}
 					<div
 						class="bg-white border-2 border-gray-200 rounded-2xl p-4 text-center hover:border-primary hover:shadow-md transition-all duration-300"
 					>
 						<p class="font-semibold text-gray-900">
-						   {#if platform === 'etc.'}
-								<img src="/icons/plus.svg" alt="Plus logo" class="mx-auto mb-2 w-9 h-9 object-contain" />
+						   {#if platform === 'Appel'}
+								<img src="/landing/{platform.toLowerCase()}.svg" alt="{platform} logo" class="mx-auto mb-2 w-8 h-8 object-contain" />
 							{:else}
 								<img src="/landing/{platform.toLowerCase()}.png" alt="{platform} logo" class="mx-auto mb-2 w-8 h-8 object-contain" />
 							{/if}
