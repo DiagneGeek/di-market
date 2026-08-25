@@ -1,0 +1,113 @@
+@import "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap";
+
+@import 'tailwindcss';
+
+
+@theme {
+    --font-main: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    --font-heading: "Sora", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --radius-base: 1rem;
+    --color-background: oklch(99% .006 150);
+    --color-foreground: oklch(21% .02 160);
+    --color-card: oklch(100% 0 0);
+    --color-card-foreground: oklch(21% .02 160);
+    --color-popover: oklch(100% 0 0);
+    --color-popover-foreground: oklch(21% .02 160);
+    --color-primary:  oklch(87.9% 0.169 91.605);
+    --color-primary-foreground: oklch(24% .04 165);
+    --color-primary-strong: oklch(82.8% 0.189 84.429);
+    --color-secondary: oklch(96% .015 160);
+    --color-secondary-foreground: oklch(26% .03 162);
+    --color-muted: oklch(96% .012 160);
+    --color-muted-foreground: oklch(52% .02 165);
+    --color-accent: oklch(93% .05 165);
+    --color-accent-foreground: oklch(26% .04 165);
+    --color-destructive: oklch(60% .2 25);
+    --color-destructive-foreground: oklch(99% .005 150);
+    --color-border: oklch(91% .014 160);
+    --color-input: oklch(90% .016 160);
+    --color-ring: oklch(78% .11 165);
+    --shadow-soft: 0 24px 60px -30px oklch(55% .11 165 / .4);
+    --color-chart-1: oklch(64.6% .222 41.116);
+    --color-chart-2: oklch(60% .118 184.704);
+    --color-chart-3: oklch(39.8% .07 227.392);
+    --color-chart-4: oklch(82.8% .189 84.429);
+    --color-chart-5: oklch(76.9% .188 70.08);
+    --color-sidebar: oklch(98.4% .003 247.858);
+    --color-sidebar-foreground: oklch(12.9% .042 264.695);
+    --color-sidebar-primary: oklch(20.8% .042 265.755);
+    --color-sidebar-primary-foreground: oklch(98.4% .003 247.858);
+    --color-sidebar-accent: oklch(96.8% .007 247.896);
+    --color-sidebar-accent-foreground: oklch(20.8% .042 265.755);
+    --color-sidebar-border: oklch(92.9% .013 255.508);
+    --color-sidebar-ring: oklch(70.4% .04 256.788);
+}
+
+html {
+    line-height: 1.5;
+    
+    color: var(--color-muted-foreground);
+    background: var(--color-background);
+}
+
+h1, h2, h3 {
+        font-family: var(--font-heading);
+       letter-spacing: -.04em;
+       color: var(--color-foreground)
+}
+
+h1, h2, h3 :not(.w-full) {
+    max-width: 660px;
+}
+
+p {
+    max-width: 500px;
+}
+
+
+.animate-marquee {
+  animation: 26s linear infinite marquee-x;
+}
+
+.hero-sequence-item {
+  opacity: 0;
+  animation: hero-enter 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+.hero-subtext {
+  animation-delay: 450ms;
+}
+
+.hero-cta {
+  animation-delay: 1.45s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sequence-item {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+@keyframes marquee-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
