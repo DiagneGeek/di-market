@@ -113,14 +113,5 @@
 	</div>
 </section>
 
-<!-- CTA Section -->
-<section class="mt-16 py-12 flex flex-col items-center bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl px-6 sm:px-12 text-center">
-	<h2 class="text-2xl sm:text-3xl font-heading font-bold mb-4 text-heading">Besoin d'aide?</h2>
-	<p class="mx-auto">
-		Notre équipe de support est disponible pour répondre à toutes vos questions. N'hésitez pas à nous contacter.
-	</p>
-    <a href="/contact?cause=help">
-	<Button variant="sober" size="lg">Contacter le Support</Button>
-    </a>
-</section>
+
 
