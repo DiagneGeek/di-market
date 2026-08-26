@@ -91,8 +91,4 @@ Avant de fermer ce tutoriel, faites ces 3 choses :
 
 C'est en utilisant ce lien que vous commencez à vraiment utiliser DiMarket et c'est après avoir faire voir ce lien qu'on vous fera voir comment un vendeur intelligent travail
 
-<a href="/vendeurs/dashboard">
- Commencer à vraiment utiliser DiMarket 
-</a>
-
 <ContentCTA />
